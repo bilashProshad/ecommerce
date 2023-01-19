@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const connectDatabase = require("./config/database");
+const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const authRoutes = require("./routes/authRoutes");
 
 // Handling Uncaught Exception
@@ -21,6 +22,8 @@ app.use("/api/v1", authRoutes);
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to home page</h1>");
 });
+
+app.use(errorMiddleware);
 
 const server = app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);
