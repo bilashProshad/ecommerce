@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const connectDatabase = require("./config/database");
+const authRoutes = require("./routes/authRoutes");
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
@@ -11,6 +12,11 @@ process.on("uncaughtException", (err) => {
 });
 
 connectDatabase();
+
+app.use(express.json());
+
+// routes
+app.use("/api/v1", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to home page</h1>");
