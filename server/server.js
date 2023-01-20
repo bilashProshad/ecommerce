@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const connectDatabase = require("./config/database");
+const cookieParser = require("cookie-parser");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const authRoutes = require("./routes/authRoutes");
 
@@ -15,6 +16,7 @@ process.on("uncaughtException", (err) => {
 connectDatabase();
 
 app.use(express.json());
+app.use(cookieParser());
 
 // routes
 app.use("/api/v1", authRoutes);
