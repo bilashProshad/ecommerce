@@ -5,6 +5,7 @@ const connectDatabase = require("./config/database");
 const cookieParser = require("cookie-parser");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 // routes
 app.use("/api/v1", authRoutes);
+app.use("/api/v1", userRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to home page</h1>");
