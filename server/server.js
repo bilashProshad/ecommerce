@@ -6,6 +6,10 @@ const cookieParser = require("cookie-parser");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+const categoryRoutes = require("./routes/categoryRoute");
+const productRoutes = require("./routes/productRoutes");
+const adminProductRoutes = require("./routes/adminProductRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
@@ -20,8 +24,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // routes
-app.use("/api/v1", authRoutes);
-app.use("/api/v1", userRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/admin/categories", categoryRoutes);
+app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/admin/products", adminProductRoutes);
+app.use("/api/v1/products", reviewRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to home page</h1>");
