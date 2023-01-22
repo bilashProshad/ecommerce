@@ -12,40 +12,54 @@ const createReview = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler(404, "Product not found."));
   }
 
+  let review = await Review.findOne({ author: req.user._id, product: id });
+
+  if (review) {
+    return next(
+      new ErrorHandler(400, "You have already given a review on this product")
+    );
+  }
+
   if (!rating) {
     return next(new ErrorHandler(400, "Please give rating for review product"));
   }
 
   const author = req.user._id;
 
-  const review = await Review.create({ rating, comment, author });
+  review = await Review.create({ rating, comment, author, product: id });
 
-  const result = await Review.aggregate(
-    [
+  product.numOfReview += 1;
+  product.reviews.push(review._id);
+
+  // const result = await Review.aggregate([
+  //   { $group: { _id: { product: id }, avgRating: { $avg: "$rating" } } },
+  // ]);
+
+  Review.find({ product: id }).exec(async (err, docs) => {
+    if (err) return next(new ErrorHandler(500, err));
+
+    Review.aggregate([
+      {
+        $match: { _id: { $in: docs.map((doc) => doc._id) } },
+      },
       {
         $group: {
           _id: null,
           avgRating: { $avg: "$rating" },
         },
       },
-    ],
-    function (err, result) {
-      if (err) return next(new ErrorHandler(500, "Internal server error"));
-    }
-  );
+    ]).exec(async (err, result) => {
+      if (err) return next(new ErrorHandler(500, err));
+      const avgRating = Math.round(result[0].avgRating * 2) / 2;
+      product.ratings = avgRating;
+      await product.save();
 
-  const avgRating = Math.round(result[0].avgRating * 2) / 2;
-
-  product.numOfReview += 1;
-  product.reviews.push(review._id);
-  product.ratings = avgRating;
-
-  await product.save();
-
-  res.status(201).json({
-    success: true,
-    review,
-    product,
+      res.status(201).json({
+        success: true,
+        review,
+        product,
+      });
+    });
   });
 });
 
@@ -62,9 +76,6 @@ const updateReview = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler(404, "Review not found."));
   }
 
-  console.log(review.author);
-  console.log(req.user._id);
-
   // if (review.author.toString() !== req.user._id.toString()) {
   //   return next(new ErrorHandler(401, "You can only update your review."));
   // }
@@ -75,30 +86,31 @@ const updateReview = catchAsyncError(async (req, res, next) => {
 
   review = await Review.findByIdAndUpdate(reviewId, req.body, { new: true });
 
-  const result = await Review.aggregate(
-    [
+  Review.find({ product: id }).exec(async (err, docs) => {
+    if (err) return next(new ErrorHandler(500, err));
+
+    Review.aggregate([
+      {
+        $match: { _id: { $in: docs.map((doc) => doc._id) } },
+      },
       {
         $group: {
           _id: null,
           avgRating: { $avg: "$rating" },
         },
       },
-    ],
-    function (err, result) {
-      if (err) return next(new ErrorHandler(500, "Internal server error"));
-    }
-  );
+    ]).exec(async (err, result) => {
+      if (err) return next(new ErrorHandler(500, err));
+      const avgRating = Math.round(result[0].avgRating * 2) / 2;
+      product.ratings = avgRating;
+      await product.save();
 
-  const avgRating = Math.round(result[0].avgRating * 2) / 2;
-
-  product.ratings = avgRating;
-
-  await product.save();
-
-  res.status(201).json({
-    success: true,
-    product,
-    review,
+      res.status(201).json({
+        success: true,
+        product,
+        review,
+      });
+    });
   });
 });
 
@@ -123,29 +135,39 @@ const deleteReview = catchAsyncError(async (req, res, next) => {
 
   await review.remove();
 
-  const result = await Review.aggregate(
-    [
+  Review.find({ product: id }).exec(async (err, docs) => {
+    if (err) return next(new ErrorHandler(500, err));
+
+    Review.aggregate([
+      {
+        $match: { _id: { $in: docs.map((doc) => doc._id) } },
+      },
       {
         $group: {
           _id: null,
           avgRating: { $avg: "$rating" },
         },
       },
-    ],
-    function (err, result) {
-      if (err) return next(new ErrorHandler(500, "Internal server error"));
-    }
-  );
+    ]).exec(async (err, result) => {
+      if (err) return next(new ErrorHandler(500, err));
+      if (product.numOfReview > 0) {
+        product.numOfReview -= 1;
+      }
 
-  const avgRating = Math.round(result[0].avgRating * 2) / 2;
+      if (result.length === 0) {
+        product.ratings = 0;
+      } else {
+        const avgRating = Math.round(result[0].avgRating * 2) / 2;
+        product.ratings = avgRating;
+      }
 
-  product.ratings = avgRating;
+      await product.save();
 
-  await product.save();
-
-  res.status(201).json({
-    success: true,
-    product,
+      res.status(201).json({
+        success: true,
+        product,
+      });
+    });
   });
 });
 
