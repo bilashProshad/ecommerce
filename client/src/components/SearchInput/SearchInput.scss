@@ -1,0 +1,41 @@
+@import "../../Colors";
+
+.search-input {
+  background-color: $bg-card;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 1.5rem;
+
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #d9d9d9;
+
+  > input {
+    border: none;
+    background: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 1.1rem;
+    color: #555;
+    font-weight: 500;
+
+    &::placeholder {
+      color: #adadad;
+    }
+  }
+
+  > button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    > svg {
+      color: #747474;
+      font-size: 1.6rem;
+    }
+  }
+}

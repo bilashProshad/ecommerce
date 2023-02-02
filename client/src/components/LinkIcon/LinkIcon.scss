@@ -1,0 +1,48 @@
+@import "../../Colors";
+
+.link-icon {
+  display: flex;
+  // align-items: flex-end;
+  align-items: center;
+  gap: 2px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: $text;
+  transition: all 0.3s;
+
+  &:hover {
+    color: $primary;
+  }
+
+  > .text {
+    // transform: translateY(-3px);
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  > .link-logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    > svg {
+      font-size: 3rem;
+    }
+
+    > .badge {
+      position: absolute;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      background-color: $primary;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 500;
+      top: -2px;
+      right: -5px;
+    }
+  }
+}

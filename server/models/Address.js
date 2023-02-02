@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema(
   {
+    contactNo: {
+      type: Number,
+      required: [true, "Please enter your phone number"],
+    },
     address: {
       type: String,
       required: [true, "Please enter your address"],

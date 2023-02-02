@@ -1,0 +1,48 @@
+@import "../../Colors";
+
+.navbar {
+  padding: 1.8rem 0;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  left: 0;
+
+  > .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > .right {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+
+      > .vr-line {
+        height: 3rem;
+        background-color: #c6c6c6;
+        width: 0.5px;
+        // transform: translateY(-2px);
+      }
+
+      > a {
+        font-size: 1.8rem;
+        font-weight: 600;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          color: $primary;
+        }
+
+        > img {
+          width: 4.2rem;
+          aspect-ratio: 1/1;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}
