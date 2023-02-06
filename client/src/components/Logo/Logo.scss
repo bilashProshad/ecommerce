@@ -4,3 +4,12 @@
     transform: translateY(2px);
   }
 }
+
+@media screen and (max-width: 360px) {
+  .logo {
+    > img {
+      height: 2.8rem;
+      transform: translateY(2px);
+    }
+  }
+}

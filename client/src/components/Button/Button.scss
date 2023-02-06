@@ -1,0 +1,18 @@
+@import "../../Colors";
+
+.button {
+  border: none;
+  background-color: $primary;
+  color: #fff;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  padding: 0.8rem;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: hsl(28, 80%, 42%);
+  }
+}

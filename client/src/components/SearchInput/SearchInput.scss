@@ -39,3 +39,17 @@
     }
   }
 }
+
+@media screen and (max-width: 600px) {
+  .search-input {
+    > input {
+      font-size: 1.4rem;
+    }
+
+    > button {
+      > svg {
+        font-size: 2.6rem;
+      }
+    }
+  }
+}
