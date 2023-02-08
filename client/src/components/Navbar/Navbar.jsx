@@ -23,9 +23,9 @@ const Navbar = () => {
             Products
           </NavLink>
 
-          <LinkIcon href="/wishlist" count={3}>
+          {/* <LinkIcon href="/wishlist" count={3}>
             <BiHeart />
-          </LinkIcon>
+          </LinkIcon> */}
 
           <LinkIcon href="/cart" count={5} text="Cart">
             <MdOutlineShoppingCart />

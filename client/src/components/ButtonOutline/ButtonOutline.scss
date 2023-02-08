@@ -1,0 +1,41 @@
+@import "../../Colors";
+
+.button-outline,
+.button-outline-small {
+  font-family: inherit;
+  background: none;
+  border: 2px solid $primary;
+  border-radius: 50px;
+  padding: 0.5rem 2rem;
+
+  color: $primary;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background: $primary;
+    color: #fff;
+  }
+}
+
+.button-outline-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+
+  > svg {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .button-outline {
+    display: none;
+  }
+
+  .button-outline-small {
+    display: flex;
+  }
+}

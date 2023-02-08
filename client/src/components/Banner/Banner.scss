@@ -1,0 +1,28 @@
+@import "../../Colors";
+
+.mySwiper {
+  margin-top: 1.2rem;
+
+  > .swiper-wrapper {
+    > .swiper-slide {
+      max-height: 30rem;
+      > a > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.5);
+      }
+    }
+  }
+
+  > .swiper-button-next::after,
+  .swiper-button-prev::after {
+    color: $primary;
+  }
+
+  > .swiper-pagination {
+    > .swiper-pagination-bullet.swiper-pagination-bullet-active {
+      background-color: $primary;
+    }
+  }
+}

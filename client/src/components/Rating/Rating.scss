@@ -1,0 +1,17 @@
+@import "../../Colors";
+
+.rating {
+  align-items: center;
+  font-size: 1.6rem;
+  color: $primary;
+
+  > span {
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .rating {
+    font-size: 1.4rem;
+  }
+}

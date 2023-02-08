@@ -36,3 +36,23 @@ const getProductById = catchAsyncError(async (req, res, next) => {
 });
 
 module.exports = { getAllProducts, getProductById };
+
+// Search Products by Product Name or Category Name (with Regular Expression)
+// app.get('/api/products', async (req, res) => {
+//   try {
+//     const { searchTerm } = req.query;
+//     const categories = await Category.find({
+//       name: { $regex: new RegExp(searchTerm, 'i') }
+//     });
+//     const categoryIds = categories.map(category => category._id);
+//     const products = await Product.find({
+//       $or: [
+//         { name: { $regex: new RegExp(searchTerm, 'i') } },
+//         { categories: { $in: categoryIds } }
+//       ]
+//     }).populate('categories');
+//     res.send(products);
+//   } catch (err) {
+//     res.status(400).send(err);
+//   }
+// });

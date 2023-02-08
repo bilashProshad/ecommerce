@@ -1,0 +1,32 @@
+@import "../../Colors";
+
+.products {
+  margin-top: 3.2rem;
+
+  > div {
+    margin-top: 1.2rem;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: space-between;
+    column-gap: 2rem;
+    row-gap: 4rem;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .products > div {
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 1070px) {
+  .products > div {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .products > div {
+    grid-template-columns: repeat(2, auto);
+  }
+}
