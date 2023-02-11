@@ -1,0 +1,29 @@
+@import "../../Colors";
+
+.quantity-button {
+  background-color: $bg-card;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 1rem;
+  border-radius: 50px;
+
+  > button {
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 1.8rem;
+    color: $text;
+    cursor: pointer;
+    padding: 0.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  > p {
+    width: 3rem;
+    text-align: center;
+    color: $primary;
+  }
+}

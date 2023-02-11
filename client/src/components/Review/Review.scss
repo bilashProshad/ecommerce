@@ -1,0 +1,31 @@
+@import "../../Colors";
+
+.review {
+  display: flex;
+  gap: 2rem;
+
+  > .dp {
+    img {
+      width: 48px;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+    }
+  }
+
+  > .details {
+    > h4 {
+      // margin-bottom: 0.5rem;
+      color: $text;
+    }
+
+    > p {
+      color: $text;
+      margin-top: 0.5rem;
+      font-size: 1.4rem;
+    }
+
+    display: flex;
+    flex-direction: column;
+    // gap: 0.5rem;
+  }
+}

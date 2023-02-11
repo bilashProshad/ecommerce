@@ -26,3 +26,12 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .mySwiper {
+    > .swiper-button-next::after,
+    .swiper-button-prev::after {
+      display: none;
+    }
+  }
+}

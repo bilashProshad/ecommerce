@@ -1,0 +1,60 @@
+@import "../../Colors";
+
+.product-images {
+  padding: 1rem;
+
+  .mySwiper2 {
+    aspect-ratio: 1/1;
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
+
+    > .swiper-wrapper {
+      // width: 100px;
+
+      > .swiper-slide {
+        background-color: $bg-card;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > img {
+          width: 80%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    // height: 500px;
+  }
+
+  .mySwiper {
+    cursor: pointer;
+    // height: 100px;
+
+    > .swiper-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      > .swiper-slide {
+        background-color: $bg-card;
+        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        > img {
+          aspect-ratio: 1/1;
+          width: 80%;
+          object-fit: cover;
+        }
+      }
+
+      > .swiper-slide.swiper-slide-thumb-active {
+        border: 1px solid $primary;
+      }
+    }
+  }
+}

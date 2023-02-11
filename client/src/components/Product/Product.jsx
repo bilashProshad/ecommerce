@@ -3,7 +3,7 @@ import "./Product.scss";
 import Rating from "../Rating/Rating";
 import ButtonOutline from "../ButtonOutline/ButtonOutline";
 
-const Product = ({ id, title, price, rating = 3, totalReviews }) => {
+const Product = ({ id, title, price, rating = 1, totalReviews }) => {
   const addCartHandler = (e) => {
     e.preventDefault();
 
@@ -16,7 +16,7 @@ const Product = ({ id, title, price, rating = 3, totalReviews }) => {
       <div className="body">
         <h3>Sony Wired Headphone</h3>
         <span>
-          <Rating rating={3} /> <span>(150)</span>
+          <Rating rating={rating} /> <span>(150)</span>
         </span>
       </div>
       <div className="bottom">

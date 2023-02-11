@@ -1,0 +1,268 @@
+@import "../../Colors";
+
+.product-details {
+  margin-top: 7rem;
+
+  > .top {
+    display: flex;
+    justify-content: center;
+    gap: 10rem;
+
+    > .image {
+      width: 30%;
+    }
+
+    > .details {
+      width: 40%;
+
+      > .hr {
+        width: 100%;
+        height: 1px;
+        background-color: rgba(234, 234, 234, 0.6);
+        margin: 0.8rem 0;
+      }
+
+      > h2 {
+        color: $text;
+        margin-bottom: -5px;
+      }
+
+      > .id {
+        color: $text-light;
+        font-size: 1.2rem;
+      }
+
+      > .p-rating {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        > span {
+          color: $text;
+          font-size: 1.4rem;
+        }
+      }
+
+      > .desc {
+        font-size: 1.3rem;
+        color: $text;
+      }
+
+      > .price-cart-details {
+        margin: 1rem 0 1.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.4rem;
+
+        h3 {
+          margin-bottom: -0.7rem;
+        }
+
+        .quantity {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          .count-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+
+            > span {
+              color: $primary;
+            }
+          }
+        }
+
+        > .cart-btn {
+          border-radius: 50px;
+          padding: 0.5rem 2.3rem;
+          font-weight: 400;
+        }
+      }
+
+      > .submit-review {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+
+        > h3 {
+          color: $text;
+        }
+
+        > form {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+
+          > textarea {
+            height: 10rem;
+            width: 30rem;
+            max-width: 100%;
+            resize: none;
+            border-color: #c6c6c6;
+            outline-color: $primary;
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            font-family: inherit;
+            color: $text;
+          }
+
+          > button {
+            font-weight: 400;
+            border-radius: 50px;
+            padding: 0.5rem 3.8rem;
+          }
+        }
+      }
+    }
+  }
+
+  > .bottom {
+    margin: 9rem 0;
+    > h2 {
+      text-align: center;
+      font-weight: 500;
+      font-size: 3.6rem;
+      color: rgba($color: $text, $alpha: 0.8);
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 50rem;
+        height: 1px;
+        bottom: -1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba($color: $text, $alpha: 0.5);
+      }
+    }
+
+    > .user-reviews {
+      margin-top: 5rem;
+      display: grid;
+      grid-template-columns: auto auto;
+      justify-content: center;
+      column-gap: 8rem;
+      row-gap: 3rem;
+
+      > .review {
+        width: 40rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .product-details > .top {
+    > .image {
+      width: 40%;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .product-details > .top {
+    > .image {
+      width: 45%;
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .product-details {
+    > .bottom > .user-reviews {
+      > .review {
+        width: 30rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-details {
+    margin-top: 3rem;
+
+    > .top {
+      flex-direction: column;
+      // background-color: red;
+      gap: 5rem;
+
+      > .image {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        // transform: translateX(5%);
+      }
+
+      > .details {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+
+        > .submit-review {
+          > form {
+            > textarea {
+              width: 100%;
+            }
+            > button {
+              width: 100%;
+              margin-top: 0.5rem;
+            }
+          }
+        }
+      }
+    }
+    > .bottom {
+      > h2 {
+        &::after {
+          content: "";
+          width: 30rem;
+        }
+      }
+
+      .user-reviews {
+        grid-template-columns: auto;
+        > .review {
+          margin: 0 auto;
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .product-details {
+    margin-top: 2rem;
+
+    > .bottom > .user-reviews > .review {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .product-details {
+    > .top {
+      > .image {
+        width: 100%;
+      }
+    }
+
+    > .bottom {
+      > h2 {
+        font-size: 3rem;
+
+        &::after {
+          content: "";
+          width: 20rem;
+        }
+      }
+    }
+  }
+}
