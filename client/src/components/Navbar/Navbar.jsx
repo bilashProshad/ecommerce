@@ -1,6 +1,7 @@
 import Container from "../Container/Container";
 import Logo from "../Logo/Logo";
 import "./Navbar.scss";
+import { useEffect, useState } from "react";
 import { BiHeart } from "react-icons/bi";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
@@ -9,10 +10,25 @@ import profilePic from "../../assets/profile-4.jpg";
 import SearchInput from "../SearchInput/SearchInput";
 
 const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <Container>
         <Logo href={"/"} className="nav-logo" />
 

@@ -1,0 +1,115 @@
+@import "../../Colors";
+
+.profile {
+  padding: 7rem 0;
+
+  > .heading {
+    color: $text;
+    font-size: 4.8rem;
+  }
+
+  > .body {
+    display: flex;
+    align-items: flex-start;
+    // justify-content: ;
+
+    .left {
+      flex: 1;
+
+      > .photo {
+        width: 30rem;
+        height: 30rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > img {
+          width: 100%;
+          aspect-ratio: 1/1;
+          object-fit: cover;
+          cursor: pointer;
+        }
+      }
+
+      > .user-details {
+        margin-bottom: 2rem;
+
+        > .name {
+          color: $text;
+          font-size: 3rem;
+          margin-bottom: -0.8rem;
+        }
+
+        > .email {
+          color: $text;
+          // font-size: 1.8rem;
+        }
+      }
+
+      > .update-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        > button {
+          font-weight: 600;
+          max-width: 30rem;
+        }
+
+        > .change-pass-btn {
+          background-color: #e40f0f;
+          transition: all 0.3s;
+
+          &:hover {
+            background-color: hsl(0, 88%, 38%);
+          }
+        }
+      }
+    }
+
+    > .right {
+      flex: 1;
+      > .address {
+        width: 30rem;
+        position: relative;
+
+        > a {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          color: $primary;
+          font-size: 2.4rem;
+        }
+
+        > .details {
+          padding: 2rem;
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+
+          > div {
+            > h4 {
+              color: $text-light;
+              margin-bottom: -0.5rem;
+            }
+
+            > p {
+              color: $text;
+              font-size: 2rem;
+            }
+          }
+        }
+      }
+
+      > div {
+        margin-top: 1.6rem;
+        display: flex;
+        flex-direction: column;
+        > button {
+          width: 30rem;
+        }
+      }
+    }
+  }
+}
