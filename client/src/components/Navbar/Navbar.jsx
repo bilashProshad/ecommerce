@@ -47,11 +47,11 @@ const Navbar = () => {
             <MdOutlineShoppingCart />
           </LinkIcon>
 
-          <NavLink to="/login">Login</NavLink>
-          {/* <span className="vr-line" />
+          {/* <NavLink to="/login">Login</NavLink> */}
+          <span className="vr-line" />
           <NavLink to="/profile">
             <img src={profilePic} alt="profile icon" />
-          </NavLink> */}
+          </NavLink>
         </div>
       </Container>
 

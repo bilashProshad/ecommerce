@@ -1,0 +1,68 @@
+@import "../../../Colors";
+
+.cart-item-mobile {
+  padding: 0rem 1rem;
+  background-color: $bg-card;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .left {
+    width: 8rem;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > img {
+      padding: 1rem;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+
+    > p {
+      font-weight: 500;
+      color: $text;
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+  }
+
+  .quantity-btns {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.8rem;
+
+    > span {
+      color: $text;
+    }
+
+    > button {
+      background-color: $primary;
+      border: none;
+      padding: 0.2rem 1rem;
+      border-radius: 3px;
+      font-family: inherit;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: hsl(28, 80%, 42%);
+      }
+    }
+  }
+}

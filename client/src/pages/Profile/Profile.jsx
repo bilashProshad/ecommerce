@@ -7,53 +7,59 @@ import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
-    <Container className="profile">
-      <h2 className="heading">My Profile</h2>
-      <div className="body">
+    <Container className={`profile`}>
+      <div className="wrapper">
         <div className="left">
-          <div className="photo">
-            <img src="/images/Profile.png" alt="profile pic" />
+          <img src="/images/profile-pic.jpg" className="display-pic" alt="" />
+
+          <div className="user-info">
+            <h2>Bilash Prosad</h2>
+            <p>pbilash64@gmail.com</p>
           </div>
-          <div className="user-details">
-            <h3 className="name">Bilash Prosad</h3>
-            <p className="email">pbilash64@gmail.com</p>
-          </div>
-          <div className="update-buttons">
-            <Button>Edit Profile</Button>
-            <Button className={`change-pass-btn`}>Change Password</Button>
+          <div className="update-btns">
+            <Link to={`/profile/edit`}>
+              <Button>Edit Profile</Button>
+            </Link>
+            <Link to={`/profile/password/change`}>
+              <Button>Change Password</Button>
+            </Link>
           </div>
         </div>
         <div className="right">
-          <Card className={`address`}>
-            <Link to={"change-address"}>
-              <FiEdit />
-            </Link>
+          <Link to={`/address/edit`} className="edit-icon">
+            <FiEdit />
+          </Link>
 
-            <div className="details">
-              <div>
-                <h4>Contact Number</h4>
-                <p>+8801788228533</p>
-              </div>
-              <div>
-                <h4>Address</h4>
-                <p>Kantabari, Phulbari</p>
-              </div>
-              <div>
-                <h4>District</h4>
-                <p>Dinajpur</p>
-              </div>
-              <div>
-                <h4>Division</h4>
-                <p>Rangpur</p>
-              </div>
-              <div>
-                <h4>Country</h4>
-                <p>Bangladesh</p>
-              </div>
+          <div className="address">
+            <div>
+              <h4>Contact Number:</h4>
+              <p>+8801788228533</p>
             </div>
-          </Card>
-          <div>
-            <Button>My Orders</Button>
+            <div>
+              <h4>Address:</h4>
+              <p>Katabari, Phulbari</p>
+            </div>
+            <div>
+              <h4>District:</h4>
+              <p>Dinajpur</p>
+            </div>
+            <div>
+              <h4>Division:</h4>
+              <p>Rangpur</p>
+            </div>
+            <div>
+              <h4>Country:</h4>
+              <p>Bangladesh</p>
+            </div>
+          </div>
+
+          <div className="order-btns">
+            <Link to={`/orders`}>
+              <Button>My Orders</Button>
+            </Link>
+            <Link to={`/dashboard`}>
+              <Button>Dashboard</Button>
+            </Link>
           </div>
         </div>
       </div>
