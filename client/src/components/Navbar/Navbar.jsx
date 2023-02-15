@@ -28,37 +28,41 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <Container>
-        <Logo href={"/"} className="nav-logo" />
+    !location.pathname.includes("/admin") && (
+      <>
+        <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+          <Container>
+            <Logo href={"/"} className="nav-logo" />
 
-        <div className="right">
-          <SearchInput className={`input-search-bar`} />
+            <div className="right">
+              <SearchInput className={`input-search-bar`} />
 
-          <NavLink to="/products" className={`product-link`}>
-            Products
-          </NavLink>
+              <NavLink to="/products" className={`product-link`}>
+                Products
+              </NavLink>
 
-          {/* <LinkIcon href="/wishlist" count={3}>
+              {/* <LinkIcon href="/wishlist" count={3}>
             <BiHeart />
           </LinkIcon> */}
 
-          <LinkIcon href="/cart" count={5} text="Cart">
-            <MdOutlineShoppingCart />
-          </LinkIcon>
+              <LinkIcon href="/cart" count={5} text="Cart">
+                <MdOutlineShoppingCart />
+              </LinkIcon>
 
-          {/* <NavLink to="/login">Login</NavLink> */}
-          <span className="vr-line" />
-          <NavLink to="/profile">
-            <img src={profilePic} alt="profile icon" />
-          </NavLink>
-        </div>
-      </Container>
+              {/* <NavLink to="/login">Login</NavLink> */}
+              <span className="vr-line" />
+              <NavLink to="/profile">
+                <img src={profilePic} alt="profile icon" />
+              </NavLink>
+            </div>
+          </Container>
 
-      {location.pathname === "/" && (
-        <SearchInput className={`input-search-bar`} />
-      )}
-    </nav>
+          {location.pathname === "/" && (
+            <SearchInput className={`input-search-bar`} />
+          )}
+        </nav>
+      </>
+    )
   );
 };
 

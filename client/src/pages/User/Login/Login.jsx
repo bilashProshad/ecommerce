@@ -1,10 +1,10 @@
 import "./Login.scss";
-import logo from "../../assets/icon.svg";
-import Input from "../../components/Input/Input";
+import logo from "../../../assets/icon.svg";
+import Input from "../../../components/Input/Input";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
-import Button from "../../components/Button/Button";
-import { useInputValidate } from "../../hooks/useInputValidate";
+import Button from "../../../components/Button/Button";
+import { useInputValidate } from "../../../hooks/useInputValidate";
 
 const Login = () => {
   const switchButtonRef = useRef(null);

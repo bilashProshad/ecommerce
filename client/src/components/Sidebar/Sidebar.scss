@@ -1,0 +1,85 @@
+@import "../../Colors";
+
+.sidebar {
+  // background-color: $bg-card;
+  // max-width: 20rem;
+  padding: 2rem;
+  padding-top: 4rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  border-right: 1px solid $bg-card;
+
+  .menu-list {
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+
+    .menu-item {
+      display: flex;
+      flex-direction: column;
+      > a {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 2rem;
+        color: #333;
+        transition: all 0.3s;
+
+        &:hover {
+          color: $primary;
+          transform: scale(1.1);
+        }
+
+        &.active {
+          color: $primary;
+        }
+      }
+
+      .submenu-item {
+        .submenu-title {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          font-size: 2rem;
+          color: #333;
+          transition: all 0.3s;
+          cursor: pointer;
+
+          &:hover {
+            color: $primary;
+            transform: scale(1.1);
+          }
+        }
+        .submenu-options {
+          display: none;
+          > a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.8rem;
+            color: #333;
+            transition: all 0.3s;
+
+            &:hover {
+              color: $primary;
+              transform: scale(1.1);
+            }
+
+            &.active {
+              color: $primary;
+            }
+          }
+
+          &.show {
+            display: block;
+            transform: translateX(2rem);
+          }
+        }
+      }
+    }
+  }
+}

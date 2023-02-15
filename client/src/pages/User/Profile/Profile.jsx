@@ -1,7 +1,7 @@
 import "./Profile.scss";
-import Card from "../../components/Card/Card";
-import Button from "../../components/Button/Button";
-import Container from "../../components/Container/Container";
+import Card from "../../../components/Card/Card";
+import Button from "../../../components/Button/Button";
+import Container from "../../../components/Container/Container";
 import { FiEdit } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
@@ -26,7 +26,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="right">
-          <Link to={`/address/edit`} className="edit-icon">
+          <Link to={`/profile/address/edit`} className="edit-icon">
             <FiEdit />
           </Link>
 
@@ -54,11 +54,11 @@ const Profile = () => {
           </div>
 
           <div className="order-btns">
+            <Link to={`/admin/dashboard`}>
+              <Button>Dashboard</Button>
+            </Link>
             <Link to={`/orders`}>
               <Button>My Orders</Button>
-            </Link>
-            <Link to={`/dashboard`}>
-              <Button>Dashboard</Button>
             </Link>
           </div>
         </div>
