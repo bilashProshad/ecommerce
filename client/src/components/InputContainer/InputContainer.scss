@@ -1,0 +1,14 @@
+@import "../../Colors";
+
+.input-container {
+  position: relative;
+
+  > .error-text {
+    position: absolute;
+    font-size: 1.1rem;
+    color: $error;
+    font-weight: 600;
+    left: 0;
+    bottom: -1.8rem;
+  }
+}

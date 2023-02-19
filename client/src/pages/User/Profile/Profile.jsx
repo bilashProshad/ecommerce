@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Profile = () => {
   return (
     <Container className={`profile`}>
-      <div className="wrapper">
+      <div className="profile-wrapper">
         <div className="left">
           <img src="/images/profile-pic.jpg" className="display-pic" alt="" />
 

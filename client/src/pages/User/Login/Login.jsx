@@ -109,7 +109,7 @@ const Login = () => {
               type="email"
               placeholder="Email"
               value={loginEmail}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setLoginEmail(e.target.value)}
               onBlur={isLoginEmailTouched}
               className={loginEmailError ? "error" : ""}
             />
@@ -123,7 +123,7 @@ const Login = () => {
               type="password"
               placeholder="Password"
               value={loginPassword}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setLoginPassword(e.target.value)}
               onBlur={isLoginPasswordTouched}
               className={loginPasswordError ? "error" : ""}
             />

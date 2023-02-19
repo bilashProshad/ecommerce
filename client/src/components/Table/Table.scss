@@ -1,0 +1,81 @@
+@import "../../Colors";
+
+.table-container {
+  .list {
+    margin-top: 2rem;
+    width: 100%;
+    border-collapse: collapse;
+    transition: all 0.3s;
+
+    .header {
+      th {
+        background-color: $primary;
+        text-align: left;
+        color: #fff;
+        font-weight: 600;
+        font-size: 1.8rem;
+        padding: 1rem;
+
+        &:first-child {
+          border-top-left-radius: 10px;
+        }
+
+        &:last-child {
+          border-top-right-radius: 10px;
+        }
+      }
+    }
+
+    tr:hover {
+      background-color: $bg-card;
+    }
+
+    td {
+      padding: 1rem;
+      color: #555;
+    }
+
+    .link {
+      font-size: 2.4rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      > a {
+        color: #555;
+        transition: all 0.3s;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .table-container {
+    overflow-x: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+
+    .list {
+      .header {
+        th {
+          font-size: 1.6rem;
+        }
+      }
+      td {
+        font-size: 1.4rem;
+      }
+
+      .link {
+        font-size: 2rem;
+      }
+    }
+  }
+}

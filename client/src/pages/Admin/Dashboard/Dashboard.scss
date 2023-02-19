@@ -1,6 +1,56 @@
 @import "../../../Colors";
 
 .dashboard {
+  overflow-x: hidden;
+
+  .summary {
+    margin-top: 3rem;
+    text-align: center;
+
+    .summary-boxs {
+      margin-top: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+
+      > a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 20rem;
+        height: 20rem;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 3rem;
+      }
+
+      .products-box {
+        background-color: #4675daee;
+      }
+
+      .orders-box {
+        background-color: #ff6e6e;
+      }
+
+      .users-box {
+        background-color: #ffe9ae;
+        color: $text;
+      }
+    }
+  }
+
+  .sales-overview {
+    margin-top: 4rem;
+
+    .charts {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+  }
 }
 
 .title {
@@ -9,4 +59,99 @@
   color: $text;
   font-weight: 600;
   color: #555;
+}
+
+.summary-title {
+  background-color: $primary;
+  color: #fff;
+  font-size: 2.4rem;
+  font-weight: 500;
+  // padding: 1.6rem 0;
+  height: 9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 900px) {
+  .dashboard {
+    .summary {
+      .summary-boxs {
+        > a {
+          width: 15rem;
+          height: 15rem;
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .sales-overview {
+      .charts {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard {
+    margin-top: 3rem;
+
+    .summary {
+      .summary-boxs {
+        > a {
+          width: 10rem;
+          height: 10rem;
+          font-size: 1.8rem;
+        }
+      }
+    }
+
+    .sales-overview {
+      .charts {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .dashboard {
+    .summary {
+      .summary-boxs {
+        gap: 1rem;
+
+        > a {
+          width: 8rem;
+          height: 8rem;
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 318px) {
+  .dashboard {
+    .summary {
+      .summary-boxs {
+        gap: 0.5rem;
+
+        > a {
+          width: 6rem;
+          height: 6rem;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
 }

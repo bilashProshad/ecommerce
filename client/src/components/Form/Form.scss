@@ -1,0 +1,48 @@
+@import "../../Colors";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  gap: 2.5rem;
+  transition: all 0.3s;
+  margin: 0 auto;
+
+  // > a {
+  //   margin-bottom: 1.2rem;
+  // }
+
+  // > div {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 0.5rem;
+
+  //   > a {
+  //     color: #747474;
+  //     font-size: 1.2rem;
+  //     transition: all 0.3s;
+
+  //     &:hover {
+  //       color: $primary;
+  //     }
+  //   }
+  // }
+}
+
+@media screen and (max-width: 820px) {
+  .form {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .form {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .form {
+    width: 100%;
+  }
+}

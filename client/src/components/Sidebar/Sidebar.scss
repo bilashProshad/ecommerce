@@ -10,6 +10,11 @@
   flex-direction: column;
   gap: 5rem;
   border-right: 1px solid $bg-card;
+  position: sticky;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  // z-index: 999;
 
   .menu-list {
     height: 100%;
@@ -78,6 +83,63 @@
             display: block;
             transform: translateX(2rem);
           }
+        }
+      }
+    }
+  }
+}
+
+.mob-sidebar {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    z-index: 99;
+    background-color: #fff;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+    transform: translateX(-110%);
+    transition: all 0.3s;
+    opacity: 0;
+
+    &.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .mob-sidebar {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    transition: all 0.3s;
+
+    &.scroll {
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    > div {
+      width: 90%;
+      margin: 0 auto;
+      padding: 1rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      > button {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+          color: $primary;
         }
       }
     }
