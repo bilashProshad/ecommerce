@@ -2,16 +2,19 @@ import Container from "../Container/Container";
 import Logo from "../Logo/Logo";
 import "./Navbar.scss";
 import { useEffect, useState } from "react";
-import { BiHeart } from "react-icons/bi";
+// import { BiHeart } from "react-icons/bi";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
 import LinkIcon from "../LinkIcon/LinkIcon";
 import profilePic from "../../assets/profile-4.jpg";
 import SearchInput from "../SearchInput/SearchInput";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  const { isAuth } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const onScroll = () => {
@@ -49,11 +52,16 @@ const Navbar = () => {
                 <MdOutlineShoppingCart />
               </LinkIcon>
 
-              {/* <NavLink to="/login">Login</NavLink> */}
-              <span className="vr-line" />
-              <NavLink to="/profile">
-                <img src={profilePic} alt="profile icon" />
-              </NavLink>
+              {isAuth ? (
+                <>
+                  <span className="vr-line" />
+                  <NavLink to="/profile">
+                    <img src={profilePic} alt="profile icon" />
+                  </NavLink>
+                </>
+              ) : (
+                <NavLink to="/login">Login</NavLink>
+              )}
             </div>
           </Container>
 

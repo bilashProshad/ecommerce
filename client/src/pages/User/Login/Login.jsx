@@ -1,10 +1,14 @@
 import "./Login.scss";
 import logo from "../../../assets/icon.svg";
 import Input from "../../../components/Input/Input";
-import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef } from "react";
 import Button from "../../../components/Button/Button";
 import { useInputValidate } from "../../../hooks/useInputValidate";
+import { useDispatch, useSelector } from "react-redux";
+import { login, register } from "../../../redux/actions/authAction";
+import { clearError } from "../../../redux/slices/authSlice";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const switchButtonRef = useRef(null);
@@ -31,6 +35,12 @@ const Login = () => {
     confirmPasswordError,
     isConfirmPasswordTouched,
   ] = useInputValidate();
+
+  // ----------------------------------------
+  const dispatch = useDispatch();
+  const { error, loading, isAuth } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
 
   const switchButton = (e, tabs) => {
     if (tabs === "login") {
@@ -59,7 +69,12 @@ const Login = () => {
       return;
     }
 
-    console.log(loginEmail, loginPassword);
+    if (loginEmail === "" || loginPassword === "") {
+      return;
+    }
+
+    dispatch(login({ email: loginEmail, password: loginPassword }));
+    // console.log(loginEmail, loginPassword);
 
     setLoginEmail("");
     setLoginPassword("");
@@ -72,13 +87,34 @@ const Login = () => {
       return;
     }
 
-    console.log(name, email, password, confirmPassword);
+    if (
+      name === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      return;
+    }
+
+    dispatch(register({ name, email, password, confirmPassword }));
+    // console.log(name, email, password, confirmPassword);
 
     setName("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearError());
+    }
+
+    if (isAuth) {
+      navigate("/");
+    }
+  }, [dispatch, error, isAuth, navigate]);
 
   return (
     <div className={`login`}>

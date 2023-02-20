@@ -1,5 +1,4 @@
 import "./Profile.scss";
-import Card from "../../../components/Card/Card";
 import Button from "../../../components/Button/Button";
 import Container from "../../../components/Container/Container";
 import { FiEdit } from "react-icons/fi";

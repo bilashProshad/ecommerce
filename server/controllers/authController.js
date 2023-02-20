@@ -7,15 +7,31 @@ const crypto = require("crypto");
 
 // Register User
 const registerUser = catchAsyncError(async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !confirmPassword) {
     return next(
       new ErrorHandler(400, "Please enter your Name, Email & Password")
     );
   }
 
-  const user = await User.create({ name, email, password });
+  if (password !== confirmPassword) {
+    return next(
+      new ErrorHandler(
+        400,
+        "Please enter your password and confirm password must be same"
+      )
+    );
+  }
+
+  let user = await User.findOne({ email });
+  if (user) {
+    return next(
+      new ErrorHandler(400, "You are already registered with this email")
+    );
+  }
+
+  user = await User.create({ name, email, password });
 
   sendToken(user, 201, res);
 });

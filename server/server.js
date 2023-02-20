@@ -10,6 +10,7 @@ const categoryRoutes = require("./routes/categoryRoute");
 const productRoutes = require("./routes/productRoutes");
 const adminProductRoutes = require("./routes/adminProductRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const cors = require("cors");
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
@@ -20,6 +21,12 @@ process.on("uncaughtException", (err) => {
 
 connectDatabase();
 
+app.use(
+  cors({
+    origin: process.env.FRONT_END_URL,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
