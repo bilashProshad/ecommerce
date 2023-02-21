@@ -22,7 +22,7 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const location = useLocation();
 
-  const { isAuth, error, message } = useSelector((state) => state.auth);
+  const { isAuth, error, message, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -53,6 +53,7 @@ const Navbar = () => {
 
   const logoutHander = () => {
     dispatch(logout());
+    setShowMenu(false);
   };
 
   return (
@@ -107,11 +108,13 @@ const Navbar = () => {
                               <IoMdCart /> My Orders
                             </Link>
                           </li>
-                          <li>
-                            <Link to={`/admin/dashboard`}>
-                              <MdDashboard /> Dashboard
-                            </Link>
-                          </li>
+                          {user.role === "admin" && (
+                            <li>
+                              <Link to={`/admin/dashboard`}>
+                                <MdDashboard /> Dashboard
+                              </Link>
+                            </li>
+                          )}
                           <li>
                             <button onClick={logoutHander}>
                               <IoLogOutSharp /> Logout

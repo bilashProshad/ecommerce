@@ -65,6 +65,8 @@
         }
 
         > .profile-list {
+          width: max-content;
+          z-index: 999;
           position: absolute;
           background-color: $bg-card;
           list-style: none;

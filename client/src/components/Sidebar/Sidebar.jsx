@@ -8,6 +8,7 @@ import {
 } from "react-icons/md";
 import { HiUsers } from "react-icons/hi";
 import { RiArrowLeftRightFill } from "react-icons/ri";
+import { BiCategoryAlt } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import Logo from "../../components/Logo/Logo";
 import { useEffect, useState } from "react";
@@ -16,6 +17,7 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 const Sidebar = () => {
   const [showSubmenu, setShowSubment] = useState(false);
+  const [showCategoryMenu, setCategoryMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
 
@@ -65,6 +67,27 @@ const Sidebar = () => {
                   <MdPostAdd /> <span>All</span>
                 </NavLink>
                 <NavLink to={`/admin/products/create`}>
+                  <MdAdd /> <span>Create</span>
+                </NavLink>
+              </div>
+            </div>
+          </li>
+          <li className="menu-item">
+            <div className="submenu-item">
+              <div
+                className="submenu-title"
+                onClick={() => setCategoryMenu(!showCategoryMenu)}
+              >
+                <BiCategoryAlt style={{ transform: "rotate(90deg)" }} />{" "}
+                <span>Categories</span>
+              </div>
+              <div
+                className={`submenu-options ${showCategoryMenu ? "show" : ""}`}
+              >
+                <NavLink to={`/admin/category/all`}>
+                  <MdPostAdd /> <span>All</span>
+                </NavLink>
+                <NavLink to={`/admin/category/create`}>
                   <MdAdd /> <span>Create</span>
                 </NavLink>
               </div>

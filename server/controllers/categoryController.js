@@ -1,6 +1,7 @@
 const { catchAsyncError } = require("../middlewares/catchAsyncError");
 const Category = require("../models/Category");
 const ErrorHandler = require("../utils/ErrorHandler");
+const cloudinary = require("cloudinary");
 
 const createCategory = catchAsyncError(async (req, res, next) => {
   const { name, image } = req.body;

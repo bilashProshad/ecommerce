@@ -1,6 +1,6 @@
 @import "../../../Colors";
 
-.create-product {
+.create-category {
   height: 80vh;
   display: flex;
   align-items: center;
@@ -10,7 +10,15 @@
     text-align: center;
 
     > h2 {
-      color: $text;
+      color: #444;
+      margin-top: 1.6rem;
+      margin-bottom: 1.2rem;
     }
+  }
+
+  .image {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
   }
 }
