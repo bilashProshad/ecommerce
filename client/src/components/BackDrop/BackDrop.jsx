@@ -5,7 +5,7 @@ const BackDrop = ({ onClick, className, ...rest }) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <div className={`backdrop ${className}`} onClick={onClick} />,
+        <div className={`backdrop ${className}`} onClick={onClick} {...rest} />,
         document.getElementById("overlays")
       )}
     </>

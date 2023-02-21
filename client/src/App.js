@@ -21,6 +21,8 @@ import toast, { Toaster } from "react-hot-toast";
 import store from "./redux/store";
 import { useEffect } from "react";
 import { loadUser } from "./redux/actions/authAction";
+import PrivateRoute from "./components/Route/PrivateRoute";
+import AdminRoute from "./components/Route/AdminRoute";
 
 function App() {
   useEffect(() => {
@@ -36,20 +38,24 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetails />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/profile/edit" element={<UpdateProfile />} />
-        <Route path="/profile/password/change" element={<UpdatePassword />} />
-        <Route path="/profile/address/edit" element={<UpdateAddress />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/edit" element={<UpdateProfile />} />
+          <Route path="/profile/password/change" element={<UpdatePassword />} />
+          <Route path="/profile/address/edit" element={<UpdateAddress />} />
+          <Route path="/orders" element={<Orders />} />
+        </Route>
 
         {/* ---------------- Admin Routes ---------------- */}
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/products/all" element={<AllProducts />} />
-        <Route path="/admin/products/create" element={<CreateProduct />} />
-        <Route path="/admin/orders" element={<AdminOrder />} />
-        <Route path="/admin/users" element={<AllUsers />} />
-        <Route path="/admin/reviews" element={<AllReviews />} />
+        <Route element={<AdminRoute />}>
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/products/all" element={<AllProducts />} />
+          <Route path="/admin/products/create" element={<CreateProduct />} />
+          <Route path="/admin/orders" element={<AdminOrder />} />
+          <Route path="/admin/users" element={<AllUsers />} />
+          <Route path="/admin/reviews" element={<AllReviews />} />
+        </Route>
       </Routes>
 
       <Toaster position="bottom-center" />

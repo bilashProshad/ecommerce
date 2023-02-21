@@ -7,8 +7,10 @@ import {
   registerSuccess,
   registerRequest,
   loadUserSuccess,
-  loadUserFail,
+  // loadUserFail,
   loadUserRequest,
+  logoutSuccess,
+  logoutFail,
 } from "../slices/authSlice";
 
 const server = process.env.REACT_APP_SERVER;
@@ -65,5 +67,17 @@ export const loadUser = () => async (dispatch) => {
     dispatch(loadUserSuccess(data.user));
   } catch (error) {
     // dispatch(loadUserFail(error.response.data.message));
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`${server}/api/v1/auth/logout`, {
+      withCredentials: true,
+    });
+
+    dispatch(logoutSuccess(data.message));
+  } catch (error) {
+    dispatch(logoutFail(error.response.data.message));
   }
 };

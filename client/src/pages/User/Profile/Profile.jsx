@@ -3,8 +3,11 @@ import Button from "../../../components/Button/Button";
 import Container from "../../../components/Container/Container";
 import { FiEdit } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <Container className={`profile`}>
       <div className="profile-wrapper">
@@ -12,8 +15,8 @@ const Profile = () => {
           <img src="/images/profile-pic.jpg" className="display-pic" alt="" />
 
           <div className="user-info">
-            <h2>Bilash Prosad</h2>
-            <p>pbilash64@gmail.com</p>
+            <h2>{user?.name}</h2>
+            <p>{user?.email}</p>
           </div>
           <div className="update-btns">
             <Link to={`/profile/edit`}>
@@ -52,10 +55,14 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="order-btns">
-            <Link to={`/admin/dashboard`}>
-              <Button>Dashboard</Button>
-            </Link>
+          <div
+            className={`order-btns ${user.role !== "admin" && "right-align"}`}
+          >
+            {user && user.role === "admin" && (
+              <Link to={`/admin/dashboard`}>
+                <Button>Dashboard</Button>
+              </Link>
+            )}
             <Link to={`/orders`}>
               <Button>My Orders</Button>
             </Link>

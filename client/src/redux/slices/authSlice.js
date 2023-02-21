@@ -51,14 +51,15 @@ export const authSlice = createSlice({
       state.error = action.payload;
       state.isAuth = false;
     },
-    logoutRequest: (state) => {
-      state.loading = true;
-    },
     logoutSuccess: (state, action) => {
       state.loading = false;
       state.isAuth = false;
       state.user = null;
       state.message = action.payload;
+    },
+    logoutFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
     clearError: (state) => {
       state.error = null;
@@ -79,8 +80,8 @@ export const {
   loadUserRequest,
   loadUserSuccess,
   loadUserFail,
-  logoutRequest,
   logoutSuccess,
+  logoutFail,
   clearError,
   clearMessage,
 } = authSlice.actions;

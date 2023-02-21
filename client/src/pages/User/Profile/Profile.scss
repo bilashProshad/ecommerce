@@ -92,11 +92,17 @@
       .order-btns {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 1rem;
+        width: 100%;
         > a > button {
           font-weight: 600;
           padding: 0.8rem 3.2rem;
           border-radius: 30px;
+        }
+
+        &.right-align {
+          justify-content: flex-end;
         }
       }
     }
