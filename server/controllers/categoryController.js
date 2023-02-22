@@ -10,7 +10,19 @@ const createCategory = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler(400, "Please enter all fields"));
   }
 
-  const category = await Category.create({ name, image });
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.image, {
+    folder: "ecommerce/category",
+    // width: 250,
+    // crop: "scale",
+  });
+
+  const category = await Category.create({
+    name,
+    image: {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    },
+  });
 
   res.status(201).json({
     success: true,

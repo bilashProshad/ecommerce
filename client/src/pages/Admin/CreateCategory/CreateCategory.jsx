@@ -7,12 +7,22 @@ import InputContainer from "../../../components/InputContainer/InputContainer";
 import Input from "../../../components/Input/Input";
 import { useInputValidate } from "../../../hooks/useInputValidate";
 import Button from "../../../components/Button/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { createCategory } from "../../../redux/actions/categoryAction";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  clearError,
+  createCategoryReset,
+} from "../../../redux/slices/categorySlice";
 
 const CreateCategory = () => {
   const [name, setName, nameError, isNameTouched] = useInputValidate();
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
+
+  const dispatch = useDispatch();
+  const { loading, error, success } = useSelector((state) => state.category);
 
   const setCategoryImage = (e) => {
     const reader = new FileReader();
@@ -30,10 +40,33 @@ const CreateCategory = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
+    if (nameError || name === "" || image === "") {
+      toast.error("Please enter category name and image");
+      return;
+    }
+
     const myForm = new FormData();
     myForm.set("name", name);
     myForm.set("image", image);
+
+    dispatch(createCategory(myForm));
+
+    setName("");
+    setImage("");
+    setImagePreview("");
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearError());
+    }
+
+    if (success) {
+      toast.success("Category is created successfully");
+      dispatch(createCategoryReset());
+    }
+  }, [error, success, dispatch]);
 
   return (
     <SideLayout className={`create-category`}>
