@@ -8,9 +8,41 @@
 
   > .wrapper {
     text-align: center;
+    height: 72rem;
 
     > h2 {
-      color: $text;
+      color: #444;
+      margin-top: 1.6rem;
+      margin-bottom: 1.2rem;
+    }
+  }
+
+  .product-images {
+    display: flex;
+    gap: 2rem;
+    margin-top: -2rem;
+    margin-bottom: -2rem;
+    overflow-x: auto;
+
+    > img {
+      height: 60px;
+    }
+  }
+
+  .select-category {
+    position: relative;
+    width: 100%;
+    background-color: $bg-card;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    padding: 0.8rem 3.2rem;
+    border-radius: 5px;
+    color: #c6c6c6;
+    font-weight: 500;
+
+    &.selected {
+      color: #555;
     }
   }
 }

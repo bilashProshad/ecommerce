@@ -1,72 +1,20 @@
 import Category from "../Category/Category";
 import "./Categories.scss";
 
-const Categories = () => {
+const Categories = ({ data }) => {
   return (
     <div className="categories">
       <h2>Our Top Categories</h2>
 
       <div>
-        <Category
-          title="Women's Fashion"
-          link="/"
-          img="/images/womens-fashion.png"
-        />
-        <Category
-          title="Men's Fashion"
-          link="/"
-          img="/images/mens-fashion.png"
-        />
-        <Category
-          title="Women's Fashion"
-          link="/"
-          img="/images/womens-fashion.png"
-        />
-        <Category
-          title="Men's Fashion"
-          link="/"
-          img="/images/mens-fashion.png"
-        />
-        <Category
-          title="Women's Fashion"
-          link="/"
-          img="/images/womens-fashion.png"
-        />
-        <Category
-          title="Men's Fashion"
-          link="/"
-          img="/images/mens-fashion.png"
-        />
-        <Category
-          title="Women's Fashion"
-          link="/"
-          img="/images/womens-fashion.png"
-        />
-        <Category
-          title="Men's Fashion"
-          link="/"
-          img="/images/mens-fashion.png"
-        />
-        <Category
-          title="Women's Fashion"
-          link="/"
-          img="/images/womens-fashion.png"
-        />
-        <Category
-          title="Men's Fashion"
-          link="/"
-          img="/images/mens-fashion.png"
-        />
-        <Category
-          title="Women's Fashion"
-          link="/"
-          img="/images/womens-fashion.png"
-        />
-        <Category
-          title="Men's Fashion"
-          link="/"
-          img="/images/mens-fashion.png"
-        />
+        {data.map((d) => (
+          <Category
+            key={d._id}
+            title={d.name}
+            link={`/${d._id}`}
+            img={d.image.url}
+          />
+        ))}
       </div>
     </div>
   );

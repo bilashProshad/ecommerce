@@ -4,6 +4,11 @@ import {
   createCategoryFail,
   createCategorySuccess,
 } from "../slices/categorySlice";
+import {
+  getCategoriesFail,
+  getCategoriesRequest,
+  getCategoriesSuccess,
+} from "../slices/categoriesSlice";
 
 const server = process.env.REACT_APP_SERVER;
 
@@ -30,5 +35,19 @@ export const createCategory = (categoryData) => async (dispatch) => {
     dispatch(createCategorySuccess(data));
   } catch (error) {
     dispatch(createCategoryFail(error.response.data.message));
+  }
+};
+
+export const getAllCategories = () => async (dispatch) => {
+  try {
+    dispatch(getCategoriesRequest());
+
+    const { data } = await axios.get(`${server}/api/v1/admin/categories`, {
+      withCredentials: true,
+    });
+
+    dispatch(getCategoriesSuccess(data.categories));
+  } catch (error) {
+    dispatch(getCategoriesFail(error.response.data.message));
   }
 };

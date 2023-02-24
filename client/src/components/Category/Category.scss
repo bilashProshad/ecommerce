@@ -3,7 +3,7 @@
 .category {
   padding: 1.6rem;
   height: 15rem;
-  aspect-ratio: 1/1;
+  width: 15rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +35,7 @@
 @media screen and (max-width: 900px) {
   .category {
     height: 14rem;
+    width: 14rem;
 
     > img {
       height: 80%;
@@ -48,6 +49,7 @@
 @media screen and (max-width: 768px) {
   .category {
     height: 13rem;
+    width: 13rem;
 
     > img {
       height: 80%;
@@ -63,6 +65,7 @@
     padding: 2rem;
 
     height: 10rem;
+    width: 10rem;
 
     > img {
       height: 80%;
@@ -76,6 +79,7 @@
 @media screen and (max-width: 320px) {
   .category {
     height: 9rem;
+    width: 9rem;
 
     > img {
       height: 80%;
@@ -89,6 +93,7 @@
 @media screen and (max-width: 280px) {
   .category {
     height: 8rem;
+    width: 8rem;
 
     > img {
       height: 80%;

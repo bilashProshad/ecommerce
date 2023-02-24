@@ -12,7 +12,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 import { useState } from "react";
 
-export default function ProductImages() {
+export default function ProductImages({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState();
 
   return (
@@ -25,19 +25,11 @@ export default function ProductImages() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        <SwiperSlide>
-          {/* <img src="https://swiperjs.com/demos/images/nature-1.jpg" alt="" /> */}
-          <img src="/images/headphone.png" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/images/headphone.png" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/images/headphone.png" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/images/headphone.png" alt="" />
-        </SwiperSlide>
+        {images.map((image) => (
+          <SwiperSlide key={image._id}>
+            <img src={image.url} alt={image._id} />
+          </SwiperSlide>
+        ))}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
@@ -49,18 +41,11 @@ export default function ProductImages() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <img src="/images/headphone.png" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/images/headphone.png" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/images/headphone.png" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/images/headphone.png" alt="" />
-        </SwiperSlide>
+        {images.map((image) => (
+          <SwiperSlide key={image._id + "1"}>
+            <img src={image.url} alt={image._id} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

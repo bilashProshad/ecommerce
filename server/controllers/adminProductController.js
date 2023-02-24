@@ -1,14 +1,44 @@
 const { catchAsyncError } = require("../middlewares/catchAsyncError");
 const Product = require("../models/Product");
 const ErrorHandler = require("../utils/ErrorHandler");
+const cloudinary = require("cloudinary");
 
 const createProduct = catchAsyncError(async (req, res, next) => {
-  const { name, price, description, images, stock, category } = req.body;
+  const { name, price, description, stock, category } = req.body;
 
-  if (!name || !price || !description || !images || !stock || !category) {
+  if (
+    !name ||
+    !price ||
+    !description ||
+    !req.body.images ||
+    !stock ||
+    !category
+  ) {
     return next(new ErrorHandler(400, "Please enter all fields"));
   }
 
+  let images = [];
+
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  const imagesLinks = [];
+
+  for (let i = 0; i < images.length; i++) {
+    const result = await cloudinary.v2.uploader.upload(images[i], {
+      folder: "ecommerce/products",
+    });
+
+    imagesLinks.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+  }
+
+  req.body.images = imagesLinks;
   req.body.user = req.user._id;
 
   const product = await Product.create(req.body);

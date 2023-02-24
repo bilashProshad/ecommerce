@@ -15,6 +15,7 @@ import {
   clearError,
   createCategoryReset,
 } from "../../../redux/slices/categorySlice";
+import { useNavigate } from "react-router-dom";
 
 const CreateCategory = () => {
   const [name, setName, nameError, isNameTouched] = useInputValidate();
@@ -23,6 +24,7 @@ const CreateCategory = () => {
 
   const dispatch = useDispatch();
   const { loading, error, success } = useSelector((state) => state.category);
+  const navigate = useNavigate();
 
   const setCategoryImage = (e) => {
     const reader = new FileReader();
@@ -50,10 +52,6 @@ const CreateCategory = () => {
     myForm.set("image", image);
 
     dispatch(createCategory(myForm));
-
-    setName("");
-    setImage("");
-    setImagePreview("");
   };
 
   useEffect(() => {
@@ -65,8 +63,11 @@ const CreateCategory = () => {
     if (success) {
       toast.success("Category is created successfully");
       dispatch(createCategoryReset());
+
+      setName("");
+      navigate(`/admin/category/all`);
     }
-  }, [error, success, dispatch]);
+  }, [error, success, dispatch, setName, navigate]);
 
   return (
     <SideLayout className={`create-category`}>

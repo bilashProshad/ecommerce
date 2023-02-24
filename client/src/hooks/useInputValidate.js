@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export const useInputValidate = () => {
-  const [value, setValue] = useState("");
+export const useInputValidate = (data) => {
+  const [value, setValue] = useState(data ? data : "");
   const [error, setError] = useState(false);
 
   const onBlurHandler = () => {

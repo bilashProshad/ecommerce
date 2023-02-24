@@ -1,0 +1,34 @@
+@import "../../Colors";
+
+.textarea {
+  position: relative;
+
+  > textarea {
+    background-color: $bg-card;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    padding: 0.8rem 3.2rem;
+    border-radius: 5px;
+    color: #555;
+    font-weight: 500;
+    width: 100%;
+    resize: none;
+    height: 8rem;
+    // transition: all 0.3s;
+
+    &::placeholder {
+      color: #c6c6c6;
+    }
+
+    &:focus {
+      outline: 2px solid $primary;
+    }
+  }
+
+  > textarea.error {
+    background-color: #ee535b13;
+
+    outline: 2px solid $error;
+  }
+}

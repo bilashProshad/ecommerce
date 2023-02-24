@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonQuantity from "../../components/ButtonQuantity/ButtonQuantity";
 import Container from "../../components/Container/Container";
 import ProductImages from "../../components/ProductImages/ProductImages";
@@ -7,11 +7,22 @@ import "./ProductDetails.scss";
 import Button from "../../components/Button/Button";
 import { Rating } from "react-simple-star-rating";
 import Review from "../../components/Review/Review";
+import { useSelector, useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+import { clearGetProductError } from "../../redux/slices/productSlice";
+import { useParams } from "react-router-dom";
+import { getProductDetails } from "../../redux/actions/productAction";
+import Loading from "../../components/Loading/Loading";
 
 const ProductDetails = () => {
   const [productQuantity, setProductQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+
+  const { product, loading, error } = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
 
   const incrementProductQuantity = () => {
     setProductQuantity((prev) => prev + 1);
@@ -34,29 +45,38 @@ const ProductDetails = () => {
     setReview("");
   };
 
-  return (
+  useEffect(() => {
+    dispatch(getProductDetails(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearGetProductError());
+    }
+  }, [error, dispatch]);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <Container className={`product-details`}>
       <div className="top">
         <div className="image">
-          <ProductImages />
+          <ProductImages images={product.images} />
         </div>
         <div className="details">
-          <h2>Sony Wired Headphone</h2>
-          <small className="id">Product # 634840c90bec13046c6f9d1a</small>
+          <h2>{product.name}</h2>
+          <small className="id">Product # {product._id}</small>
           <div className="hr" />
           <div className="p-rating">
-            <Ratings rating={4} /> <span>(15 Reviews)</span>
+            <Ratings rating={product.ratings} />{" "}
+            <span>({product.numOfReview} Reviews)</span>
           </div>
           <div className="hr" />
-          <p className="desc">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique
-            accusamus ipsum non inventore corrupti est, itaque, optio tenetur
-            vel eveniet, harum qui nam. Porro amet, maiores cumque molestias
-            maxime incidunt!
-          </p>
+          <p className="desc">{product.description}</p>
           <div className="hr" />
           <div className="price-cart-details">
-            <h3 className="price">$500</h3>
+            <h3 className="price">${product.price}</h3>
             <div className="quantity">
               <ButtonQuantity
                 value={productQuantity}
@@ -65,7 +85,8 @@ const ProductDetails = () => {
                 onIncrement={incrementProductQuantity}
               />
               <span className="count-text">
-                Only <span>10 items</span> Left!
+                {product.stock <= 10 ? "Only" : ""}{" "}
+                <span>{product.stock} items</span> Left!
               </span>
             </div>
             <Button className={`cart-btn`}>Add to Cart</Button>

@@ -3,26 +3,27 @@ import "./Product.scss";
 import Rating from "../Rating/Rating";
 import ButtonOutline from "../ButtonOutline/ButtonOutline";
 
-const Product = ({ id, title, price, rating = 1, totalReviews }) => {
+const Product = ({ product }) => {
   const addCartHandler = (e) => {
     e.preventDefault();
 
-    console.log(id, "is clicked");
+    console.log(product._id, "is clicked");
   };
 
   return (
-    <Link to={`/products/${id}`} className={`product`}>
-      <img src="/images/headphone.png" alt="" />
+    <Link to={`/products/${product._id}`} className={`product`}>
+      <img src={product.images[0].url} alt={product.name} />
       <div className="body">
-        <h3>Sony Wired Headphone</h3>
+        <h3>{product.name}</h3>
         <span>
-          <Rating rating={rating} /> <span>(150)</span>
+          <Rating rating={product.ratings} />{" "}
+          <span>({product.numOfReview})</span>
         </span>
       </div>
       <div className="bottom">
         <div className="price">
           <small>Price</small>
-          <h3>$599</h3>
+          <h3>${product.price}</h3>
         </div>
         <ButtonOutline onClick={addCartHandler}>Add to Cart</ButtonOutline>
       </div>

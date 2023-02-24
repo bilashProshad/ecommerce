@@ -31,7 +31,7 @@ const AllProducts = () => {
     <SideLayout className={`all-products`}>
       <h2 className="title">All Products</h2>
 
-      <Table headers={headers} data={data}>
+      <Table headers={headers}>
         {data.map((d) => (
           <tr key={d._id}>
             <td>{d._id}</td>
