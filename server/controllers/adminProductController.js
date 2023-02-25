@@ -50,7 +50,13 @@ const createProduct = catchAsyncError(async (req, res, next) => {
 });
 
 const getAllProducts = catchAsyncError(async (req, res, next) => {
-  const products = await Product.find();
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const products = await Product.find()
+    .skip((page - 1) * limit)
+    .limit(limit)
+    .populate("category")
+    .populate("user");
 
   if (!products) {
     return next(new ErrorHandler(404, "Product not found."));

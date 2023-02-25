@@ -3,12 +3,15 @@ import {
   createProductRequest,
   createProductSuccess,
   createProductFailed,
-  getAllProductRequest,
-  getAllProductSuccess,
-  getAllProductFailed,
-  getProductRequest,
-  getProductSuccess,
-  getProductFailed,
+  allProductRequest,
+  allProductSuccess,
+  allProductFailed,
+  productRequest,
+  productSuccess,
+  productFailed,
+  adminProductsRequest,
+  adminProductsSuccess,
+  adminProductsFailed,
 } from "../slices/productSlice";
 
 const server = process.env.REACT_APP_SERVER;
@@ -36,7 +39,7 @@ export const createProduct = (productData) => async (dispatch) => {
 
 export const getAllProduct = (query) => async (dispatch) => {
   try {
-    dispatch(getAllProductRequest());
+    dispatch(allProductRequest());
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -51,15 +54,15 @@ export const getAllProduct = (query) => async (dispatch) => {
 
     const { data } = await axios.get(url, config);
 
-    dispatch(getAllProductSuccess(data));
+    dispatch(allProductSuccess(data));
   } catch (error) {
-    dispatch(getAllProductFailed(error.response.data.message));
+    dispatch(allProductFailed(error.response.data.message));
   }
 };
 
 export const getProductDetails = (id) => async (dispatch) => {
   try {
-    dispatch(getProductRequest());
+    dispatch(productRequest());
 
     const config = {
       headers: { "Content-Type": "application/json" },
@@ -68,8 +71,31 @@ export const getProductDetails = (id) => async (dispatch) => {
 
     const { data } = await axios.get(`${server}/api/v1/products/${id}`, config);
 
-    dispatch(getProductSuccess(data));
+    dispatch(productSuccess(data));
   } catch (error) {
-    dispatch(getProductFailed(error.response.data.message));
+    dispatch(productFailed(error.response.data.message));
+  }
+};
+
+export const getAdminProducts = (query) => async (dispatch) => {
+  try {
+    dispatch(adminProductsRequest());
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    };
+
+    let url = `${server}/api/v1/admin/products`;
+
+    if (query) {
+      url = `${server}/api/v1/admin/products?${query}`;
+    }
+
+    const { data } = await axios.get(url, config);
+
+    dispatch(adminProductsSuccess(data));
+  } catch (error) {
+    dispatch(adminProductsFailed(error.response.data.message));
   }
 };

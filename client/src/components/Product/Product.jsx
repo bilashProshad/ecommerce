@@ -2,12 +2,18 @@ import { Link } from "react-router-dom";
 import "./Product.scss";
 import Rating from "../Rating/Rating";
 import ButtonOutline from "../ButtonOutline/ButtonOutline";
+import { addItemToCart } from "../../redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 const Product = ({ product }) => {
+  const dispatch = useDispatch();
+
   const addCartHandler = (e) => {
     e.preventDefault();
 
-    console.log(product._id, "is clicked");
+    dispatch(addItemToCart({ item: product, quantity: 1 }));
+    toast.success(`Item is added to cart`);
   };
 
   return (

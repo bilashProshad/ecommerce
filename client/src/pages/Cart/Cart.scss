@@ -84,6 +84,15 @@
       }
     }
   }
+
+  .empty-msg {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    color: #555;
+  }
 }
 
 @media screen and (max-width: 600px) {

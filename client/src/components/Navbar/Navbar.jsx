@@ -13,8 +13,8 @@ import LinkIcon from "../LinkIcon/LinkIcon";
 import profilePic from "../../assets/profile-4.jpg";
 import SearchInput from "../SearchInput/SearchInput";
 import { useSelector, useDispatch } from "react-redux";
-import toast from "react-hot-toast";
-import { clearError, clearMessage } from "../../redux/slices/authSlice";
+// import toast from "react-hot-toast";
+// import { clearError, clearMessage } from "../../redux/slices/authSlice";
 import { logout } from "../../redux/actions/authAction";
 
 const Navbar = () => {
@@ -22,20 +22,22 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const location = useLocation();
 
-  const { isAuth, error, message, user } = useSelector((state) => state.auth);
+  const { isAuth, user } = useSelector((state) => state.auth);
+  const { totalQuantity } = useSelector((state) => state.cart);
+
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      dispatch(clearError());
-    }
+  // useEffect(() => {
+  //   if (error) {
+  //     toast.error(error);
+  //     dispatch(clearError());
+  //   }
 
-    if (message) {
-      toast.success(message);
-      dispatch(clearMessage());
-    }
-  }, [error, message, dispatch]);
+  //   if (message) {
+  //     toast.success(message);
+  //     dispatch(clearMessage());
+  //   }
+  // }, [error, message, dispatch]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -70,11 +72,7 @@ const Navbar = () => {
                 Products
               </NavLink>
 
-              {/* <LinkIcon href="/wishlist" count={3}>
-            <BiHeart />
-          </LinkIcon> */}
-
-              <LinkIcon href="/cart" count={5} text="Cart">
+              <LinkIcon href="/cart" count={totalQuantity} text="Cart">
                 <MdOutlineShoppingCart />
               </LinkIcon>
 

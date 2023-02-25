@@ -10,6 +10,11 @@ import InputRadio from "../../components/InputRadio/InputRadio";
 import { BsFilterLeft } from "react-icons/bs";
 import { IoExitOutline } from "react-icons/io5";
 import BackDrop from "../../components/BackDrop/BackDrop";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { clearAllProductError } from "../../redux/slices/productSlice";
+import Loading from "../../components/Loading/Loading";
+import { getAllProduct } from "../../redux/actions/productAction";
 
 const Products = () => {
   const [rating, setRating] = useState(0);
@@ -17,6 +22,11 @@ const Products = () => {
   const [category, setCategory] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [showSideBar, setShowSideBar] = useState(false);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(2);
+
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector((state) => state.products);
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
@@ -37,7 +47,20 @@ const Products = () => {
     }
   };
 
-  return (
+  useEffect(() => {
+    dispatch(getAllProduct(`page=${page}&limit=${limit}`));
+  }, [dispatch, limit, page]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearAllProductError());
+    }
+  }, [error, dispatch]);
+
+  return loading ? (
+    <Loading />
+  ) : (
     <Container className={`products`}>
       <div className="top-bar">
         <button onClick={() => setShowSideBar(true)}>
@@ -69,7 +92,6 @@ const Products = () => {
 
           <Card>
             <p>Price</p>
-            {/* <div className="hr" /> */}
             <MultiRangeSlider
               min={0}
               max={500000}
@@ -80,7 +102,6 @@ const Products = () => {
           </Card>
           <Card>
             <p>Sort By (Price)</p>
-            {/* <div className="hr" /> */}
             <div>
               <InputRadio
                 text={"Low to High"}
@@ -102,7 +123,6 @@ const Products = () => {
           </Card>
           <Card>
             <p>Rating</p>
-            {/* <div className="hr" /> */}
             <div className="rating-filter">
               <Rating onClick={handleRating} size={30} fillColor="#e67e22" />
             </div>
@@ -162,18 +182,9 @@ const Products = () => {
         </div>
 
         <div className="right">
-          <Product id={1} />
-          <Product id={2} />
-          <Product id={3} />
-          <Product id={4} />
-          <Product id={5} />
-          <Product id={6} />
-          <Product id={7} />
-          <Product id={8} />
-          <Product id={9} />
-          <Product id={10} />
-          <Product id={11} />
-          <Product id={12} />
+          {products.map((product) => (
+            <Product key={product._id} product={product} />
+          ))}
         </div>
       </div>
     </Container>

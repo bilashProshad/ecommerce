@@ -9,10 +9,11 @@ import { Rating } from "react-simple-star-rating";
 import Review from "../../components/Review/Review";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { clearGetProductError } from "../../redux/slices/productSlice";
+import { clearProductError } from "../../redux/slices/productSlice";
 import { useParams } from "react-router-dom";
 import { getProductDetails } from "../../redux/actions/productAction";
 import Loading from "../../components/Loading/Loading";
+import { addItemToCart } from "../../redux/slices/cartSlice";
 
 const ProductDetails = () => {
   const [productQuantity, setProductQuantity] = useState(1);
@@ -45,6 +46,11 @@ const ProductDetails = () => {
     setReview("");
   };
 
+  const addItemToCartHandler = () => {
+    dispatch(addItemToCart({ item: product, quantity: productQuantity }));
+    toast.success(`Item is added to cart`);
+  };
+
   useEffect(() => {
     dispatch(getProductDetails(id));
   }, [dispatch, id]);
@@ -52,7 +58,7 @@ const ProductDetails = () => {
   useEffect(() => {
     if (error) {
       toast.error(error);
-      dispatch(clearGetProductError());
+      dispatch(clearProductError());
     }
   }, [error, dispatch]);
 
@@ -62,7 +68,7 @@ const ProductDetails = () => {
     <Container className={`product-details`}>
       <div className="top">
         <div className="image">
-          <ProductImages images={product.images} />
+          {product.images && <ProductImages images={product.images} />}
         </div>
         <div className="details">
           <h2>{product.name}</h2>
@@ -89,7 +95,9 @@ const ProductDetails = () => {
                 <span>{product.stock} items</span> Left!
               </span>
             </div>
-            <Button className={`cart-btn`}>Add to Cart</Button>
+            <Button className={`cart-btn`} onClick={addItemToCartHandler}>
+              Add to Cart
+            </Button>
           </div>
           <div className="hr" />
           <div className="submit-review">

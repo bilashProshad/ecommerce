@@ -60,12 +60,16 @@
     display: flex;
     gap: 5rem;
     transition: all 0.3s;
+    position: relative;
 
     .left {
       display: flex;
       flex-direction: column;
       gap: 3rem;
       transition: all 0.3s;
+      position: sticky;
+      left: 0;
+      top: 0;
 
       > button {
         display: flex;
@@ -120,6 +124,7 @@
       width: 100%;
       display: grid;
       grid-template-columns: repeat(4, auto);
+      align-items: start;
       gap: 5rem;
       justify-content: space-between;
     }

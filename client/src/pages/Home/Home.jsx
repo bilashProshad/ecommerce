@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { clearCategoriesError } from "../../redux/slices/categoriesSlice";
 import Loading from "../../components/Loading/Loading";
-import { clearGetAllProductError } from "../../redux/slices/productSlice";
+import { clearAllProductError } from "../../redux/slices/productSlice";
 import { getAllProduct } from "../../redux/actions/productAction";
 
 const Home = () => {
@@ -41,7 +41,7 @@ const Home = () => {
 
     if (errorProducts) {
       toast.error(errorProducts);
-      dispatch(clearGetAllProductError());
+      dispatch(clearAllProductError());
     }
   }, [dispatch, errorCategories, errorProducts]);
 

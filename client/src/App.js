@@ -25,11 +25,19 @@ import PrivateRoute from "./components/Route/PrivateRoute";
 import AdminRoute from "./components/Route/AdminRoute";
 import CreateCategory from "./pages/Admin/CreateCategory/CreateCategory";
 import AllCategory from "./pages/Admin/AllCategory/AllCategory";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { items, totalQuantity } = useSelector((state) => state.cart);
+
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
+
+  useEffect(() => {
+    const cartItems = { items, totalQuantity };
+    localStorage.setItem("obCartItem", JSON.stringify(cartItems));
+  }, [items, totalQuantity]);
 
   return (
     <BrowserRouter>

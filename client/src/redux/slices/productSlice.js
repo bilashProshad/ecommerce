@@ -33,19 +33,19 @@ const productSlice = createSlice({
       state.error = null;
     },
     // --------------------------------------------
-    getProductRequest: (state) => {
+    productRequest: (state) => {
       state.loading = true;
     },
-    getProductSuccess: (state, action) => {
+    productSuccess: (state, action) => {
       state.loading = false;
       state.product = action.payload.product;
       state.success = action.payload.success;
     },
-    getProductFailed: (state, action) => {
+    productFailed: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    clearGetProductError: (state, action) => {
+    clearProductError: (state, action) => {
       state.error = null;
     },
   },
@@ -57,10 +57,10 @@ export const {
   createProductRequest,
   createProductSuccess,
   clearCreateProductError,
-  getProductRequest,
-  getProductSuccess,
-  getProductFailed,
-  clearGetProductError,
+  productRequest,
+  productSuccess,
+  productFailed,
+  clearProductError,
 } = productSlice.actions;
 
 export const productReducer = productSlice.reducer;
@@ -74,29 +74,49 @@ const productsSlice = createSlice({
     error: null,
   },
   reducers: {
-    getAllProductRequest: (state) => {
+    allProductRequest: (state) => {
       state.loading = true;
     },
-    getAllProductSuccess: (state, action) => {
+    allProductSuccess: (state, action) => {
       state.loading = false;
       state.products = action.payload.products;
       state.success = action.payload.success;
     },
-    getAllProductFailed: (state, action) => {
+    allProductFailed: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    clearGetAllProductError: (state) => {
+    clearAllProductError: (state) => {
+      state.error = null;
+    },
+    // ---------------------------------------------
+    adminProductsRequest: (state) => {
+      state.loading = true;
+    },
+    adminProductsSuccess: (state, action) => {
+      state.loading = false;
+      state.products = action.payload.products;
+      state.success = action.payload.success;
+    },
+    adminProductsFailed: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    clearAdminProductsError: (state) => {
       state.error = null;
     },
   },
 });
 
 export const {
-  getAllProductRequest,
-  getAllProductSuccess,
-  getAllProductFailed,
-  clearGetAllProductError,
+  allProductRequest,
+  allProductSuccess,
+  allProductFailed,
+  clearAllProductError,
+  adminProductsRequest,
+  adminProductsSuccess,
+  adminProductsFailed,
+  clearAdminProductsError,
 } = productsSlice.actions;
 
 export const productsReducer = productsSlice.reducer;
