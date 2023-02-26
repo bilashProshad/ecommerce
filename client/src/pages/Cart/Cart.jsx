@@ -9,6 +9,13 @@ import { useSelector } from "react-redux";
 const Cart = () => {
   const { items, totalQuantity } = useSelector((state) => state.cart);
 
+  const subtotal = items.reduce(
+    (total, currentItem) => total + currentItem.price * currentItem.quantity,
+    0
+  );
+  const tax = Math.ceil(subtotal * 0.15);
+  const shipping = subtotal > 2000 ? 0 : 100;
+
   return (
     <Container className={"cart"}>
       {totalQuantity <= 0 ? (
@@ -38,19 +45,19 @@ const Cart = () => {
             <table>
               <tr>
                 <td>Subtotal</td>
-                <td>$90.00</td>
+                <td>${subtotal}</td>
               </tr>
               <tr>
                 <td>Tax</td>
-                <td>$05.00</td>
+                <td>${tax}</td>
               </tr>
               <tr>
                 <td>Shipping</td>
-                <td>$05.00</td>
+                <td>${shipping}</td>
               </tr>
               <tr className="final-price">
                 <td>Total</td>
-                <td>$100.00</td>
+                <td>${subtotal + tax + shipping}</td>
               </tr>
             </table>
 

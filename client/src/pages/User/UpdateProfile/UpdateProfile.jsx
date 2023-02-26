@@ -7,24 +7,60 @@ import InputContainer from "../../../components/InputContainer/InputContainer";
 import { useInputValidate } from "../../../hooks/useInputValidate";
 import FormWrapper from "../../../components/FormWrapper/FormWrapper";
 import "./UpdateProfile.scss";
+import toast from "react-hot-toast";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { updateProfile } from "../../../redux/actions/profileAction";
+import {
+  clearUpdateProfileError,
+  updatePasswordReset,
+} from "../../../redux/slices/profileSlice";
+import { useNavigate } from "react-router-dom";
+import { loadUserSuccess } from "../../../redux/slices/authSlice";
 
 const UpdateProfile = () => {
-  const [name, setName, nameError, isNameTouched] = useInputValidate();
-  const [email, setEmail, emailError, isEmailTouched] = useInputValidate();
+  const { user } = useSelector((state) => state.auth);
+  const {
+    loading,
+    error,
+    success,
+    user: updatedUser,
+  } = useSelector((state) => state.profile);
+
+  const [name, setName, nameError, isNameTouched] = useInputValidate(user.name);
+  const [email, setEmail, emailError, isEmailTouched] = useInputValidate(
+    user.email
+  );
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (nameError || emailError) {
+    if (nameError || emailError || name === "" || email === "") {
+      toast.error("Please enter all input fields");
       return;
     }
 
-    if (name === "") return;
-
-    console.log(name);
-
-    setName("");
+    dispatch(updateProfile({ name, email }));
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearUpdateProfileError());
+    }
+
+    if (success) {
+      toast.success("Profile updated successfully");
+      setName("");
+      setEmail("");
+      dispatch(loadUserSuccess(updatedUser));
+      dispatch(updatePasswordReset());
+      navigate(`/profile`);
+    }
+  }, [error, success, dispatch, setName, setEmail, navigate, updatedUser]);
 
   return (
     <Container className={`update-profile`}>
@@ -57,19 +93,6 @@ const UpdateProfile = () => {
             {emailError && (
               <span className="error-text">*** Please enter your name</span>
             )}
-          </InputContainer>
-          <InputContainer>
-            <Input
-              type="file"
-              placeholder="Email"
-              // value={email}
-              // onChange={(e) => setEmail(e.target.value)}
-              // onBlur={isEmailTouched}
-              // className={emailError ? "error" : ""}
-            />
-            {/* {emailError && (
-              <span className="error-text">*** Please enter your name</span>
-            )} */}
           </InputContainer>
 
           <Button type="submit">Update Profile</Button>

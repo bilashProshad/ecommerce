@@ -26,6 +26,7 @@ import AdminRoute from "./components/Route/AdminRoute";
 import CreateCategory from "./pages/Admin/CreateCategory/CreateCategory";
 import AllCategory from "./pages/Admin/AllCategory/AllCategory";
 import { useSelector } from "react-redux";
+import UpdateProduct from "./pages/Admin/UpdateProduct/UpdateProduct";
 
 function App() {
   const { items, totalQuantity } = useSelector((state) => state.cart);
@@ -60,10 +61,11 @@ function App() {
         {/* ---------------- Admin Routes ---------------- */}
         <Route element={<AdminRoute />}>
           <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/products/all" element={<AllProducts />} />
-          <Route path="/admin/products/create" element={<CreateProduct />} />
-          <Route path="/admin/category/all" element={<AllCategory />} />
-          <Route path="/admin/category/create" element={<CreateCategory />} />
+          <Route path="/admin/products" element={<AllProducts />} />
+          <Route path="/admin/products/new" element={<CreateProduct />} />
+          <Route path="/admin/products/:id" element={<UpdateProduct />} />
+          <Route path="/admin/categories" element={<AllCategory />} />
+          <Route path="/admin/categories/new" element={<CreateCategory />} />
           <Route path="/admin/orders" element={<AdminOrder />} />
           <Route path="/admin/users" element={<AllUsers />} />
           <Route path="/admin/reviews" element={<AllReviews />} />

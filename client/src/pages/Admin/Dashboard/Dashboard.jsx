@@ -27,7 +27,7 @@ const Dashboard = () => {
         </div>
 
         <div className="summary-boxs">
-          <Link to={`/admin/products/all`} className={`products-box`}>
+          <Link to={`/admin/products`} className={`products-box`}>
             <p>Products</p>
             <p>50</p>
           </Link>

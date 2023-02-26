@@ -5,12 +5,12 @@ import categoriesReducer from "./slices/categoriesSlice";
 import { productReducer } from "./slices/productSlice";
 import { productsReducer } from "./slices/productSlice";
 import { cartReducer } from "./slices/cartSlice";
-import { userReducer } from "./slices/userSlice";
+import { profileReducer } from "./slices/profileSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    user: userReducer,
+    profile: profileReducer,
     category: categoryReducer,
     categories: categoriesReducer,
     product: productReducer,

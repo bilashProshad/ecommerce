@@ -63,10 +63,10 @@ const Sidebar = () => {
                 <span>Products</span>
               </div>
               <div className={`submenu-options ${showSubmenu ? "show" : ""}`}>
-                <NavLink to={`/admin/products/all`}>
+                <NavLink to={`/admin/products`}>
                   <MdPostAdd /> <span>All</span>
                 </NavLink>
-                <NavLink to={`/admin/products/create`}>
+                <NavLink to={`/admin/products/new`}>
                   <MdAdd /> <span>Create</span>
                 </NavLink>
               </div>
@@ -84,10 +84,10 @@ const Sidebar = () => {
               <div
                 className={`submenu-options ${showCategoryMenu ? "show" : ""}`}
               >
-                <NavLink to={`/admin/category/all`}>
+                <NavLink to={`/admin/categories`}>
                   <MdPostAdd /> <span>All</span>
                 </NavLink>
-                <NavLink to={`/admin/category/create`}>
+                <NavLink to={`/admin/categories/new`}>
                   <MdAdd /> <span>Create</span>
                 </NavLink>
               </div>

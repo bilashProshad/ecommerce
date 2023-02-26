@@ -7,7 +7,7 @@ const initialState = {
   success: false,
 };
 
-const userSlice = createSlice({
+const profileSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -32,6 +32,27 @@ const userSlice = createSlice({
       state.success = false;
       state.error = null;
     },
+    updateProfileRequest: (state) => {
+      state.loading = true;
+    },
+    updateProfileSuccess: (state, action) => {
+      state.loading = false;
+      state.user = action.payload.user;
+      state.success = action.payload.success;
+    },
+    updateProfileFailed: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    clearUpdateProfileError: (state, action) => {
+      state.error = null;
+    },
+    updateProfileReset: (state) => {
+      state.user = {};
+      state.loading = false;
+      state.success = false;
+      state.error = null;
+    },
   },
 });
 
@@ -41,6 +62,11 @@ export const {
   updatePasswordReset,
   updatePasswordSuccess,
   clearUpdatePasswordError,
-} = userSlice.actions;
+  updateProfileFailed,
+  updateProfileRequest,
+  updateProfileReset,
+  updateProfileSuccess,
+  clearUpdateProfileError,
+} = profileSlice.actions;
 
-export const userReducer = userSlice.reducer;
+export const profileReducer = profileSlice.reducer;

@@ -10,11 +10,11 @@ import FormWrapper from "../../../components/FormWrapper/FormWrapper";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { updatePassword } from "../../../redux/actions/userAction";
+import { updatePassword } from "../../../redux/actions/profileAction";
 import {
   clearUpdatePasswordError,
   updatePasswordReset,
-} from "../../../redux/slices/userSlice";
+} from "../../../redux/slices/profileSlice";
 import { useNavigate } from "react-router-dom";
 
 const UpdatePassword = () => {
@@ -30,7 +30,7 @@ const UpdatePassword = () => {
   ] = useInputValidate();
 
   const dispatch = useDispatch();
-  const { loading, success, error } = useSelector((state) => state.user);
+  const { loading, success, error } = useSelector((state) => state.profile);
 
   const navigate = useNavigate();
 
