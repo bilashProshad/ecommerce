@@ -7,6 +7,15 @@ import "./UpdatePassword.scss";
 import InputContainer from "../../../components/InputContainer/InputContainer";
 import { useInputValidate } from "../../../hooks/useInputValidate";
 import FormWrapper from "../../../components/FormWrapper/FormWrapper";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { updatePassword } from "../../../redux/actions/userAction";
+import {
+  clearUpdatePasswordError,
+  updatePasswordReset,
+} from "../../../redux/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const UpdatePassword = () => {
   const [oldPassword, setOldPassword, oldPasswordError, isOldPasswordTouched] =
@@ -20,19 +29,57 @@ const UpdatePassword = () => {
     isConfirmPasswordTouched,
   ] = useInputValidate();
 
+  const dispatch = useDispatch();
+  const { loading, success, error } = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
+
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (oldPasswordError || newPasswordError || confirmPasswordError) {
+    if (
+      oldPasswordError ||
+      newPasswordError ||
+      confirmPasswordError ||
+      oldPassword === "" ||
+      newPassword === "" ||
+      confirmPassword === ""
+    ) {
+      toast.error("Please enter all fields");
       return;
     }
 
-    console.log(oldPassword, newPassword, confirmPassword);
+    if (newPassword !== confirmPassword) {
+      toast.error("New password and confirm password must be same");
+      return;
+    }
 
-    setOldPassword("");
-    setNewPassword("");
-    setConfirmPassword("");
+    dispatch(updatePassword({ oldPassword, newPassword, confirmPassword }));
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearUpdatePasswordError());
+    }
+
+    if (success) {
+      toast.success("Password updated successfully");
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      dispatch(updatePasswordReset());
+      navigate(`/profile`);
+    }
+  }, [
+    error,
+    setConfirmPassword,
+    setNewPassword,
+    setOldPassword,
+    success,
+    dispatch,
+    navigate,
+  ]);
 
   return (
     <Container className={`update-password`}>

@@ -3,7 +3,6 @@ import Container from "../Container/Container";
 import Logo from "../Logo/Logo";
 import "./Navbar.scss";
 import { useEffect, useState } from "react";
-// import { BiHeart } from "react-icons/bi";
 import { MdOutlineShoppingCart, MdDashboard } from "react-icons/md";
 import { BsPersonFill } from "react-icons/bs";
 import { IoMdCart } from "react-icons/io";
@@ -13,8 +12,6 @@ import LinkIcon from "../LinkIcon/LinkIcon";
 import profilePic from "../../assets/profile-4.jpg";
 import SearchInput from "../SearchInput/SearchInput";
 import { useSelector, useDispatch } from "react-redux";
-// import toast from "react-hot-toast";
-// import { clearError, clearMessage } from "../../redux/slices/authSlice";
 import { logout } from "../../redux/actions/authAction";
 
 const Navbar = () => {
@@ -26,18 +23,6 @@ const Navbar = () => {
   const { totalQuantity } = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (error) {
-  //     toast.error(error);
-  //     dispatch(clearError());
-  //   }
-
-  //   if (message) {
-  //     toast.success(message);
-  //     dispatch(clearMessage());
-  //   }
-  // }, [error, message, dispatch]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -54,6 +39,7 @@ const Navbar = () => {
   }, []);
 
   const logoutHander = () => {
+    localStorage.removeItem("obCartItem");
     dispatch(logout());
     setShowMenu(false);
   };
