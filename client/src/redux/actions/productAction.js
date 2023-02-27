@@ -12,7 +12,13 @@ import {
   adminProductsRequest,
   adminProductsSuccess,
   adminProductsFailed,
+  updateProductRequest,
+  updateProductSuccess,
+  deleteProductRequest,
+  deleteProductSuccess,
+  deleteProductFailed,
 } from "../slices/productSlice";
+import { updatePasswordFailed } from "../slices/profileSlice";
 
 const server = process.env.REACT_APP_SERVER;
 
@@ -97,5 +103,46 @@ export const getAdminProducts = (query) => async (dispatch) => {
     dispatch(adminProductsSuccess(data));
   } catch (error) {
     dispatch(adminProductsFailed(error.response.data.message));
+  }
+};
+
+export const updateProduct = (id, productData) => async (dispatch) => {
+  try {
+    dispatch(updateProductRequest());
+
+    const config = {
+      headers: { "Content-Type": "multipart/form-data" },
+      withCredentials: true,
+    };
+
+    const { data } = await axios.put(
+      `${server}/api/v1/admin/products/${id}`,
+      productData,
+      config
+    );
+
+    dispatch(updateProductSuccess(data));
+  } catch (error) {
+    dispatch(updatePasswordFailed(error.response.data.message));
+  }
+};
+
+export const deleteProduct = (id) => async (dispatch) => {
+  try {
+    dispatch(deleteProductRequest());
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    };
+
+    const { data } = await axios.delete(
+      `${server}/api/v1/admin/products/${id}`,
+      config
+    );
+
+    dispatch(deleteProductSuccess(data));
+  } catch (error) {
+    dispatch(deleteProductFailed(error.response.data.message));
   }
 };

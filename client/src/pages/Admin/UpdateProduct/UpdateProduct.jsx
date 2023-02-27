@@ -10,7 +10,17 @@ import Textarea from "../../../components/Textarea/Textarea";
 import Button from "../../../components/Button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getProductDetails,
+  updateProduct,
+} from "../../../redux/actions/productAction";
+import {
+  clearModifiedProductError,
+  clearProductError,
+  productSuccess,
+  resetProductModified,
+} from "../../../redux/slices/productSlice";
 
 const UpdateProduct = () => {
   const [name, setName, nameError, isNameTouched] = useInputValidate();
@@ -23,10 +33,22 @@ const UpdateProduct = () => {
 
   const [images, setImages] = useState([]);
   const [imagesPreview, setImagesPreview] = useState([]);
+  const [oldImages, setOldImages] = useState([]);
 
   const { categories } = useSelector((state) => state.categories);
+  const { product, error: productError } = useSelector(
+    (state) => state.product
+  );
+  const {
+    product: updatedProduct,
+    loading,
+    success,
+    error,
+  } = useSelector((state) => state.productModify);
+
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { id: productId } = useParams();
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -61,11 +83,11 @@ const UpdateProduct = () => {
     myForm.set("category", category);
     myForm.set("description", description);
 
-    if (images.length > 0) {
-      images.forEach((image) => {
-        myForm.append("images", image);
-      });
-    }
+    images.forEach((image) => {
+      myForm.append("images", image);
+    });
+
+    dispatch(updateProduct(productId, myForm));
   };
 
   const productImageChange = (e) => {
@@ -73,6 +95,7 @@ const UpdateProduct = () => {
 
     setImages([]);
     setImagesPreview([]);
+    setOldImages([]);
 
     files.forEach((file) => {
       const reader = new FileReader();
@@ -88,37 +111,47 @@ const UpdateProduct = () => {
     });
   };
 
-  // useEffect(() => {
-  //   if (error) {
-  //     toast.error(error);
-  //     dispatch(clearCreateProductError());
-  //   }
+  useEffect(() => {
+    if (product && product._id !== productId) {
+      dispatch(getProductDetails(productId));
+    } else {
+      setName(product.name);
+      setPrice(product.price);
+      setStock(product.stock);
+      setDescription(product.description);
+      setCategory(product.category._id);
+      setOldImages(product.images);
+    }
 
-  //   if (success) {
-  //     toast.success("Product created successfully");
-  //     dispatch(createProductReset());
+    if (productError) {
+      toast.error(productError);
+      dispatch(clearProductError());
+    }
+  }, [
+    dispatch,
+    productError,
+    product,
+    productId,
+    setCategory,
+    setDescription,
+    setName,
+    setPrice,
+    setStock,
+  ]);
 
-  //     setName("");
-  //     setPrice(0);
-  //     setStock(0);
-  //     setCategory("");
-  //     setDescription("");
-  //     setImages([]);
-  //     setImagesPreview([]);
+  useEffect(() => {
+    if (success) {
+      toast.success("Product updated successfully");
+      dispatch(productSuccess({ product: updatedProduct, success: true }));
+      dispatch(resetProductModified());
+      navigate(`/admin/products`);
+    }
 
-  //     navigate(`/admin/products/all`);
-  //   }
-  // }, [
-  //   success,
-  //   error,
-  //   dispatch,
-  //   setName,
-  //   setPrice,
-  //   setStock,
-  //   setCategory,
-  //   setDescription,
-  //   navigate,
-  // ]);
+    if (error) {
+      toast.error(error);
+      dispatch(clearModifiedProductError());
+    }
+  }, [success, error, dispatch, navigate, updatedProduct]);
 
   return (
     <SideLayout className={`create-product`}>
@@ -184,6 +217,7 @@ const UpdateProduct = () => {
             <select
               onChange={(e) => setCategory(e.target.value)}
               onBlur={isCategoryTouched}
+              value={category}
               className={`select-category ${category ? "selected" : ""}`}
             >
               <option value="">Select Category</option>
@@ -209,9 +243,9 @@ const UpdateProduct = () => {
           </InputContainer>
 
           <div className={`product-images`}>
-            {imagesPreview.length > 0 &&
-              imagesPreview.map((image, index) => (
-                <img key={index} src={image} alt="product review" />
+            {oldImages.length > 0 &&
+              oldImages.map((image, index) => (
+                <img key={index} src={image.url} alt="product review" />
               ))}
           </div>
 

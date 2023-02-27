@@ -120,3 +120,67 @@ export const {
 } = productsSlice.actions;
 
 export const productsReducer = productsSlice.reducer;
+
+const productModifySlice = createSlice({
+  name: "productModify",
+  initialState: {
+    product: {},
+    loading: false,
+    success: false,
+    error: null,
+    message: null,
+  },
+  reducers: {
+    updateProductRequest: (state) => {
+      state.loading = true;
+    },
+    updateProductSuccess: (state, action) => {
+      state.loading = false;
+      state.product = action.payload.product;
+      state.success = action.payload.success;
+    },
+    updateProductFailed: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    deleteProductRequest: (state) => {
+      state.loading = true;
+    },
+    deleteProductSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload.message;
+      state.success = action.payload.success;
+    },
+    deleteProductFailed: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    clearDeleteProductMessage: (state) => {
+      state.message = null;
+    },
+    clearModifiedProductError: (state) => {
+      state.error = null;
+    },
+    resetProductModified: (state) => {
+      state.loading = false;
+      state.error = null;
+      state.message = null;
+      state.product = {};
+      state.success = false;
+    },
+  },
+});
+
+export const {
+  updateProductFailed,
+  updateProductRequest,
+  updateProductSuccess,
+  clearModifiedProductError,
+  clearDeleteProductMessage,
+  deleteProductFailed,
+  deleteProductRequest,
+  deleteProductSuccess,
+  resetProductModified,
+} = productModifySlice.actions;
+
+export const productModifyReducer = productModifySlice.reducer;

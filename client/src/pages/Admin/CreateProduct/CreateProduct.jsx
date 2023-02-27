@@ -115,7 +115,7 @@ const CreateProduct = () => {
       setImages([]);
       setImagesPreview([]);
 
-      navigate(`/admin/products/all`);
+      navigate(`/admin/products`);
     }
   }, [
     success,
