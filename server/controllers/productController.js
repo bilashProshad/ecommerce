@@ -1,5 +1,6 @@
 const { catchAsyncError } = require("../middlewares/catchAsyncError");
 const Product = require("../models/Product");
+const Category = require("../models/Category");
 const ErrorHandler = require("../utils/ErrorHandler");
 
 const getAllProducts = catchAsyncError(async (req, res, next) => {
@@ -35,7 +36,24 @@ const getProductById = catchAsyncError(async (req, res, next) => {
   });
 });
 
-module.exports = { getAllProducts, getProductById };
+const getProductByCategoryId = catchAsyncError(async (req, res, next) => {
+  const category = await Category.findById(req.params.id);
+  if (!category) {
+    return next(new ErrorHandler(404, "Category not found"));
+  }
+
+  const products = await Product.find({ category: req.params.id })
+    .populate("category")
+    .populate("user");
+
+  if (!products) {
+    return next(new ErrorHandler(404, "Products not found"));
+  }
+
+  res.status(200).json({ success: true, products });
+});
+
+module.exports = { getAllProducts, getProductById, getProductByCategoryId };
 
 // Search Products by Product Name or Category Name (with Regular Expression)
 // app.get('/api/products', async (req, res) => {

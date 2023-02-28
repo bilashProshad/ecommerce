@@ -42,7 +42,7 @@ export const getAllCategories = () => async (dispatch) => {
   try {
     dispatch(getCategoriesRequest());
 
-    const { data } = await axios.get(`${server}/api/v1/admin/categories`, {
+    const { data } = await axios.get(`${server}/api/v1/categories`, {
       withCredentials: true,
     });
 
@@ -51,3 +51,17 @@ export const getAllCategories = () => async (dispatch) => {
     dispatch(getCategoriesFail(error.response.data.message));
   }
 };
+
+// export const getProductsByCategoryId = (id) => async (dispatch) => {
+//   try {
+//     dispatch(getCategoriesRequest());
+
+//     const { data } = await axios.get(`${server}/api/v1/categories/${id}`, {
+//       withCredentials: true,
+//     });
+
+//     dispatch(getCategoriesSuccess(data.categories));
+//   } catch (error) {
+//     dispatch(getCategoriesFail(error.response.data.message));
+//   }
+// };

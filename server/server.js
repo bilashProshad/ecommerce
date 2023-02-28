@@ -6,7 +6,8 @@ const cookieParser = require("cookie-parser");
 const { errorMiddleware } = require("./middlewares/errorMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
-const categoryRoutes = require("./routes/categoryRoute");
+const categoryRoutes = require("./routes/categoryroutes");
+const adminCategoryRoutes = require("./routes/adminCategoryRoute");
 const productRoutes = require("./routes/productRoutes");
 const adminProductRoutes = require("./routes/adminProductRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
@@ -44,7 +45,8 @@ cloudinary.config({
 // routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/admin/categories", categoryRoutes);
+app.use("/api/v1/admin/categories", adminCategoryRoutes);
+app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/admin/products", adminProductRoutes);
 app.use("/api/v1/products", reviewRoutes);

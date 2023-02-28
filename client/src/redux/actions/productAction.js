@@ -83,6 +83,26 @@ export const getProductDetails = (id) => async (dispatch) => {
   }
 };
 
+export const getProductsByCategoryId = (id) => async (dispatch) => {
+  try {
+    dispatch(allProductRequest());
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    };
+
+    const { data } = await axios.get(
+      `${server}/api/v1/products/category/${id}`,
+      config
+    );
+
+    dispatch(allProductSuccess(data));
+  } catch (error) {
+    dispatch(allProductFailed(error.response.data.message));
+  }
+};
+
 export const getAdminProducts = (query) => async (dispatch) => {
   try {
     dispatch(adminProductsRequest());

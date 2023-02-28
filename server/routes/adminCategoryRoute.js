@@ -6,7 +6,7 @@ const {
   updateCategory,
   deleteCategory,
   searchCategory,
-} = require("../controllers/categoryController");
+} = require("../controllers/adminCategoryController");
 const { isAuthenticatedUser, isAdmin } = require("../middlewares/auth");
 const router = express.Router();
 

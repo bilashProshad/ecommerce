@@ -11,7 +11,7 @@ const Categories = ({ data }) => {
           <Category
             key={d._id}
             title={d.name}
-            link={`/${d._id}`}
+            link={`/category/${d._id}`}
             img={d.image.url}
           />
         ))}
