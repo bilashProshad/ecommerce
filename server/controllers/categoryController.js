@@ -1,7 +1,6 @@
 const { catchAsyncError } = require("../middlewares/catchAsyncError");
-const Category = require("../models/Category");
-const Product = require("../models/Product");
 const ErrorHandler = require("../utils/ErrorHandler");
+const Category = require("../models/Category");
 
 const getAllCategories = catchAsyncError(async (req, res, next) => {
   const categories = await Category.find();

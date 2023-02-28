@@ -5,7 +5,7 @@ const { sendToken } = require("../utils/sendJwtToken");
 
 // Get User Details
 const getUserDetails = catchAsyncError(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user.id).populate("address");
 
   if (!user) {
     return next(new ErrorHandler(404, "User not found!"));

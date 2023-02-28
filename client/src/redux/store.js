@@ -7,11 +7,13 @@ import { productsReducer } from "./slices/productSlice";
 import { cartReducer } from "./slices/cartSlice";
 import { profileReducer } from "./slices/profileSlice";
 import { productModifyReducer } from "./slices/productSlice";
+import { addressReducer } from "./slices/addressSlice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     profile: profileReducer,
+    address: addressReducer,
     category: categoryReducer,
     categories: categoriesReducer,
     product: productReducer,

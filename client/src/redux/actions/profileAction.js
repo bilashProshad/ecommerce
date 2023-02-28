@@ -1,5 +1,10 @@
 import axios from "axios";
 import {
+  updateAddressFail,
+  updateAddressRequest,
+  updateAddressSuccess,
+} from "../slices/addressSlice";
+import {
   updatePasswordFailed,
   updatePasswordRequest,
   updatePasswordSuccess,
@@ -47,5 +52,23 @@ export const updateProfile =
       dispatch(updateProfileSuccess(data));
     } catch (error) {
       dispatch(updateProfileFailed(error.response.data.message));
+    }
+  };
+
+export const updateAddress =
+  ({ contactNo, post, district, division, country }) =>
+  async (dispatch) => {
+    try {
+      dispatch(updateAddressRequest());
+
+      const { data } = await axios.put(
+        `${server}/api/v1/address`,
+        { contactNo, post, district, division, country },
+        config
+      );
+
+      dispatch(updateAddressSuccess(data));
+    } catch (error) {
+      dispatch(updateAddressFail(error.response.data.message));
     }
   };

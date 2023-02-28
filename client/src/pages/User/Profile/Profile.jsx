@@ -35,23 +35,23 @@ const Profile = () => {
           <div className="address">
             <div>
               <h4>Contact Number:</h4>
-              <p>+8801788228533</p>
+              <p>{user.address ? user.address.contactNo : "N/A"}</p>
             </div>
             <div>
               <h4>Address:</h4>
-              <p>Katabari, Phulbari</p>
+              <p>{user.address ? user.address.post : "N/A"}</p>
             </div>
             <div>
               <h4>District:</h4>
-              <p>Dinajpur</p>
+              <p>{user.address ? user.address.district : "N/A"}</p>
             </div>
             <div>
               <h4>Division:</h4>
-              <p>Rangpur</p>
+              <p>{user.address ? user.address.division : "N/A"}</p>
             </div>
             <div>
               <h4>Country:</h4>
-              <p>Bangladesh</p>
+              <p>{user.address ? user.address.country : "N/A"}</p>
             </div>
           </div>
 

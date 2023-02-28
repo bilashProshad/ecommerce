@@ -7,12 +7,20 @@ import InputContainer from "../../../components/InputContainer/InputContainer";
 import { useInputValidate } from "../../../hooks/useInputValidate";
 import FormWrapper from "../../../components/FormWrapper/FormWrapper";
 import "./UpdateAddress.scss";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { updateAddress } from "../../../redux/actions/profileAction";
+import { useEffect } from "react";
+import {
+  clearUpdateAddressError,
+  resetUpdateAddress,
+} from "../../../redux/slices/addressSlice";
+import { useNavigate } from "react-router-dom";
 
 const UpdateAddress = () => {
   const [contact, setContact, contactError, isContactTouched] =
     useInputValidate();
-  const [address, setAddress, addressError, isAddressTouched] =
-    useInputValidate();
+  const [post, setPost, postError, isPostTouched] = useInputValidate();
   const [district, setDistrict, districtError, isDistrictTouched] =
     useInputValidate();
   const [division, setDivision, divisionError, isDivisionTouched] =
@@ -20,19 +28,57 @@ const UpdateAddress = () => {
   const [country, setCountry, countryError, isCountryTouched] =
     useInputValidate();
 
+  const { loading, success, error } = useSelector((state) => state.address);
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (contactError) {
+    if (
+      contactError ||
+      postError ||
+      districtError ||
+      divisionError ||
+      countryError ||
+      contact === "" ||
+      post === "" ||
+      district === "" ||
+      division === "" ||
+      country === ""
+    ) {
+      toast.error("Please enter all fields");
       return;
     }
 
-    if (contact === "") return;
-
-    console.log(contact);
-
-    setContact("");
+    dispatch(
+      updateAddress({ contactNo: contact, post, district, division, country })
+    );
   };
+
+  useEffect(() => {
+    if (user && user.address) {
+      setContact(user.address.contactNo);
+      setPost(user.address.post);
+      setDistrict(user.address.district);
+      setDivision(user.address.division);
+      setCountry(user.address.country);
+    }
+  }, [setContact, setCountry, setDistrict, setDivision, setPost, user]);
+
+  useEffect(() => {
+    if (success) {
+      toast.success(`Address update successfully`);
+      dispatch(resetUpdateAddress());
+      navigate(`/profile`);
+    }
+
+    if (error) {
+      toast.error(error);
+      dispatch(clearUpdateAddressError());
+    }
+  }, [dispatch, error, success, navigate]);
 
   return (
     <Container className={`update-address`}>
@@ -58,14 +104,16 @@ const UpdateAddress = () => {
           <InputContainer>
             <Input
               type="text"
-              placeholder="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              onBlur={isAddressTouched}
-              className={addressError ? "error" : ""}
+              placeholder="Village, Post"
+              value={post}
+              onChange={(e) => setPost(e.target.value)}
+              onBlur={isPostTouched}
+              className={postError ? "error" : ""}
             />
-            {addressError && (
-              <span className="error-text">*** Please enter your address</span>
+            {postError && (
+              <span className="error-text">
+                *** Please enter your post, village
+              </span>
             )}
           </InputContainer>
           <InputContainer>

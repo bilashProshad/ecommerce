@@ -6,9 +6,9 @@ const addressSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please enter your phone number"],
     },
-    address: {
+    post: {
       type: String,
-      required: [true, "Please enter your address"],
+      required: [true, "Please enter your post and village"],
     },
     district: {
       type: String,
