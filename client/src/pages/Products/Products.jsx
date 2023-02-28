@@ -15,18 +15,27 @@ import toast from "react-hot-toast";
 import { clearAllProductError } from "../../redux/slices/productSlice";
 import Loading from "../../components/Loading/Loading";
 import { getAllProduct } from "../../redux/actions/productAction";
+import { clearCategoriesError } from "../../redux/slices/categoriesSlice";
+import { getAllCategories } from "../../redux/actions/categoryAction";
 
 const Products = () => {
   const [rating, setRating] = useState(0);
   const [outOfStock, setOutOfStock] = useState(false);
-  const [category, setCategory] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [showSideBar, setShowSideBar] = useState(false);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(500000);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(20);
 
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
+  const {
+    categories: fetchedCategories,
+    loading: loadingCategories,
+    error: errorCategories,
+  } = useSelector((state) => state.categories);
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
@@ -41,24 +50,45 @@ const Products = () => {
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
     if (checked) {
-      setCategory([...category, name]);
+      setCategories([...categories, name]);
     } else {
-      setCategory(category.filter((item) => item !== name));
+      setCategories(categories.filter((item) => item !== name));
     }
   };
 
   useEffect(() => {
-    dispatch(getAllProduct(`page=${page}&limit=${limit}`));
-  }, [dispatch, limit, page]);
+    dispatch(
+      getAllProduct(
+        `page=${page}&limit=${limit}&min=${min}&max=${max}&categories=${categories}&outofstock=${outOfStock}&sortBy=${selectedOption}&rating=${rating}`
+      )
+    );
+  }, [
+    dispatch,
+    limit,
+    page,
+    min,
+    max,
+    categories,
+    outOfStock,
+    rating,
+    selectedOption,
+  ]);
 
   useEffect(() => {
     if (error) {
       toast.error(error);
       dispatch(clearAllProductError());
     }
-  }, [error, dispatch]);
 
-  return loading ? (
+    if (errorCategories) {
+      toast.error(errorCategories);
+      dispatch(clearCategoriesError());
+    }
+
+    dispatch(getAllCategories());
+  }, [error, dispatch, errorCategories]);
+
+  return loading && loadingCategories ? (
     <Loading />
   ) : (
     <Container className={`products`}>
@@ -95,9 +125,10 @@ const Products = () => {
             <MultiRangeSlider
               min={0}
               max={500000}
-              onChange={({ min, max }) =>
-                console.log(`min = ${min}, max = ${max}`)
-              }
+              onChange={({ min, max }) => {
+                setMin(min);
+                setMax(max);
+              }}
             />
           </Card>
           <Card>
@@ -142,42 +173,18 @@ const Products = () => {
 
           <Card>
             <p>Categories</p>
-            <div>
-              <InputCheck
-                text={"Laptop"}
-                type="checkbox"
-                name={"laptop"}
-                checked={category.includes("laptop")}
-                onChange={handleCheckboxChange}
-              />
-            </div>
-            <div>
-              <InputCheck
-                text={"Mobile"}
-                type="checkbox"
-                name={"mobile"}
-                checked={category.includes("mobile")}
-                onChange={handleCheckboxChange}
-              />
-            </div>
-            <div>
-              <InputCheck
-                text={"Books"}
-                type="checkbox"
-                name={"books"}
-                checked={category.includes("books")}
-                onChange={handleCheckboxChange}
-              />
-            </div>
-            <div>
-              <InputCheck
-                text={"Men's Fashion"}
-                type="checkbox"
-                name={"fashion"}
-                checked={category.includes("fashion")}
-                onChange={handleCheckboxChange}
-              />
-            </div>
+            {fetchedCategories &&
+              fetchedCategories.map((category) => (
+                <div>
+                  <InputCheck
+                    text={category.name}
+                    type="checkbox"
+                    name={category._id}
+                    checked={categories.includes(category._id)}
+                    onChange={handleCheckboxChange}
+                  />
+                </div>
+              ))}
           </Card>
         </div>
 

@@ -6,7 +6,45 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const getAllProducts = catchAsyncError(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
-  const products = await Product.find()
+
+  let { min: minPrice, max: maxPrice, outofstock, sortBy, rating } = req.query;
+
+  const categories = req.query.categories
+    ? req.query.categories.split(",")
+    : [];
+
+  const query = {};
+
+  if (minPrice && maxPrice) {
+    query.price = { $gte: minPrice, $lte: maxPrice };
+  } else if (minPrice) {
+    query.price = { $gte: minPrice };
+  } else if (maxPrice) {
+    query.price = { $lte: maxPrice };
+  }
+
+  if (categories.length > 0) {
+    query.category = { $in: categories };
+  }
+
+  if (outofstock === "true") {
+    query.stock = { $gt: 0 };
+  }
+
+  if (rating) {
+    query.ratings = { $gte: rating, $lte: 5 };
+  }
+
+  let sort = {};
+
+  if (sortBy === "asc") {
+    sort = { price: 1 };
+  } else if (sortBy === "desc") {
+    sort = { price: -1 };
+  }
+
+  const products = await Product.find(query)
+    .sort(sort)
     .skip((page - 1) * limit)
     .limit(limit)
     .populate("category")

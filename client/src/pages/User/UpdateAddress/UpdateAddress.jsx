@@ -16,6 +16,7 @@ import {
   resetUpdateAddress,
 } from "../../../redux/slices/addressSlice";
 import { useNavigate } from "react-router-dom";
+import { loadUser } from "../../../redux/actions/authAction";
 
 const UpdateAddress = () => {
   const [contact, setContact, contactError, isContactTouched] =
@@ -71,6 +72,7 @@ const UpdateAddress = () => {
     if (success) {
       toast.success(`Address update successfully`);
       dispatch(resetUpdateAddress());
+      dispatch(loadUser());
       navigate(`/profile`);
     }
 
