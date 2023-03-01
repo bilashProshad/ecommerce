@@ -20,38 +20,49 @@ import { useParams } from "react-router-dom";
 const ProductCategory = () => {
   const [rating, setRating] = useState(0);
   const [outOfStock, setOutOfStock] = useState(false);
-  const [category, setCategory] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [showSideBar, setShowSideBar] = useState(false);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(500000);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(20);
 
+  const { id: categoryId } = useParams();
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
-  const { id: categoryId } = useParams();
+  const { loading: loadingCategories } = useSelector(
+    (state) => state.categories
+  );
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
   };
 
-  // Catch Rating value
   const handleRating = (rate) => {
-    // console.log(rate);
     setRating(rate);
   };
 
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
-    if (checked) {
-      setCategory([...category, name]);
-    } else {
-      setCategory(category.filter((item) => item !== name));
-    }
-  };
-
   useEffect(() => {
-    dispatch(getProductsByCategoryId(categoryId));
-  }, [dispatch, categoryId]);
+    const timeout = setTimeout(() => {
+      dispatch(
+        getProductsByCategoryId(
+          `${categoryId}?page=${page}&limit=${limit}&minPrice=${min}&maxPrice=${max}&outofstock=${outOfStock}&sortBy=${selectedOption}&rating=${rating}`
+        )
+      );
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [
+    dispatch,
+    limit,
+    page,
+    min,
+    max,
+    categoryId,
+    outOfStock,
+    rating,
+    selectedOption,
+  ]);
 
   useEffect(() => {
     if (error) {
@@ -60,7 +71,7 @@ const ProductCategory = () => {
     }
   }, [error, dispatch]);
 
-  return loading ? (
+  return loading && loadingCategories ? (
     <Loading />
   ) : (
     <Container className={`products`}>
@@ -97,9 +108,10 @@ const ProductCategory = () => {
             <MultiRangeSlider
               min={0}
               max={500000}
-              onChange={({ min, max }) =>
-                console.log(`min = ${min}, max = ${max}`)
-              }
+              onChange={({ min, max }) => {
+                setMin(min);
+                setMax(max);
+              }}
             />
           </Card>
           <Card>
@@ -141,52 +153,13 @@ const ProductCategory = () => {
               />
             </div>
           </Card>
-
-          <Card>
-            <p>Categories</p>
-            <div>
-              <InputCheck
-                text={"Laptop"}
-                type="checkbox"
-                name={"laptop"}
-                checked={category.includes("laptop")}
-                onChange={handleCheckboxChange}
-              />
-            </div>
-            <div>
-              <InputCheck
-                text={"Mobile"}
-                type="checkbox"
-                name={"mobile"}
-                checked={category.includes("mobile")}
-                onChange={handleCheckboxChange}
-              />
-            </div>
-            <div>
-              <InputCheck
-                text={"Books"}
-                type="checkbox"
-                name={"books"}
-                checked={category.includes("books")}
-                onChange={handleCheckboxChange}
-              />
-            </div>
-            <div>
-              <InputCheck
-                text={"Men's Fashion"}
-                type="checkbox"
-                name={"fashion"}
-                checked={category.includes("fashion")}
-                onChange={handleCheckboxChange}
-              />
-            </div>
-          </Card>
         </div>
 
         <div className="right">
-          {products.map((product) => (
-            <Product key={product._id} product={product} />
-          ))}
+          {products.length > 0 &&
+            products.map((product) => (
+              <Product key={product._id} product={product} />
+            ))}
         </div>
       </div>
     </Container>

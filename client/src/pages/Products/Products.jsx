@@ -57,11 +57,15 @@ const Products = () => {
   };
 
   useEffect(() => {
-    dispatch(
-      getAllProduct(
-        `page=${page}&limit=${limit}&min=${min}&max=${max}&categories=${categories}&outofstock=${outOfStock}&sortBy=${selectedOption}&rating=${rating}`
-      )
-    );
+    const timeout = setTimeout(() => {
+      dispatch(
+        getAllProduct(
+          `page=${page}&limit=${limit}&minPrice=${min}&maxPrice=${max}&categories=${categories}&outofstock=${outOfStock}&sortBy=${selectedOption}&rating=${rating}`
+        )
+      );
+    }, 500);
+
+    return () => clearTimeout(timeout);
   }, [
     dispatch,
     limit,
@@ -175,7 +179,7 @@ const Products = () => {
             <p>Categories</p>
             {fetchedCategories &&
               fetchedCategories.map((category) => (
-                <div>
+                <div key={category._id}>
                   <InputCheck
                     text={category.name}
                     type="checkbox"

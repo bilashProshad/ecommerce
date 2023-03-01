@@ -83,7 +83,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   }
 };
 
-export const getProductsByCategoryId = (id) => async (dispatch) => {
+export const getProductsByCategoryId = (query) => async (dispatch) => {
   try {
     dispatch(allProductRequest());
 
@@ -93,7 +93,7 @@ export const getProductsByCategoryId = (id) => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      `${server}/api/v1/products/category/${id}`,
+      `${server}/api/v1/products/category/${query}`,
       config
     );
 
