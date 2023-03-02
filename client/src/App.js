@@ -20,7 +20,7 @@ import AllReviews from "./pages/Admin/Reviews/Reviews";
 import CreateProduct from "./pages/Admin/CreateProduct/CreateProduct";
 import toast, { Toaster } from "react-hot-toast";
 import store from "./redux/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadUser } from "./redux/actions/authAction";
 import PrivateRoute from "./components/Route/PrivateRoute";
 import AdminRoute from "./components/Route/AdminRoute";
@@ -28,12 +28,30 @@ import CreateCategory from "./pages/Admin/CreateCategory/CreateCategory";
 import AllCategory from "./pages/Admin/AllCategory/AllCategory";
 import { useSelector } from "react-redux";
 import UpdateProduct from "./pages/Admin/UpdateProduct/UpdateProduct";
+import ShippingAddress from "./pages/OrderProducts/ShippingAddress/ShippingAddress";
+import Confirm from "./pages/OrderProducts/Confirm/Confirm";
+import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Payment from "./pages/OrderProducts/Payment/Payment";
 
 function App() {
   const { items, totalQuantity } = useSelector((state) => state.cart);
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const server = process.env.REACT_APP_SERVER;
+    const { data } = await axios.get(`${server}/api/v1/payment/stripeapikey`, {
+      withCredentials: true,
+    });
+
+    setStripeApiKey(data.stripeApiKey);
+  }
 
   useEffect(() => {
     store.dispatch(loadUser());
+
+    getStripeApiKey();
   }, []);
 
   useEffect(() => {
@@ -58,6 +76,16 @@ function App() {
           <Route path="/profile/password/change" element={<UpdatePassword />} />
           <Route path="/profile/address/edit" element={<UpdateAddress />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/order/shipping" element={<ShippingAddress />} />
+          <Route path="/order/confirm" element={<Confirm />} />
+          <Route
+            path="/order/payment"
+            element={
+              <Elements stripe={loadStripe(stripeApiKey)}>
+                <Payment />
+              </Elements>
+            }
+          />
         </Route>
 
         {/* ---------------- Admin Routes ---------------- */}

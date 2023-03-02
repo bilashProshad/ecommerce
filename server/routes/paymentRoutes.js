@@ -1,0 +1,12 @@
+const express = require("express");
+const {
+  processPayment,
+  sendStripeApiKey,
+} = require("../controllers/paymentController");
+const router = express.Router();
+const { isAuthenticatedUser } = require("../middlewares/auth");
+
+router.route("/process").post(isAuthenticatedUser, processPayment);
+router.route("/stripeapikey").get(isAuthenticatedUser, sendStripeApiKey);
+
+module.exports = router;

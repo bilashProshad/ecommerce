@@ -61,7 +61,7 @@ const Cart = () => {
               </tr>
             </table>
 
-            <Link to={`/checkout`} className={`checkout-btn`}>
+            <Link to={`/order/shipping`} className={`checkout-btn`}>
               <Button>Check Out</Button>
             </Link>
           </div>
