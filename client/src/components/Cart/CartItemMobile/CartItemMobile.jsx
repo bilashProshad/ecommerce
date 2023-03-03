@@ -1,21 +1,21 @@
 import "./CartItemMobile.scss";
 import { useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  removeItemToCart,
-} from "../../../redux/slices/cartSlice";
 import toast from "react-hot-toast";
+import {
+  addItemsToCart,
+  removeItemsFromCart,
+} from "../../../redux/actions/cartAction";
 
 const CartItemMobile = ({ item }) => {
   const dispatch = useDispatch();
 
   const addItemToCartHandler = () => {
-    dispatch(addItemToCart({ item, quantity: 1 }));
+    dispatch(addItemsToCart({ item, quantity: 1 }));
     toast.success(`Item is added to cart`);
   };
 
   const removeItemToCartHandler = () => {
-    dispatch(removeItemToCart(item._id));
+    dispatch(removeItemsFromCart(item._id));
     toast.success(`Item removed from cart`);
   };
 

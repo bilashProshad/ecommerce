@@ -13,7 +13,7 @@ import { clearProductError } from "../../redux/slices/productSlice";
 import { useParams } from "react-router-dom";
 import { getProductDetails } from "../../redux/actions/productAction";
 import Loading from "../../components/Loading/Loading";
-import { addItemToCart } from "../../redux/slices/cartSlice";
+import { addItemsToCart } from "../../redux/actions/cartAction";
 
 const ProductDetails = () => {
   const [productQuantity, setProductQuantity] = useState(1);
@@ -47,7 +47,7 @@ const ProductDetails = () => {
   };
 
   const addItemToCartHandler = () => {
-    dispatch(addItemToCart({ item: product, quantity: productQuantity }));
+    dispatch(addItemsToCart({ item: product, quantity: productQuantity }));
     toast.success(`Item is added to cart`);
   };
 

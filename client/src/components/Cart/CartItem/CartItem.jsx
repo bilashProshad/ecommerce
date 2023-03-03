@@ -1,27 +1,27 @@
 import "./CartItem.scss";
 import { useDispatch } from "react-redux";
-import {
-  addItemToCart,
-  removeItemToCart,
-  removeWholeItemToCart,
-} from "../../../redux/slices/cartSlice";
 import toast from "react-hot-toast";
+import {
+  addItemsToCart,
+  removeAllCartItems,
+  removeItemsFromCart,
+} from "../../../redux/actions/cartAction";
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
 
   const addItemToCartHandler = () => {
-    dispatch(addItemToCart({ item, quantity: 1 }));
+    dispatch(addItemsToCart({ item, quantity: 1 }));
     toast.success(`Item is added to cart`);
   };
 
   const removeItemToCartHandler = () => {
-    dispatch(removeItemToCart(item._id));
+    dispatch(removeItemsFromCart(item._id));
     toast.success(`Item removed from cart`);
   };
 
   const removeWholeItemToCartHandler = () => {
-    dispatch(removeWholeItemToCart(item._id));
+    dispatch(removeAllCartItems(item._id));
     toast.success(`Item removed from cart`);
   };
 
@@ -32,6 +32,7 @@ const CartItem = ({ item }) => {
           {item.images.length > 0 && (
             <img src={item.images[0].url} alt={item.name} />
           )}
+
           <div>
             <p>{item.name}</p>
             <small>

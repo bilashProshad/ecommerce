@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import "./Product.scss";
 import Rating from "../Rating/Rating";
 import ButtonOutline from "../ButtonOutline/ButtonOutline";
-import { addItemToCart } from "../../redux/slices/cartSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import { addItemsToCart } from "../../redux/actions/cartAction";
 
 const Product = ({ product }) => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Product = ({ product }) => {
   const addCartHandler = (e) => {
     e.preventDefault();
 
-    dispatch(addItemToCart({ item: product, quantity: 1 }));
+    dispatch(addItemsToCart({ item: product, quantity: 1 }));
     toast.success(`Item is added to cart`);
   };
 

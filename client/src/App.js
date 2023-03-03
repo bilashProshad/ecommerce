@@ -54,11 +54,6 @@ function App() {
     getStripeApiKey();
   }, []);
 
-  useEffect(() => {
-    const cartItems = { items, totalQuantity };
-    localStorage.setItem("obCartItem", JSON.stringify(cartItems));
-  }, [items, totalQuantity]);
-
   return (
     <BrowserRouter>
       {/* {location.pathname.includes('/admin')} */}

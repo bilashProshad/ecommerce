@@ -42,7 +42,9 @@ const Confirm = () => {
               {items.map((item) => (
                 <div className="cart-item" key={item._id}>
                   <div className="img">
-                    <img src={item.images[0].url} alt={item.name} />
+                    {item.images.length > 0 && (
+                      <img src={item.images[0].url} alt={item.name} />
+                    )}
                   </div>
                   <p>
                     <span>
