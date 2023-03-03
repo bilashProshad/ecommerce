@@ -3,6 +3,9 @@ import {
   createOrderFailed,
   createOrderRequest,
   createOrderSuccess,
+  myOrdersFailed,
+  myOrdersRequest,
+  myOrdersSuccess,
 } from "../slices/orderSlice";
 
 const server = process.env.REACT_APP_SERVER;
@@ -25,5 +28,19 @@ export const createOrder = (order) => async (dispatch) => {
     dispatch(createOrderSuccess(data));
   } catch (error) {
     dispatch(createOrderFailed(error.response.data.message));
+  }
+};
+
+export const myOrders = () => async (dispatch) => {
+  try {
+    dispatch(myOrdersRequest());
+
+    const { data } = await axios.get(`${server}/api/v1/orders/me`, {
+      withCredentials: true,
+    });
+
+    dispatch(myOrdersSuccess(data));
+  } catch (error) {
+    dispatch(myOrdersFailed(error.response.data.message));
   }
 };

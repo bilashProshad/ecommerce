@@ -33,6 +33,7 @@ import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./pages/OrderProducts/Payment/Payment";
+import Success from "./pages/OrderProducts/Success/Success";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -79,6 +80,7 @@ function App() {
               </Elements>
             }
           />
+          <Route path="/order/success" element={<Success />} />
         </Route>
 
         {/* ---------------- Admin Routes ---------------- */}

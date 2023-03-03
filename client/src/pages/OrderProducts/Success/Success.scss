@@ -1,0 +1,89 @@
+@import "../../../Colors";
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+
+  > svg {
+    color: $primary;
+    font-size: 6rem;
+  }
+
+  > h2 {
+    font-size: 3.4rem;
+    color: $text;
+    margin: 2rem;
+    margin-top: 1.6rem;
+  }
+
+  > a > button {
+    margin-top: 1rem;
+    font-size: 2rem;
+    padding: 1rem 2rem;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .success {
+    > svg {
+      color: $primary;
+      font-size: 5rem;
+    }
+
+    > h2 {
+      font-size: 3rem;
+      color: $text;
+      // margin: 1rem;
+      text-align: center;
+    }
+
+    > a > button {
+      font-size: 2rem;
+      padding: 1rem 2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .success {
+    > svg {
+      color: $primary;
+      font-size: 4rem;
+    }
+
+    > h2 {
+      font-size: 2.4rem;
+      color: $text;
+      // margin: 1rem;
+    }
+
+    > a > button {
+      font-size: 1.6rem;
+      padding: 1rem 2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .success {
+    > svg {
+      color: $primary;
+      font-size: 4rem;
+    }
+
+    > h2 {
+      font-size: 2.4rem;
+      color: $text;
+      // margin: 1rem;
+      line-height: 1.2;
+    }
+
+    > a > button {
+      font-size: 1.6rem;
+      padding: 1rem 2rem;
+    }
+  }
+}

@@ -94,6 +94,7 @@ const Payment = () => {
           dispatch(createOrder(order));
 
           toast.success("Payment Successfull");
+          localStorage.removeItem("obCartItem");
           navigate("/order/success");
         } else {
           toast.error("There's some issue while processing payment ");
