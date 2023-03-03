@@ -18,7 +18,7 @@ import AdminOrder from "./pages/Admin/Orders/Orders";
 import AllUsers from "./pages/Admin/Users/Users";
 import AllReviews from "./pages/Admin/Reviews/Reviews";
 import CreateProduct from "./pages/Admin/CreateProduct/CreateProduct";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import store from "./redux/store";
 import { useEffect, useState } from "react";
 import { loadUser } from "./redux/actions/authAction";
@@ -26,7 +26,6 @@ import PrivateRoute from "./components/Route/PrivateRoute";
 import AdminRoute from "./components/Route/AdminRoute";
 import CreateCategory from "./pages/Admin/CreateCategory/CreateCategory";
 import AllCategory from "./pages/Admin/AllCategory/AllCategory";
-import { useSelector } from "react-redux";
 import UpdateProduct from "./pages/Admin/UpdateProduct/UpdateProduct";
 import ShippingAddress from "./pages/OrderProducts/ShippingAddress/ShippingAddress";
 import Confirm from "./pages/OrderProducts/Confirm/Confirm";
@@ -36,7 +35,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./pages/OrderProducts/Payment/Payment";
 
 function App() {
-  const { items, totalQuantity } = useSelector((state) => state.cart);
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {

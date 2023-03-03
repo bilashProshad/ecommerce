@@ -12,7 +12,13 @@ const Product = ({ product }) => {
   const addCartHandler = (e) => {
     e.preventDefault();
 
-    dispatch(addItemsToCart({ item: product, quantity: 1 }));
+    dispatch(
+      addItemsToCart({
+        item: product,
+        quantity: 1,
+        image: product.images[0].url,
+      })
+    );
     toast.success(`Item is added to cart`);
   };
 

@@ -47,7 +47,13 @@ const ProductDetails = () => {
   };
 
   const addItemToCartHandler = () => {
-    dispatch(addItemsToCart({ item: product, quantity: productQuantity }));
+    dispatch(
+      addItemsToCart({
+        item: product,
+        quantity: productQuantity,
+        image: product.images[0].url,
+      })
+    );
     toast.success(`Item is added to cart`);
   };
 

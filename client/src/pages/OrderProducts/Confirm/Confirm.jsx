@@ -2,18 +2,34 @@ import Container from "../../../components/Container/Container";
 import "./Confirm.scss";
 import { useSelector } from "react-redux";
 import Button from "../../../components/Button/Button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Confirm = () => {
   const { user } = useSelector((state) => state.auth);
   const { items } = useSelector((state) => state.cart);
 
+  const navigate = useNavigate();
+
   const subtotal = items.reduce(
     (total, currentItem) => total + currentItem.price * currentItem.quantity,
     0
   );
-  const tax = Math.ceil(subtotal * 0.15);
-  const shipping = subtotal > 2000 ? 0 : 100;
+  const tax = Math.ceil(subtotal * 0.1);
+  const shippingCharges = subtotal > 500 ? 0 : 5;
+  const totalPrice = subtotal + shippingCharges + tax;
+
+  const proceedToPayment = () => {
+    const data = {
+      subtotal,
+      shippingCharges,
+      tax,
+      totalPrice,
+    };
+
+    sessionStorage.setItem("orderInfo", JSON.stringify(data));
+
+    navigate(`/order/payment`);
+  };
 
   return (
     <Container className={`confirm`}>
@@ -42,9 +58,7 @@ const Confirm = () => {
               {items.map((item) => (
                 <div className="cart-item" key={item._id}>
                   <div className="img">
-                    {item.images.length > 0 && (
-                      <img src={item.images[0].url} alt={item.name} />
-                    )}
+                    <img src={item.image} alt={item.name} />
                   </div>
                   <p>
                     <span>
@@ -71,18 +85,17 @@ const Confirm = () => {
                 Subtotal: <span>${subtotal}</span>
               </p>
               <p>
-                Shipping Charges: <span>${shipping}</span>
+                Shipping Charges: <span>${shippingCharges}</span>
               </p>
               <p>
                 Tax: <span>${tax}</span>
               </p>
               <p className="total">
-                Total: <span>${subtotal + shipping + tax}</span>
+                Total: <span>${totalPrice}</span>
               </p>
             </div>
-            <Link to={`/order/payment`}>
-              <Button>Proceed To Payment</Button>
-            </Link>
+
+            <Button onClick={proceedToPayment}>Proceed To Payment</Button>
           </div>
         </div>
       </div>

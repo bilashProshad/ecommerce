@@ -10,7 +10,7 @@ const CartItemMobile = ({ item }) => {
   const dispatch = useDispatch();
 
   const addItemToCartHandler = () => {
-    dispatch(addItemsToCart({ item, quantity: 1 }));
+    dispatch(addItemsToCart({ item, quantity: 1, image: item.image }));
     toast.success(`Item is added to cart`);
   };
 
@@ -22,9 +22,7 @@ const CartItemMobile = ({ item }) => {
   return (
     <div className="cart-item-mobile">
       <div className="left">
-        {item.images.length > 0 && (
-          <img src={item.images[0].url} alt={item.name} />
-        )}
+        <img src={item.image} alt={item.name} />
       </div>
       <div className="right">
         <p>{item.name}</p>

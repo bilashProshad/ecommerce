@@ -11,16 +11,106 @@ import {
 import axios from "axios";
 import { MdCreditCard, MdEvent, MdVpnKey } from "react-icons/md";
 import Button from "../../../components/Button/Button";
+import { createOrder } from "../../../redux/actions/orderAction";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { clearCreateOrderError } from "../../../redux/slices/orderSlice";
 
 const Payment = () => {
+  const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
+  const { user } = useSelector((state) => state.auth);
+  const { items: cartItems } = useSelector((state) => state.cart);
+  const { error } = useSelector((state) => state.newOrder);
+
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
   const payBtn = useRef(null);
+  const navigate = useNavigate();
+
+  const server = process.env.REACT_APP_SERVER;
+
+  const paymentData = {
+    amount: Math.round(orderInfo.totalPrice * 100),
+  };
+
+  const order = {
+    shippingInfo: user.address._id,
+    orderItems: cartItems,
+    itemsPrice: orderInfo.subtotal,
+    taxPrice: orderInfo.tax,
+    shippingPrice: orderInfo.shippingCharges,
+    totalPrice: orderInfo.totalPrice,
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    payBtn.current.disabled = true;
+
+    try {
+      const config = {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      };
+      const { data } = await axios.post(
+        `${server}/api/v1/payment/process`,
+        paymentData,
+        config
+      );
+
+      const client_secret = data.client_secret;
+
+      if (!stripe || !elements) return;
+
+      const result = await stripe.confirmCardPayment(client_secret, {
+        payment_method: {
+          card: elements.getElement(CardNumberElement),
+          billing_details: {
+            name: user.name,
+            email: user.email,
+            address: {
+              line1: user.address.post,
+              city: user.address.district,
+              state: user.address.division,
+              // postal_code: shippingInfo.pinCode,
+              country: "BD",
+            },
+          },
+        },
+      });
+
+      if (result.error) {
+        payBtn.current.disabled = false;
+
+        toast.error(result.error.message);
+      } else {
+        if (result.paymentIntent.status === "succeeded") {
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          };
+
+          dispatch(createOrder(order));
+
+          toast.success("Payment Successfull");
+          navigate("/order/success");
+        } else {
+          toast.error("There's some issue while processing payment ");
+        }
+      }
+    } catch (error) {
+      payBtn.current.disabled = false;
+      toast.error(error.response.data.message);
+    }
   };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearCreateOrderError());
+    }
+  }, [dispatch, error]);
 
   return (
     <Fragment>
@@ -40,9 +130,9 @@ const Payment = () => {
             <CardCvcElement className="paymentInput" />
           </div>
 
-          <Button type="submit" className={`payment-btn`}>
+          <button ref={payBtn} type="submit" className={`payment-btn`}>
             Submit
-          </Button>
+          </button>
         </form>
       </div>
     </Fragment>

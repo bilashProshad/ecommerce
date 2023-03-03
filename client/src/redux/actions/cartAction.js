@@ -7,10 +7,11 @@ import {
 export const addItemsToCart = (product) => async (dispatch, getState) => {
   const item = {
     _id: product.item._id,
+    product: product.item._id,
     name: product.item.name,
     price: product.item.price,
     stock: product.item.stock,
-    images: product.item.images,
+    image: product.image,
   };
 
   const quantity = product.quantity;

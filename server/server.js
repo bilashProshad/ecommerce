@@ -13,6 +13,7 @@ const productRoutes = require("./routes/productRoutes");
 const adminProductRoutes = require("./routes/adminProductRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 const cors = require("cors");
 const cloudinary = require("cloudinary");
 const bodyParser = require("body-parser");
@@ -54,6 +55,7 @@ app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/admin/products", adminProductRoutes);
 app.use("/api/v1/products", reviewRoutes);
 app.use("/api/v1/payment", paymentRoutes);
+app.use("/api/v1/orders", orderRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to home page</h1>");

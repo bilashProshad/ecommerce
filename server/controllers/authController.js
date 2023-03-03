@@ -44,7 +44,9 @@ const loginUser = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler(400, "Please enter your Email & Password"));
   }
 
-  const user = await User.findOne({ email }).select("+password");
+  const user = await User.findOne({ email })
+    .select("+password")
+    .populate("address");
   if (!user) {
     return next(new ErrorHandler(401, "Invalid email or password"));
   }

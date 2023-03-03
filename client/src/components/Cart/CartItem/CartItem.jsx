@@ -11,7 +11,7 @@ const CartItem = ({ item }) => {
   const dispatch = useDispatch();
 
   const addItemToCartHandler = () => {
-    dispatch(addItemsToCart({ item, quantity: 1 }));
+    dispatch(addItemsToCart({ item, quantity: 1, image: item.image }));
     toast.success(`Item is added to cart`);
   };
 
@@ -29,9 +29,7 @@ const CartItem = ({ item }) => {
     <tr className="cart-item">
       <td>
         <div className="info">
-          {item.images.length > 0 && (
-            <img src={item.images[0].url} alt={item.name} />
-          )}
+          <img src={item.image} alt={item.name} />
 
           <div>
             <p>{item.name}</p>

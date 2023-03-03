@@ -13,8 +13,8 @@ const Cart = () => {
     (total, currentItem) => total + currentItem.price * currentItem.quantity,
     0
   );
-  const tax = Math.ceil(subtotal * 0.15);
-  const shipping = subtotal > 2000 ? 0 : 100;
+  const tax = Math.ceil(subtotal * 0.1);
+  const shipping = subtotal > 500 ? 0 : 5;
 
   return (
     <Container className={"cart"}>
