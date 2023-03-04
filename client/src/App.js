@@ -23,6 +23,7 @@ import store from "./redux/store";
 import { useEffect, useState } from "react";
 import { loadUser } from "./redux/actions/authAction";
 import PrivateRoute from "./components/Route/PrivateRoute";
+import PublicRoute from "./components/Route/PublicRoute";
 import AdminRoute from "./components/Route/AdminRoute";
 import CreateCategory from "./pages/Admin/CreateCategory/CreateCategory";
 import AllCategory from "./pages/Admin/AllCategory/AllCategory";
@@ -34,9 +35,14 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./pages/OrderProducts/Payment/Payment";
 import Success from "./pages/OrderProducts/Success/Success";
+import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
+import ResetPassword from "./pages/User/ResetPassword/ResetPassword";
+import { useSelector } from "react-redux";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
+
+  const { isAuth } = useSelector((state) => state.auth);
 
   async function getStripeApiKey() {
     const server = process.env.REACT_APP_SERVER;
@@ -50,8 +56,8 @@ function App() {
   useEffect(() => {
     store.dispatch(loadUser());
 
-    getStripeApiKey();
-  }, []);
+    isAuth && getStripeApiKey();
+  }, [isAuth]);
 
   return (
     <BrowserRouter>
@@ -59,7 +65,11 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/reset/:token" element={<ResetPassword />} />
+        </Route>
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/category/:id" element={<ProductCategory />} />

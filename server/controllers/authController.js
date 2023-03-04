@@ -84,7 +84,8 @@ const forgotPassword = catchAsyncError(async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordUrl = `http://localhost:5000/api/v1/auth/password/reset/${resetToken}`;
+  // const resetPasswordUrl = `http://localhost:5000/api/v1/auth/password/reset/${resetToken}`;
+  const resetPasswordUrl = `${process.env.FRONT_END_URL}/reset/${resetToken}`;
   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, prease ignore it.`;
 
   try {

@@ -10,6 +10,7 @@ import { productModifyReducer } from "./slices/productSlice";
 import { addressReducer } from "./slices/addressSlice";
 import { newOrderReducer } from "./slices/orderSlice";
 import { myOrderReducer } from "./slices/orderSlice";
+import { forgotPasswordReducer } from "./slices/passwordSlice";
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     cart: cartReducer,
     newOrder: newOrderReducer,
     myOrders: myOrderReducer,
+    forgotPassword: forgotPasswordReducer,
   },
 });
 

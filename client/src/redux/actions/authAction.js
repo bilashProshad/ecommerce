@@ -12,6 +12,14 @@ import {
   logoutSuccess,
   logoutFail,
 } from "../slices/authSlice";
+import {
+  forgotPasswordFailed,
+  forgotPasswordRequest,
+  forgotPasswordSuccess,
+  resetPasswordFailed,
+  resetPasswordRequest,
+  resetPasswordSuccess,
+} from "../slices/passwordSlice";
 
 const server = process.env.REACT_APP_SERVER;
 
@@ -79,5 +87,39 @@ export const logout = () => async (dispatch) => {
     dispatch(logoutSuccess(data.message));
   } catch (error) {
     dispatch(logoutFail(error.response.data.message));
+  }
+};
+
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    dispatch(forgotPasswordRequest());
+
+    const { data } = await axios.post(
+      `${server}/api/v1/auth/password/forgot`,
+      {
+        email,
+      },
+      config
+    );
+
+    dispatch(forgotPasswordSuccess(data));
+  } catch (error) {
+    dispatch(forgotPasswordFailed(error.response.data.message));
+  }
+};
+
+export const resetPassword = (token, passwords) => async (dispatch) => {
+  try {
+    dispatch(resetPasswordRequest());
+
+    const { data } = await axios.put(
+      `${server}/api/v1/auth/password/reset/${token}`,
+      passwords,
+      config
+    );
+
+    dispatch(resetPasswordSuccess(data));
+  } catch (error) {
+    dispatch(resetPasswordFailed(error.response.data.message));
   }
 };
