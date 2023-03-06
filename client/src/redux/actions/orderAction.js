@@ -3,6 +3,9 @@ import {
   createOrderFailed,
   createOrderRequest,
   createOrderSuccess,
+  getAllOrdersFail,
+  getAllOrdersRequest,
+  getAllOrdersSuccess,
   myOrdersFailed,
   myOrdersRequest,
   myOrdersSuccess,
@@ -42,5 +45,20 @@ export const myOrders = () => async (dispatch) => {
     dispatch(myOrdersSuccess(data));
   } catch (error) {
     dispatch(myOrdersFailed(error.response.data.message));
+  }
+};
+
+// Admin
+export const getAllOrders = () => async (dispatch) => {
+  try {
+    dispatch(getAllOrdersRequest());
+
+    const { data } = await axios.get(`${server}/api/v1/admin/orders`, {
+      withCredentials: true,
+    });
+
+    dispatch(getAllOrdersSuccess(data));
+  } catch (error) {
+    dispatch(getAllOrdersFail(error.response.data.message));
   }
 };

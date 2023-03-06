@@ -2,20 +2,24 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
 import categoryReducer from "./slices/categorySlice";
 import categoriesReducer from "./slices/categoriesSlice";
-import { productReducer } from "./slices/productSlice";
-import { productsReducer } from "./slices/productSlice";
+import {
+  productReducer,
+  productsReducer,
+  productModifyReducer,
+} from "./slices/productSlice";
 import { cartReducer } from "./slices/cartSlice";
 import { profileReducer } from "./slices/profileSlice";
-import { productModifyReducer } from "./slices/productSlice";
 import { addressReducer } from "./slices/addressSlice";
-import { newOrderReducer } from "./slices/orderSlice";
-import { myOrderReducer } from "./slices/orderSlice";
+import { newOrderReducer, myOrderReducer } from "./slices/orderSlice";
 import { forgotPasswordReducer } from "./slices/passwordSlice";
+import { ordersReducer } from "./slices/orderSlice";
+import { usersReducer } from "./slices/userSllice";
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     profile: profileReducer,
+    users: usersReducer,
     address: addressReducer,
     category: categoryReducer,
     categories: categoriesReducer,
@@ -26,6 +30,7 @@ const store = configureStore({
     newOrder: newOrderReducer,
     myOrders: myOrderReducer,
     forgotPassword: forgotPasswordReducer,
+    orders: ordersReducer,
   },
 });
 

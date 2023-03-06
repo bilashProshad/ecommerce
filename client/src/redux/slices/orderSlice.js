@@ -71,3 +71,36 @@ export const {
 } = myOrdersSlice.actions;
 
 export const myOrderReducer = myOrdersSlice.reducer;
+
+const orders = createSlice({
+  name: "orders",
+  initialState: {
+    loading: false,
+    orders: [],
+    error: null,
+  },
+  reducers: {
+    getAllOrdersRequest: (state) => {
+      state.loading = true;
+    },
+    getAllOrdersSuccess: (state, action) => {
+      state.loading = false;
+      state.orders = action.payload.orders;
+    },
+    getAllOrdersFail: (state, action) => {
+      state.error = action.payload;
+    },
+    clearGetAllOrdersError: (state) => {
+      state.error = null;
+    },
+  },
+});
+
+export const {
+  getAllOrdersFail,
+  getAllOrdersRequest,
+  getAllOrdersSuccess,
+  clearGetAllOrdersError,
+} = orders.actions;
+
+export const ordersReducer = orders.reducer;
