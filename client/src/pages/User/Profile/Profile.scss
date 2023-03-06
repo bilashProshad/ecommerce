@@ -108,3 +108,70 @@
     }
   }
 }
+
+@media screen and (max-width: 720px) {
+  .profile {
+    display: initial;
+    height: initial;
+
+    > .profile-wrapper {
+      flex-direction: column;
+      width: 100%;
+      border-radius: 0;
+
+      .right {
+        .order-btns {
+          margin-top: 3rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .profile {
+    > .profile-wrapper {
+      flex-direction: column;
+
+      .right {
+        .address {
+          div {
+            font-size: 1.4rem;
+            gap: 1rem;
+          }
+        }
+        > .order-btns {
+          // flex-direction: column;
+          > a {
+            // width: 100%;
+            > button {
+              // width: 100%;
+              font-size: 1.2rem;
+              padding: 0.5rem 1.6rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 355px) {
+  .profile {
+    margin-top: 12rem;
+    > .profile-wrapper {
+      .right {
+        .address {
+          div {
+            text-align: left;
+            display: initial;
+
+            > h4 {
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+  }
+}

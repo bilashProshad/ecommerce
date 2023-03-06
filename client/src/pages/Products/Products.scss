@@ -124,7 +124,8 @@
       width: 100%;
       display: grid;
       grid-template-columns: repeat(4, auto);
-      align-items: start;
+      // align-items: start;
+      place-content: start;
       gap: 5rem;
       justify-content: space-between;
     }

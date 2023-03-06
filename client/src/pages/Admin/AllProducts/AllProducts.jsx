@@ -19,7 +19,7 @@ import Loading from "../../../components/Loading/Loading";
 
 const AllProducts = () => {
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(20);
 
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
