@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Confirm = () => {
   const { user } = useSelector((state) => state.auth);
   const { items } = useSelector((state) => state.cart);
+  const address = JSON.parse(localStorage.getItem("obAddress"));
 
   const navigate = useNavigate();
 
@@ -44,11 +45,11 @@ const Confirm = () => {
               </p>
               <p>
                 <span>Phone: </span>
-                <span>{user.address.contactNo}</span>
+                <span>{address.contactNo}</span>
               </p>
               <p>
                 <span>Address: </span>
-                <span>{`${user.address.post}, ${user.address.district}, ${user.address.division}, ${user.address.country}`}</span>
+                <span>{`${address.post}, ${address.district}, ${address.division}, ${address.country}`}</span>
               </p>
             </div>
           </div>

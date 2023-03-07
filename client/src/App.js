@@ -42,7 +42,9 @@ import { useSelector } from "react-redux";
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
 
-  const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth, user, loading, error, message } = useSelector(
+    (state) => state.auth
+  );
 
   async function getStripeApiKey() {
     const server = process.env.REACT_APP_SERVER;
@@ -54,10 +56,21 @@ function App() {
   }
 
   useEffect(() => {
+    if (error) {
+      localStorage.removeItem("obAuth");
+    }
+
     store.dispatch(loadUser());
 
     isAuth && getStripeApiKey();
-  }, [isAuth]);
+  }, [isAuth, error]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "obAuth",
+      JSON.stringify({ isAuth, user, loading, error, message })
+    );
+  }, [error, isAuth, loading, message, user]);
 
   return (
     <BrowserRouter>

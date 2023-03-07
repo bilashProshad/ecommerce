@@ -41,6 +41,7 @@ const Navbar = () => {
   const logoutHander = () => {
     localStorage.removeItem("obCartItem");
     dispatch(logout());
+    localStorage.removeItem("obAuth");
     setShowMenu(false);
   };
 

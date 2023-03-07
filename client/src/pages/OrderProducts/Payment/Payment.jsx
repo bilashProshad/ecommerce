@@ -14,13 +14,17 @@ import Button from "../../../components/Button/Button";
 import { createOrder } from "../../../redux/actions/orderAction";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { clearCreateOrderError } from "../../../redux/slices/orderSlice";
+import {
+  clearCreateOrderError,
+  resetCreateOrder,
+} from "../../../redux/slices/orderSlice";
+import { resetCartItems } from "../../../redux/slices/cartSlice";
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const { user } = useSelector((state) => state.auth);
   const { items: cartItems } = useSelector((state) => state.cart);
-  const { error } = useSelector((state) => state.newOrder);
+  const { error, success } = useSelector((state) => state.newOrder);
 
   const dispatch = useDispatch();
   const stripe = useStripe();
@@ -94,8 +98,6 @@ const Payment = () => {
           dispatch(createOrder(order));
 
           toast.success("Payment Successfull");
-          localStorage.removeItem("obCartItem");
-          navigate("/order/success");
         } else {
           toast.error("There's some issue while processing payment ");
         }
@@ -111,7 +113,15 @@ const Payment = () => {
       toast.error(error);
       dispatch(clearCreateOrderError());
     }
-  }, [dispatch, error]);
+
+    if (success) {
+      localStorage.removeItem("obCartItem");
+      localStorage.removeItem("obAddress");
+      dispatch(resetCreateOrder());
+      dispatch(resetCartItems());
+      navigate("/order/success");
+    }
+  }, [dispatch, error, success, navigate]);
 
   return (
     <Fragment>

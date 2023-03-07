@@ -50,7 +50,13 @@ const Orders = () => {
                   <tr key={order._id}>
                     <td>{order._id}</td>
                     <td>{order.orderStatus}</td>
-                    <td>{order.orderItems.length}</td>
+                    <td>
+                      {order.orderItems.length > 0 &&
+                        order.orderItems.reduce(
+                          (total, current) => total + current.quantity,
+                          0
+                        )}
+                    </td>
                     <td>${order.totalPrice}</td>
                     <td>
                       <div className="link">

@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const auth = JSON.parse(localStorage.getItem("obAuth"));
+
 const initialState = {
-  user: {},
-  isAuth: false,
-  loading: false,
-  error: null,
-  message: null,
+  user: auth ? auth.user : {},
+  isAuth: auth ? auth.isAuth : false,
+  loading: auth ? auth.loading : false,
+  error: auth ? auth.error : null,
+  message: auth ? auth.message : null,
 };
 
 export const authSlice = createSlice({

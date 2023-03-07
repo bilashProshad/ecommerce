@@ -6,7 +6,7 @@ const newOrderSlice = createSlice({
     order: {},
     loading: false,
     error: null,
-    success: true,
+    success: false,
   },
   reducers: {
     createOrderRequest: (state) => {
@@ -24,6 +24,12 @@ const newOrderSlice = createSlice({
     clearCreateOrderError: (state) => {
       state.error = null;
     },
+    resetCreateOrder: (state) => {
+      state.error = null;
+      state.success = false;
+      state.order = {};
+      state.loading = false;
+    },
   },
 });
 
@@ -32,6 +38,7 @@ export const {
   clearCreateOrderError,
   createOrderRequest,
   createOrderSuccess,
+  resetCreateOrder,
 } = newOrderSlice.actions;
 
 export const newOrderReducer = newOrderSlice.reducer;

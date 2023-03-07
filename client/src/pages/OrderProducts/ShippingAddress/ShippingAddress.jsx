@@ -29,7 +29,9 @@ const ShippingAddress = () => {
   const [country, setCountry, countryError, isCountryTouched] =
     useInputValidate();
 
-  const { loading, success, error } = useSelector((state) => state.address);
+  const { loading, success, error, address } = useSelector(
+    (state) => state.address
+  );
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -66,12 +68,26 @@ const ShippingAddress = () => {
       setDivision(user.address.division);
       setCountry(user.address.country);
     }
+
+    if (user && !user.address) {
+      localStorage.removeItem("obAddress");
+    }
   }, [setContact, setCountry, setDistrict, setDivision, setPost, user]);
 
   useEffect(() => {
     if (success) {
-      dispatch(resetUpdateAddress());
       dispatch(loadUser());
+      localStorage.setItem(
+        "obAddress",
+        JSON.stringify({
+          contactNo: address.contactNo,
+          post: address.post,
+          district: address.district,
+          division: address.division,
+          country: address.country,
+        })
+      );
+      dispatch(resetUpdateAddress());
       navigate(`/order/confirm`);
     }
 
@@ -79,7 +95,7 @@ const ShippingAddress = () => {
       toast.error(error);
       dispatch(clearUpdateAddressError());
     }
-  }, [dispatch, error, success, navigate]);
+  }, [dispatch, error, success, navigate, user, address]);
 
   return (
     <Container className={`shipping-address`}>

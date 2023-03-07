@@ -11,26 +11,6 @@ import { getAllUsers } from "../../../redux/actions/userAction";
 
 const Users = () => {
   const headers = ["User Id", "Name", "Email", "Role", "Actions"];
-  const data = [
-    {
-      _id: "634840c90bec16456c6f9d2a",
-      name: "Bilash Prosad",
-      email: "pbilash64@gmail.com",
-      role: "admin",
-    },
-    {
-      _id: "634840c90bec57866c6f9d2b",
-      name: "Joyee",
-      email: "joyee@gmail.com",
-      role: "user",
-    },
-    {
-      _id: "535574c90bec12354c6f9d2f",
-      name: "John",
-      email: "john@gmail.com",
-      role: "user",
-    },
-  ];
 
   const dispatch = useDispatch();
   const { loading, users, error } = useSelector((state) => state.users);
@@ -53,7 +33,7 @@ const Users = () => {
       {loading ? (
         <Loading />
       ) : (
-        <Table headers={headers} data={data}>
+        <Table headers={headers}>
           {users.length > 0 &&
             users.map((user) => (
               <tr key={user._id}>
