@@ -10,9 +10,13 @@ import {
 import { cartReducer } from "./slices/cartSlice";
 import { profileReducer } from "./slices/profileSlice";
 import { addressReducer } from "./slices/addressSlice";
-import { newOrderReducer, myOrderReducer } from "./slices/orderSlice";
+import {
+  newOrderReducer,
+  myOrderReducer,
+  ordersReducer,
+  myOrderDetailsReducer,
+} from "./slices/orderSlice";
 import { forgotPasswordReducer } from "./slices/passwordSlice";
-import { ordersReducer } from "./slices/orderSlice";
 import { usersReducer } from "./slices/userSllice";
 
 const store = configureStore({
@@ -31,6 +35,7 @@ const store = configureStore({
     myOrders: myOrderReducer,
     forgotPassword: forgotPasswordReducer,
     orders: ordersReducer,
+    myOrderDetails: myOrderDetailsReducer,
   },
 });
 

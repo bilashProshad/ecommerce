@@ -17,6 +17,7 @@ import Loading from "../../components/Loading/Loading";
 import { getAllProduct } from "../../redux/actions/productAction";
 import { clearCategoriesError } from "../../redux/slices/categoriesSlice";
 import { getAllCategories } from "../../redux/actions/categoryAction";
+import { useSearchParams } from "react-router-dom";
 
 const Products = () => {
   const [rating, setRating] = useState(0);
@@ -28,6 +29,8 @@ const Products = () => {
   const [max, setMax] = useState(500000);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);
+
+  const [searchParams] = useSearchParams();
 
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
@@ -57,10 +60,17 @@ const Products = () => {
   };
 
   useEffect(() => {
+    const search = searchParams.get("q");
+    let q = "";
+
+    if (search) {
+      q = search;
+    }
+
     const timeout = setTimeout(() => {
       dispatch(
         getAllProduct(
-          `page=${page}&limit=${limit}&minPrice=${min}&maxPrice=${max}&categories=${categories}&outofstock=${outOfStock}&sortBy=${selectedOption}&rating=${rating}`
+          `page=${page}&limit=${limit}&minPrice=${min}&maxPrice=${max}&categories=${categories}&outofstock=${outOfStock}&sortBy=${selectedOption}&rating=${rating}&q=${q}`
         )
       );
     }, 500);
@@ -76,6 +86,7 @@ const Products = () => {
     outOfStock,
     rating,
     selectedOption,
+    searchParams,
   ]);
 
   useEffect(() => {

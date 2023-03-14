@@ -3,17 +3,28 @@ const Product = require("../models/Product");
 const Category = require("../models/Category");
 const ErrorHandler = require("../utils/ErrorHandler");
 
-const getAllProducts = catchAsyncError(async (req, res, next) => {
+exports.getAllProducts = catchAsyncError(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
 
-  let { minPrice, maxPrice, outofstock, sortBy, rating } = req.query;
+  let { minPrice, maxPrice, outofstock, sortBy, rating, q } = req.query;
 
-  const categories = req.query.categories
-    ? req.query.categories.split(",")
-    : [];
+  let categories = req.query.categories ? req.query.categories.split(",") : [];
 
   const query = {};
+
+  if (q !== null) {
+    const searchCategories = await Category.find({
+      name: { $regex: new RegExp(q, "i") },
+    });
+
+    const categoryIds = searchCategories.map((category) => category._id);
+
+    query.$or = [
+      { name: new RegExp(q, "i") },
+      { category: { $in: categoryIds } },
+    ];
+  }
 
   if (minPrice && maxPrice) {
     query.price = { $gte: minPrice, $lte: maxPrice };
@@ -60,7 +71,7 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
   });
 });
 
-const getProductById = catchAsyncError(async (req, res, next) => {
+exports.getProductById = catchAsyncError(async (req, res, next) => {
   const product = await Product.findById(req.params.id)
     .populate("category")
     .populate("user");
@@ -74,7 +85,7 @@ const getProductById = catchAsyncError(async (req, res, next) => {
   });
 });
 
-const getProductByCategoryId = catchAsyncError(async (req, res, next) => {
+exports.getProductByCategoryId = catchAsyncError(async (req, res, next) => {
   const category = await Category.findById(req.params.id);
   if (!category) {
     return next(new ErrorHandler(404, "Category not found"));
@@ -126,24 +137,23 @@ const getProductByCategoryId = catchAsyncError(async (req, res, next) => {
   res.status(200).json({ success: true, products });
 });
 
-module.exports = { getAllProducts, getProductById, getProductByCategoryId };
+exports.searchProduct = catchAsyncError(async (req, res, next) => {
+  const { q } = req.query;
+  const categories = await Category.find({
+    name: { $regex: new RegExp(q, "i") },
+  });
+  const categoryIds = categories.map((category) => category._id);
 
-// Search Products by Product Name or Category Name (with Regular Expression)
-// app.get('/api/products', async (req, res) => {
-//   try {
-//     const { searchTerm } = req.query;
-//     const categories = await Category.find({
-//       name: { $regex: new RegExp(searchTerm, 'i') }
-//     });
-//     const categoryIds = categories.map(category => category._id);
-//     const products = await Product.find({
-//       $or: [
-//         { name: { $regex: new RegExp(searchTerm, 'i') } },
-//         { categories: { $in: categoryIds } }
-//       ]
-//     }).populate('categories');
-//     res.send(products);
-//   } catch (err) {
-//     res.status(400).send(err);
-//   }
-// });
+  const products = await Product.find({
+    $or: [
+      { name: { $regex: new RegExp(q, "i") } },
+      { category: { $in: categoryIds } },
+    ],
+  }).populate("category");
+
+  if (!products) {
+    return next(new ErrorHandler(404, "Product not found."));
+  }
+
+  res.status(200).json({ success: true, products });
+});

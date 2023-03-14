@@ -6,6 +6,9 @@ import {
   getAllOrdersFail,
   getAllOrdersRequest,
   getAllOrdersSuccess,
+  getMyOrderDetailsFail,
+  getMyOrderDetailsRequest,
+  getMyOrderDetailsSuccess,
   myOrdersFailed,
   myOrdersRequest,
   myOrdersSuccess,
@@ -45,6 +48,20 @@ export const myOrders = () => async (dispatch) => {
     dispatch(myOrdersSuccess(data));
   } catch (error) {
     dispatch(myOrdersFailed(error.response.data.message));
+  }
+};
+
+export const getSingleOrder = (id) => async (dispatch) => {
+  try {
+    dispatch(getMyOrderDetailsRequest());
+
+    const { data } = await axios.get(`${server}/api/v1/orders/${id}`, {
+      withCredentials: true,
+    });
+
+    dispatch(getMyOrderDetailsSuccess(data));
+  } catch (error) {
+    dispatch(getMyOrderDetailsFail(error.response.data.message));
   }
 };
 

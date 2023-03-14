@@ -38,6 +38,7 @@ import Success from "./pages/OrderProducts/Success/Success";
 import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
 import ResetPassword from "./pages/User/ResetPassword/ResetPassword";
 import { useSelector } from "react-redux";
+import MyOrders from "./pages/MyOrders/MyOrders";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -93,6 +94,7 @@ function App() {
           <Route path="/profile/password/change" element={<UpdatePassword />} />
           <Route path="/profile/address/edit" element={<UpdateAddress />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/orders/:id" element={<MyOrders />} />
           <Route path="/order/shipping" element={<ShippingAddress />} />
           <Route path="/order/confirm" element={<Confirm />} />
           <Route
