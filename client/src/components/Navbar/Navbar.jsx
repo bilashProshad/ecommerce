@@ -40,8 +40,8 @@ const Navbar = () => {
 
   const logoutHander = () => {
     localStorage.removeItem("obCartItem");
-    dispatch(logout());
     localStorage.removeItem("obAuth");
+    dispatch(logout());
     setShowMenu(false);
   };
 
@@ -117,7 +117,9 @@ const Navbar = () => {
             </div>
           </Container>
 
-          {location.pathname === "/" && (
+          {(location.pathname === "/" ||
+            location.pathname === "/products" ||
+            location.pathname.includes("/category")) && (
             <SearchInput className={`input-search-bar`} />
           )}
         </nav>

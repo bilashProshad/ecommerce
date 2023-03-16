@@ -43,12 +43,31 @@
 
   .sales-overview {
     margin-top: 4rem;
+    padding-bottom: 3rem;
 
     .charts {
       margin-top: 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      // display: grid;
+      // grid-template-columns: 1fr 1fr;
+      // gap: 3rem;
+      // display: flex;
+      // align-items: center;
+      // justify-content: space-between;
+
+      > .line {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      > .doughnut {
+        margin-top: 5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+      }
     }
   }
 }
@@ -88,11 +107,11 @@
 
     .sales-overview {
       .charts {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 3rem;
-        width: 90%;
-        margin: 0 auto;
+        // display: grid;
+        // grid-template-columns: 1fr;
+        // gap: 3rem;
+        // width: 90%;
+        // margin: 0 auto;
       }
     }
   }
@@ -114,11 +133,11 @@
 
     .sales-overview {
       .charts {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 3rem;
-        width: 90%;
-        margin: 0 auto;
+        // display: grid;
+        // grid-template-columns: 1fr;
+        // gap: 3rem;
+        // width: 90%;
+        // margin: 0 auto;
       }
     }
   }

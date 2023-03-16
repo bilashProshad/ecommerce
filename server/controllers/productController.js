@@ -136,24 +136,3 @@ exports.getProductByCategoryId = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({ success: true, products });
 });
-
-exports.searchProduct = catchAsyncError(async (req, res, next) => {
-  const { q } = req.query;
-  const categories = await Category.find({
-    name: { $regex: new RegExp(q, "i") },
-  });
-  const categoryIds = categories.map((category) => category._id);
-
-  const products = await Product.find({
-    $or: [
-      { name: { $regex: new RegExp(q, "i") } },
-      { category: { $in: categoryIds } },
-    ],
-  }).populate("category");
-
-  if (!products) {
-    return next(new ErrorHandler(404, "Product not found."));
-  }
-
-  res.status(200).json({ success: true, products });
-});

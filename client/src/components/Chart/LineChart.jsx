@@ -33,7 +33,7 @@ const LineChart = ({ min = 0, max, titleText, labels, label, chartData }) => {
       // },
       title: {
         display: true,
-        text: titleText,
+        // text: titleText,
       },
       scales: {
         y: {

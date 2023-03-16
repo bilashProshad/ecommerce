@@ -18,6 +18,7 @@ import {
 } from "./slices/orderSlice";
 import { forgotPasswordReducer } from "./slices/passwordSlice";
 import { usersReducer } from "./slices/userSllice";
+import { dashboardReducer } from "./slices/dashboardSlice";
 
 const store = configureStore({
   reducer: {
@@ -36,6 +37,7 @@ const store = configureStore({
     forgotPassword: forgotPasswordReducer,
     orders: ordersReducer,
     myOrderDetails: myOrderDetailsReducer,
+    dashboard: dashboardReducer,
   },
 });
 

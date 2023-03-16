@@ -2,6 +2,9 @@
 
 .featured-products {
   margin-top: 3.2rem;
+  > h2 {
+    color: $text;
+  }
 
   > div {
     margin-top: 1.2rem;
@@ -28,5 +31,17 @@
 @media screen and (max-width: 600px) {
   .featured-products > div {
     grid-template-columns: repeat(2, auto);
+  }
+
+  .featured-products {
+    > h2 {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .featured-products > h2 {
+    font-size: 2rem;
   }
 }
