@@ -87,6 +87,7 @@ const categorySlice = createSlice({
     loading: false,
     error: null,
     success: false,
+    message: null,
   },
   reducers: {
     updateCategoryRequest: (state) => {
@@ -106,6 +107,23 @@ const categorySlice = createSlice({
     resetUpdateCategory: (state) => {
       state.success = false;
     },
+    deleteCategoryRequest: (state) => {
+      state.loading = true;
+    },
+    deleteCategorySuccess: (state, action) => {
+      state.success = action.payload.success;
+      state.message = action.payload.message;
+      state.loading = false;
+    },
+    deleteCategoryFail: (state, action) => {
+      state.error = action.payload;
+    },
+    clearDeleteCategoryError: (state) => {
+      state.error = null;
+    },
+    clearDeleteCategoryMessage: (state) => {
+      state.message = null;
+    },
   },
 });
 
@@ -115,6 +133,11 @@ export const {
   updateCategorySuccess,
   clearUpdateCategoryError,
   resetUpdateCategory,
+  deleteCategoryFail,
+  deleteCategoryRequest,
+  deleteCategorySuccess,
+  clearDeleteCategoryError,
+  clearDeleteCategoryMessage,
 } = categorySlice.actions;
 
 export const categoryReducer = categorySlice.reducer;

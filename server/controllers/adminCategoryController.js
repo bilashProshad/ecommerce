@@ -95,6 +95,10 @@ const deleteCategory = catchAsyncError(async (req, res, next) => {
   if (!category) {
     return next(new ErrorHandler(404, "Category not found"));
   }
+
+  const imageId = category.image.public_id;
+  await cloudinary.v2.uploader.destroy(imageId);
+
   await category.remove();
   res.status(200).json({ success: true, message: "Category deleted" });
 });

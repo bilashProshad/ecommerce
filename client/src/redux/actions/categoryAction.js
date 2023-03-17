@@ -9,6 +9,9 @@ import {
   categoryDetailsRequest,
   categoryDetailsSuccess,
   categoryDetailsFail,
+  deleteCategoryRequest,
+  deleteCategorySuccess,
+  deleteCategoryFail,
 } from "../slices/categorySlice";
 import {
   getCategoriesFail,
@@ -93,5 +96,20 @@ export const updateCategory = (id, categoryData) => async (dispatch) => {
     dispatch(updateCategorySuccess(data));
   } catch (error) {
     dispatch(updateCategoryFail(error.response.data.message));
+  }
+};
+
+export const deleteCategory = (id) => async (dispatch) => {
+  try {
+    dispatch(deleteCategoryRequest());
+
+    const { data } = await axios.delete(
+      `${server}/api/v1/admin/categories/${id}`,
+      { withCredentials: true }
+    );
+
+    dispatch(deleteCategorySuccess(data));
+  } catch (error) {
+    dispatch(deleteCategoryFail(error.response.data.message));
   }
 };

@@ -65,7 +65,7 @@ const CreateCategory = () => {
       dispatch(createCategoryReset());
 
       setName("");
-      navigate(`/admin/category/all`);
+      navigate(`/admin/categories`);
     }
   }, [error, success, dispatch, setName, navigate]);
 
