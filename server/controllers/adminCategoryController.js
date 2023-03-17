@@ -52,9 +52,38 @@ const getCategoryById = catchAsyncError(async (req, res, next) => {
 });
 
 const updateCategory = catchAsyncError(async (req, res, next) => {
-  const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const newCategoryData = {
+    name: req.body.name,
+  };
+
+  if (!req.body.name) {
+    return next(new ErrorHandler(400, "Please enter all fields"));
+  }
+
+  if (req.body.image !== "") {
+    const category = await Category.findById(req.params.id);
+    const imageId = category.image.public_id;
+    await cloudinary.v2.uploader.destroy(imageId);
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.image, {
+      folder: "ecommerce/category",
+      // width: 250,
+      // crop: "scale",
+    });
+
+    newCategoryData.image = {
+      public_id: myCloud.public_id,
+      url: myCloud.url,
+    };
+  }
+
+  const category = await Category.findByIdAndUpdate(
+    req.params.id,
+    newCategoryData,
+    {
+      new: true,
+    }
+  );
   if (!category) {
     return next(new ErrorHandler(404, "Category not found"));
   }

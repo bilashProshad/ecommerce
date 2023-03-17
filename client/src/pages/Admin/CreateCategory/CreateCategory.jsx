@@ -23,7 +23,7 @@ const CreateCategory = () => {
   const [imagePreview, setImagePreview] = useState("");
 
   const dispatch = useDispatch();
-  const { loading, error, success } = useSelector((state) => state.category);
+  const { loading, error, success } = useSelector((state) => state.newCategory);
   const navigate = useNavigate();
 
   const setCategoryImage = (e) => {

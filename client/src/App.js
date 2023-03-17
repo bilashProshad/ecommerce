@@ -39,6 +39,7 @@ import ForgotPassword from "./pages/User/ForgotPassword/ForgotPassword";
 import ResetPassword from "./pages/User/ResetPassword/ResetPassword";
 import { useSelector } from "react-redux";
 import MyOrders from "./pages/MyOrders/MyOrders";
+import UpdateCategory from "./pages/Admin/UpdateCategory/UpdateCategory";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -116,6 +117,7 @@ function App() {
           <Route path="/admin/products/:id" element={<UpdateProduct />} />
           <Route path="/admin/categories" element={<AllCategory />} />
           <Route path="/admin/categories/new" element={<CreateCategory />} />
+          <Route path="/admin/categories/:id" element={<UpdateCategory />} />
           <Route path="/admin/orders" element={<AdminOrder />} />
           <Route path="/admin/users" element={<AllUsers />} />
           <Route path="/admin/reviews" element={<AllReviews />} />

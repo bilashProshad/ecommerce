@@ -1,6 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
-import categoryReducer from "./slices/categorySlice";
+import {
+  newCategoryReducer,
+  categoryReducer,
+  categoryDetailsReducer,
+} from "./slices/categorySlice";
 import categoriesReducer from "./slices/categoriesSlice";
 import {
   productReducer,
@@ -26,8 +30,10 @@ const store = configureStore({
     profile: profileReducer,
     users: usersReducer,
     address: addressReducer,
-    category: categoryReducer,
+    newCategory: newCategoryReducer,
     categories: categoriesReducer,
+    category: categoryReducer,
+    categoryDetails: categoryDetailsReducer,
     product: productReducer,
     products: productsReducer,
     productModify: productModifyReducer,

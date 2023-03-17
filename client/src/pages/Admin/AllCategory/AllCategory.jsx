@@ -48,10 +48,10 @@ const AllCategory = () => {
                 <td>{d?.name}</td>
                 <td>
                   <div className="link">
-                    <Link to={`/admin/products/all/${d?._id}`}>
+                    <Link to={`/admin/categories/${d?._id}`}>
                       <MdEdit />
                     </Link>
-                    <Link to={`/admin/products/all/${d?._id}`}>
+                    <Link to={`/admin/categories/${d?._id}`}>
                       <MdDelete />
                     </Link>
                   </div>

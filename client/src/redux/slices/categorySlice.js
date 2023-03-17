@@ -7,8 +7,8 @@ const initialState = {
   success: false,
 };
 
-export const categorySlice = createSlice({
-  name: "category",
+export const newCategorySlice = createSlice({
+  name: "newCategory",
   initialState,
   reducers: {
     createCategoryRequest: (state) => {
@@ -41,6 +41,80 @@ export const {
   createCategoryFail,
   createCategoryReset,
   clearError,
+} = newCategorySlice.actions;
+
+export const newCategoryReducer = newCategorySlice.reducer;
+
+const categoryDetailsSlice = createSlice({
+  name: "categoryDetails",
+  initialState: {
+    category: {},
+    loading: false,
+    error: null,
+    success: false,
+  },
+  reducers: {
+    categoryDetailsRequest: (state) => {
+      state.loading = true;
+    },
+    categoryDetailsSuccess: (state, action) => {
+      state.category = action.payload.category;
+      state.success = action.payload.success;
+      state.loading = false;
+    },
+    categoryDetailsFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    clearCategoryDetailsError: (state) => {
+      state.error = null;
+    },
+  },
+});
+
+export const {
+  categoryDetailsFail,
+  categoryDetailsRequest,
+  categoryDetailsSuccess,
+  clearCategoryDetailsError,
+} = categoryDetailsSlice.actions;
+
+export const categoryDetailsReducer = categoryDetailsSlice.reducer;
+
+const categorySlice = createSlice({
+  name: "category",
+  initialState: {
+    loading: false,
+    error: null,
+    success: false,
+  },
+  reducers: {
+    updateCategoryRequest: (state) => {
+      state.loading = true;
+    },
+    updateCategorySuccess: (state, action) => {
+      state.success = action.payload.success;
+      state.loading = false;
+    },
+    updateCategoryFail: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    clearUpdateCategoryError: (state) => {
+      state.error = null;
+    },
+    resetUpdateCategory: (state) => {
+      state.success = false;
+    },
+  },
+});
+
+export const {
+  updateCategoryFail,
+  updateCategoryRequest,
+  updateCategorySuccess,
+  clearUpdateCategoryError,
+  resetUpdateCategory,
 } = categorySlice.actions;
 
-export default categorySlice.reducer;
+export const categoryReducer = categorySlice.reducer;
