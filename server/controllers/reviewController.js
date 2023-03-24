@@ -3,7 +3,7 @@ const Product = require("../models/Product");
 const Review = require("../models/Review");
 const ErrorHandler = require("../utils/ErrorHandler");
 
-const createReview = catchAsyncError(async (req, res, next) => {
+exports.createReview = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   const { rating, comment } = req.body;
 
@@ -63,7 +63,30 @@ const createReview = catchAsyncError(async (req, res, next) => {
   });
 });
 
-const updateReview = catchAsyncError(async (req, res, next) => {
+exports.getReview = catchAsyncError(async (req, res, next) => {
+  const productId = req.params.id;
+
+  const review = await Review.findOne({
+    product: productId,
+    author: req.user._id,
+  })
+    .select("rating comment author")
+    .populate("author", "name email");
+
+  if (review) {
+    return res.status(200).json({
+      review,
+      success: true,
+    });
+  }
+
+  res.status(200).json({
+    review: {},
+    success: false,
+  });
+});
+
+exports.updateReview = catchAsyncError(async (req, res, next) => {
   const { id, reviewId } = req.params;
 
   const product = await Product.findById(id);
@@ -114,7 +137,7 @@ const updateReview = catchAsyncError(async (req, res, next) => {
   });
 });
 
-const deleteReview = catchAsyncError(async (req, res, next) => {
+exports.deleteReview = catchAsyncError(async (req, res, next) => {
   const { id, reviewId } = req.params;
 
   const product = await Product.findById(id);
@@ -166,9 +189,8 @@ const deleteReview = catchAsyncError(async (req, res, next) => {
       res.status(201).json({
         success: true,
         product,
+        review: {},
       });
     });
   });
 });
-
-module.exports = { createReview, updateReview, deleteReview };

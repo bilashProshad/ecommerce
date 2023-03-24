@@ -1,0 +1,50 @@
+@import "../../../Colors";
+
+.update-order {
+  display: flex;
+  justify-content: space-around;
+
+  > .my-orders {
+    // flex: 7;
+    padding-right: 1rem;
+
+    > .bottom {
+      border-top: 0;
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+
+  > .process-order {
+    // flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #5552;
+    padding-left: 1rem;
+
+    > form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+
+      > h2 {
+        text-align: center;
+        color: #333;
+        font-weight: 600;
+      }
+
+      > select {
+        width: 25rem;
+        padding: 1rem;
+        border-color: #5552;
+        color: #555;
+        outline: none;
+      }
+
+      option {
+        color: #555;
+      }
+    }
+  }
+}

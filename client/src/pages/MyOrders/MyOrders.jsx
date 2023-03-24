@@ -3,15 +3,13 @@ import Container from "../../components/Container/Container";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { clearMyOrderDetailsError } from "../../redux/slices/orderSlice";
+import { clearOrderDetailsError } from "../../redux/slices/orderSlice";
 import { getSingleOrder } from "../../redux/actions/orderAction";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading/Loading";
 
 const MyOrders = () => {
-  const { order, loading, error } = useSelector(
-    (state) => state.myOrderDetails
-  );
+  const { order, loading, error } = useSelector((state) => state.orderDetails);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -23,7 +21,7 @@ const MyOrders = () => {
   useEffect(() => {
     if (error) {
       toast.error(error);
-      dispatch(clearMyOrderDetailsError());
+      dispatch(clearOrderDetailsError());
     }
   }, [error, dispatch]);
 

@@ -2,6 +2,7 @@ const { catchAsyncError } = require("../middlewares/catchAsyncError");
 const Product = require("../models/Product");
 const Category = require("../models/Category");
 const ErrorHandler = require("../utils/ErrorHandler");
+const Review = require("../models/Review");
 
 exports.getAllProducts = catchAsyncError(async (req, res, next) => {
   const page = parseInt(req.query.page) || 1;
@@ -72,9 +73,18 @@ exports.getAllProducts = catchAsyncError(async (req, res, next) => {
 });
 
 exports.getProductById = catchAsyncError(async (req, res, next) => {
-  const product = await Product.findById(req.params.id)
-    .populate("category")
-    .populate("user");
+  const productId = req.params.id;
+  const product = await Product.findById(productId)
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "author",
+        select: "name avatar",
+      },
+    })
+    .populate("category", "name")
+    .populate("user", "name email");
+
   if (!product) {
     return next(new ErrorHandler(404, "Product not found."));
   }

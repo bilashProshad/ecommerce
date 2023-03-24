@@ -112,8 +112,8 @@ export const {
 
 export const ordersReducer = orders.reducer;
 
-const myOrderDetailsSlice = createSlice({
-  name: "myOrderDetails",
+const orderDetailsSlice = createSlice({
+  name: "orderDetails",
   initialState: {
     order: {},
     success: false,
@@ -121,29 +121,92 @@ const myOrderDetailsSlice = createSlice({
     error: null,
   },
   reducers: {
-    getMyOrderDetailsRequest: (state) => {
+    getOrderDetailsRequest: (state) => {
       state.loading = true;
     },
-    getMyOrderDetailsSuccess: (state, action) => {
+    getOrderDetailsSuccess: (state, action) => {
       state.loading = false;
       state.order = action.payload.order;
       state.success = action.payload.success;
     },
-    getMyOrderDetailsFail: (state, action) => {
+    getOrderDetailsFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    clearMyOrderDetailsError: (state) => {
+    clearOrderDetailsError: (state) => {
       state.error = null;
     },
   },
 });
 
 export const {
-  getMyOrderDetailsFail,
-  getMyOrderDetailsRequest,
-  getMyOrderDetailsSuccess,
-  clearMyOrderDetailsError,
-} = myOrderDetailsSlice.actions;
+  getOrderDetailsRequest,
+  getOrderDetailsSuccess,
+  getOrderDetailsFail,
+  clearOrderDetailsError,
+} = orderDetailsSlice.actions;
 
-export const myOrderDetailsReducer = myOrderDetailsSlice.reducer;
+export const orderDetailsReducer = orderDetailsSlice.reducer;
+
+const orderSlice = createSlice({
+  name: "order",
+  initialState: {
+    success: false,
+    loading: false,
+    error: null,
+  },
+  reducers: {
+    updateOrderRequest: (state) => {
+      state.loading = true;
+    },
+    updateOrderSuccess: (state, action) => {
+      state.success = action.payload.success;
+      state.loading = false;
+    },
+    updateOrderFail: (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
+    clearUpdateOrderError: (state) => {
+      state.error = null;
+    },
+    resetUpdateOrder: (state) => {
+      state.success = false;
+      state.loading = false;
+      state.error = null;
+    },
+    deleteOrderRequest: (state) => {
+      state.loading = true;
+    },
+    deleteOrderSuccess: (state, action) => {
+      state.success = action.payload.success;
+      state.loading = false;
+    },
+    deleteOrderFail: (state, action) => {
+      state.error = action.payload;
+    },
+    clearDeleteOrderError: (state) => {
+      state.error = null;
+    },
+    resetDeleteOrderError: (state) => {
+      state.success = false;
+      state.loading = false;
+      state.error = null;
+    },
+  },
+});
+
+export const {
+  updateOrderFail,
+  updateOrderRequest,
+  updateOrderSuccess,
+  clearUpdateOrderError,
+  resetUpdateOrder,
+  deleteOrderRequest,
+  deleteOrderSuccess,
+  deleteOrderFail,
+  clearDeleteOrderError,
+  resetDeleteOrderError,
+} = orderSlice.actions;
+
+export const orderReducer = orderSlice.reducer;

@@ -3,15 +3,21 @@ import {
   createOrderFailed,
   createOrderRequest,
   createOrderSuccess,
+  deleteOrderFail,
+  deleteOrderRequest,
+  deleteOrderSuccess,
   getAllOrdersFail,
   getAllOrdersRequest,
   getAllOrdersSuccess,
-  getMyOrderDetailsFail,
-  getMyOrderDetailsRequest,
-  getMyOrderDetailsSuccess,
+  getOrderDetailsFail,
+  getOrderDetailsRequest,
+  getOrderDetailsSuccess,
   myOrdersFailed,
   myOrdersRequest,
   myOrdersSuccess,
+  updateOrderFail,
+  updateOrderRequest,
+  updateOrderSuccess,
 } from "../slices/orderSlice";
 
 const server = process.env.REACT_APP_SERVER;
@@ -53,18 +59,19 @@ export const myOrders = () => async (dispatch) => {
 
 export const getSingleOrder = (id) => async (dispatch) => {
   try {
-    dispatch(getMyOrderDetailsRequest());
+    dispatch(getOrderDetailsRequest());
 
     const { data } = await axios.get(`${server}/api/v1/orders/${id}`, {
       withCredentials: true,
     });
 
-    dispatch(getMyOrderDetailsSuccess(data));
+    dispatch(getOrderDetailsSuccess(data));
   } catch (error) {
-    dispatch(getMyOrderDetailsFail(error.response.data.message));
+    dispatch(getOrderDetailsFail(error.response.data.message));
   }
 };
 
+// ==================================================================
 // Admin
 export const getAllOrders = () => async (dispatch) => {
   try {
@@ -77,5 +84,54 @@ export const getAllOrders = () => async (dispatch) => {
     dispatch(getAllOrdersSuccess(data));
   } catch (error) {
     dispatch(getAllOrdersFail(error.response.data.message));
+  }
+};
+
+export const getOrderDetails = (id) => async (dispatch) => {
+  try {
+    dispatch(getOrderDetailsRequest());
+
+    const { data } = await axios.get(`${server}/api/v1/admin/orders/${id}`, {
+      withCredentials: true,
+    });
+
+    dispatch(getOrderDetailsSuccess(data));
+  } catch (error) {
+    dispatch(getOrderDetailsFail(error.response.data.message));
+  }
+};
+
+export const updateOrder = (id, order) => async (dispatch) => {
+  try {
+    const config = {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    };
+
+    dispatch(updateOrderRequest());
+
+    const { data } = await axios.put(
+      `${server}/api/v1/admin/orders/${id}`,
+      order,
+      config
+    );
+
+    dispatch(updateOrderSuccess(data));
+  } catch (error) {
+    dispatch(updateOrderFail(error.response.data.message));
+  }
+};
+
+export const deleteOrder = (id) => async (dispatch) => {
+  try {
+    dispatch(deleteOrderRequest());
+
+    const { data } = await axios.delete(`${server}/api/v1/admin/orders/${id}`, {
+      withCredentials: true,
+    });
+
+    dispatch(deleteOrderSuccess(data));
+  } catch (error) {
+    dispatch(deleteOrderFail(error.response.data.message));
   }
 };

@@ -18,11 +18,13 @@ import {
   newOrderReducer,
   myOrderReducer,
   ordersReducer,
-  myOrderDetailsReducer,
+  orderDetailsReducer,
+  orderReducer,
 } from "./slices/orderSlice";
 import { forgotPasswordReducer } from "./slices/passwordSlice";
 import { usersReducer } from "./slices/userSllice";
 import { dashboardReducer } from "./slices/dashboardSlice";
+import { reviewReducer } from "./slices/reviewSlice";
 
 const store = configureStore({
   reducer: {
@@ -30,6 +32,7 @@ const store = configureStore({
     profile: profileReducer,
     users: usersReducer,
     address: addressReducer,
+    forgotPassword: forgotPasswordReducer,
     newCategory: newCategoryReducer,
     categories: categoriesReducer,
     category: categoryReducer,
@@ -40,10 +43,11 @@ const store = configureStore({
     cart: cartReducer,
     newOrder: newOrderReducer,
     myOrders: myOrderReducer,
-    forgotPassword: forgotPasswordReducer,
+    order: orderReducer,
     orders: ordersReducer,
-    myOrderDetails: myOrderDetailsReducer,
+    orderDetails: orderDetailsReducer,
     dashboard: dashboardReducer,
+    review: reviewReducer,
   },
 });
 

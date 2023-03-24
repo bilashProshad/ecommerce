@@ -116,6 +116,68 @@
             border-radius: 50px;
             padding: 0.5rem 3.8rem;
           }
+
+          > .update-btns {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+
+            > button {
+              font-weight: 400;
+              border-radius: 50px;
+              padding: 0.5rem 3.8rem;
+
+              &:last-child {
+                background-color: $error;
+
+                &:hover {
+                  background-color: hsl(357, 75%, 42%);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    > .details > .my-review {
+      h3 {
+        color: $text;
+        font-size: 2.4rem;
+      }
+
+      .rating {
+        font-size: 1.6rem;
+        margin-top: 1.2rem;
+      }
+
+      p {
+        margin-top: 0.5rem;
+        color: #555;
+        font-weight: 400;
+        font-size: 1.4rem;
+      }
+
+      .buttons {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        > button {
+          width: 10rem;
+          font-weight: 600;
+          letter-spacing: 1px;
+          padding: 0.6rem;
+
+          &:last-child {
+            background-color: $error;
+
+            &:hover {
+              background-color: hsl(357, 75%, 42%);
+            }
+          }
         }
       }
     }
