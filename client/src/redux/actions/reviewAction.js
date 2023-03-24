@@ -1,5 +1,8 @@
 import axios from "axios";
 import {
+  deleteReviewFail,
+  deleteReviewRequest,
+  deleteReviewSuccess,
   newReviewFail,
   newReviewRequest,
   newReviewSuccess,
@@ -69,15 +72,15 @@ export const deleteReview =
   ({ productId, reviewId }) =>
   async (dispatch) => {
     try {
-      dispatch(updateReviewRequest());
+      dispatch(deleteReviewRequest());
 
       const { data } = await axios.delete(
         `${server}/api/v1/products/${productId}/review/${reviewId}`,
         config
       );
 
-      dispatch(updateReviewSuccess({ ...data, isUpdated: true }));
+      dispatch(deleteReviewSuccess({ ...data, isDeleted: true }));
     } catch (error) {
-      dispatch(updateReviewFail(error.response.data.message));
+      dispatch(deleteReviewFail(error.response.data.message));
     }
   };
