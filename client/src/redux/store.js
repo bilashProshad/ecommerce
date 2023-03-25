@@ -22,7 +22,11 @@ import {
   orderReducer,
 } from "./slices/orderSlice";
 import { forgotPasswordReducer } from "./slices/passwordSlice";
-import { usersReducer } from "./slices/userSllice";
+import {
+  userDetailsReducer,
+  userReducer,
+  usersReducer,
+} from "./slices/userSllice";
 import { dashboardReducer } from "./slices/dashboardSlice";
 import { reviewReducer } from "./slices/reviewSlice";
 
@@ -31,6 +35,8 @@ const store = configureStore({
     auth: authReducer,
     profile: profileReducer,
     users: usersReducer,
+    user: userReducer,
+    userDetails: userDetailsReducer,
     address: addressReducer,
     forgotPassword: forgotPasswordReducer,
     newCategory: newCategoryReducer,

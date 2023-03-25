@@ -4,7 +4,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 
 // Get all users (admin)
 exports.getAllUsers = catchAsyncError(async (req, res, next) => {
-  const users = await User.find();
+  const users = await User.find().select("name email role");
 
   res.status(200).json({
     success: true,
@@ -14,7 +14,7 @@ exports.getAllUsers = catchAsyncError(async (req, res, next) => {
 
 // Get single user (admin)
 exports.getSingleUser = catchAsyncError(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).select("name email role");
 
   if (!user) {
     return next(
@@ -54,6 +54,10 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
     return next(
       new ErrorHandler(400, `User does not exist with Id: ${req.params.id}`)
     );
+  }
+
+  if (req.params.id === req.user._id) {
+    return next(new ErrorHandler(400, `You can not delete your own id`));
   }
 
   await user.remove();

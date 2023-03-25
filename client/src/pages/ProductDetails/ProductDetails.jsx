@@ -31,6 +31,7 @@ const ProductDetails = () => {
   const [comment, setComment] = useState("");
   const [editReview, setEditReview] = useState(false);
 
+  const { isAuth } = useSelector((state) => state.auth);
   const { product, loading, error } = useSelector((state) => state.product);
   const {
     review,
@@ -89,8 +90,11 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(getProductDetails(id));
-    dispatch(myReview(id));
-  }, [dispatch, id]);
+
+    if (isAuth) {
+      dispatch(myReview(id));
+    }
+  }, [dispatch, id, isAuth]);
 
   useEffect(() => {
     if (editReview) {

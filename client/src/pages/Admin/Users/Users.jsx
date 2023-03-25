@@ -5,15 +5,30 @@ import Table from "../../../components/Table/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { toast } from "react-hot-toast";
-import { clearAllUsersError } from "../../../redux/slices/userSllice";
+import {
+  clearAllUsersError,
+  clearUserError,
+  resetUser,
+} from "../../../redux/slices/userSllice";
 import Loading from "../../../components/Loading/Loading";
-import { getAllUsers } from "../../../redux/actions/userAction";
+import { deleteUser, getAllUsers } from "../../../redux/actions/userAction";
 
 const Users = () => {
   const headers = ["User Id", "Name", "Email", "Role", "Actions"];
 
   const dispatch = useDispatch();
   const { loading, users, error } = useSelector((state) => state.users);
+  const {
+    // loading: deleteLoading,
+    error: deleteError,
+    isDeleted,
+  } = useSelector((state) => state.user);
+
+  const deleteUserHandler = (e, id) => {
+    e.preventDefault();
+
+    dispatch(deleteUser(id));
+  };
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -24,7 +39,18 @@ const Users = () => {
       toast.error(error);
       dispatch(clearAllUsersError());
     }
-  }, [error, dispatch]);
+
+    if (deleteError) {
+      toast.error(deleteError);
+      dispatch(clearUserError());
+    }
+
+    if (isDeleted) {
+      toast.success("User deleted successfully");
+      dispatch(resetUser());
+      dispatch(getAllUsers());
+    }
+  }, [error, dispatch, deleteError, isDeleted]);
 
   return (
     <SideLayout className={`all-products`}>
@@ -46,7 +72,10 @@ const Users = () => {
                     <Link to={`/admin/users/${user._id}`}>
                       <MdEdit />
                     </Link>
-                    <Link to={`/admin/users/${user._id}`}>
+                    <Link
+                      to={`/admin/users/${user._id}`}
+                      onClick={(e) => deleteUserHandler(e, user._id)}
+                    >
                       <MdDelete />
                     </Link>
                   </div>

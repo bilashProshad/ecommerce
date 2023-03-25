@@ -41,6 +41,7 @@ import { useSelector } from "react-redux";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import UpdateCategory from "./pages/Admin/UpdateCategory/UpdateCategory";
 import ProcessOrder from "./pages/Admin/ProcessOrder/ProcessOrder";
+import UpdateUser from "./pages/Admin/UpdateUser/UpdateUser";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -122,6 +123,7 @@ function App() {
           <Route path="/admin/orders" element={<AdminOrder />} />
           <Route path="/admin/orders/:id" element={<ProcessOrder />} />
           <Route path="/admin/users" element={<AllUsers />} />
+          <Route path="/admin/users/:id" element={<UpdateUser />} />
           <Route path="/admin/reviews" element={<AllReviews />} />
         </Route>
       </Routes>
