@@ -1,7 +1,7 @@
 import FormWrapper from "../../../components/FormWrapper/FormWrapper";
 import SideLayout from "../../../components/SideLayout/SideLayout";
 import "./CreateProduct.scss";
-import logo from "../../../assets/icon.svg";
+// import logo from "../../../assets/icon.svg";
 import Form from "../../../components/Form/Form";
 import InputContainer from "../../../components/InputContainer/InputContainer";
 import Input from "../../../components/Input/Input";
@@ -132,7 +132,7 @@ const CreateProduct = () => {
   return (
     <SideLayout className={`create-product`}>
       <FormWrapper className={`wrapper`}>
-        <img src={logo} alt="website logo" className="logo" />
+        {/* <img src={logo} alt="website logo" className="logo" /> */}
         <h2>Create Product</h2>
         <Form onSubmit={submitHandler}>
           <InputContainer>

@@ -1,8 +1,8 @@
 import "./Table.scss";
 
-const Table = ({ headers, children }) => {
+const Table = ({ headers, children, className }) => {
   return (
-    <div className="table-container">
+    <div className={`table-container ${className}`}>
       <table className="list">
         <thead>
           <tr className="header">

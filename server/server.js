@@ -17,6 +17,7 @@ const reviewRoutes = require("./routes/reviewRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const adminDashboardRoutes = require("./routes/adminDashboardRoute");
+const adminReviewRoutes = require("./routes/adminReviewRoutes");
 const cors = require("cors");
 const cloudinary = require("cloudinary");
 const bodyParser = require("body-parser");
@@ -62,6 +63,7 @@ app.use("/api/v1/admin/products", adminProductRoutes);
 app.use("/api/v1/admin/orders", adminOrderRoutes);
 app.use("/api/v1/admin/users", adminUserRoutes);
 app.use("/api/v1/admin/dashboard", adminDashboardRoutes);
+app.use("/api/v1/admin/products", adminReviewRoutes);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to home page</h1>");

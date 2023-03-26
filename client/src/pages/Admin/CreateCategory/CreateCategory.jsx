@@ -1,7 +1,7 @@
 import "./CreateCategory.scss";
 import FormWrapper from "../../../components/FormWrapper/FormWrapper";
 import SideLayout from "../../../components/SideLayout/SideLayout";
-import logo from "../../../assets/icon.svg";
+// import logo from "../../../assets/icon.svg";
 import Form from "../../../components/Form/Form";
 import InputContainer from "../../../components/InputContainer/InputContainer";
 import Input from "../../../components/Input/Input";
@@ -72,7 +72,7 @@ const CreateCategory = () => {
   return (
     <SideLayout className={`create-category`}>
       <FormWrapper className={`wrapper`}>
-        <img src={logo} alt="website logo" className="logo" />
+        {/* <img src={logo} alt="website logo" className="logo" /> */}
         <h2>Create Category</h2>
         <Form onSubmit={submitHandler}>
           <InputContainer>

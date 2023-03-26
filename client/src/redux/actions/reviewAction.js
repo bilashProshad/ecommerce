@@ -3,6 +3,12 @@ import {
   deleteReviewFail,
   deleteReviewRequest,
   deleteReviewSuccess,
+  deleteUserReviewFail,
+  deleteUserReviewRequest,
+  deleteUserReviewSuccess,
+  getAllReviewFail,
+  getAllReviewRequest,
+  getAllReviewSuccess,
   newReviewFail,
   newReviewRequest,
   newReviewSuccess,
@@ -82,5 +88,37 @@ export const deleteReview =
       dispatch(deleteReviewSuccess({ ...data, isDeleted: true }));
     } catch (error) {
       dispatch(deleteReviewFail(error.response.data.message));
+    }
+  };
+
+export const getAllReview = (id) => async (dispatch) => {
+  try {
+    dispatch(getAllReviewRequest());
+
+    const { data } = await axios.get(
+      `${server}/api/v1/admin/products/${id}/reviews`,
+      config
+    );
+
+    dispatch(getAllReviewSuccess(data));
+  } catch (error) {
+    dispatch(getAllReviewFail(error.response.data.message));
+  }
+};
+
+export const deleteUserReview =
+  ({ productId, reviewId }) =>
+  async (dispatch) => {
+    try {
+      dispatch(deleteUserReviewRequest());
+
+      const { data } = await axios.delete(
+        `${server}/api/v1/admin/products/${productId}/review/${reviewId}`,
+        config
+      );
+
+      dispatch(deleteUserReviewSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserReviewFail(error.response.data.message));
     }
   };

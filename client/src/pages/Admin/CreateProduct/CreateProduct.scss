@@ -1,10 +1,10 @@
 @import "../../../Colors";
 
 .create-product {
-  height: 80vh;
   display: flex;
-  align-items: center;
+  // align-items: center;
   justify-content: center;
+  background-color: $bg-card;
 
   > .wrapper {
     text-align: center;
@@ -44,5 +44,11 @@
     &.selected {
       color: #555;
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .create-product {
+    background-color: #fff;
   }
 }

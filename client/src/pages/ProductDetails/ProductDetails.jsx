@@ -119,20 +119,23 @@ const ProductDetails = () => {
       setComment("");
       toast.success("Review added successfully");
       dispatch(resetReviewSuccess());
+      dispatch(getProductDetails(id));
     }
 
     if (isUpdated) {
       toast.success("Review updated successfully");
       dispatch(resetReviewSuccess());
       setEditReview(false);
+      dispatch(getProductDetails(id));
     }
 
     if (isDeleted) {
       toast.success("Review deleted successfully");
       dispatch(resetReviewSuccess());
       setEditReview(false);
+      dispatch(getProductDetails(id));
     }
-  }, [error, dispatch, reviewError, isAdded, isUpdated, isDeleted]);
+  }, [error, dispatch, reviewError, isAdded, isUpdated, isDeleted, id]);
 
   return loading || reviewLoading ? (
     <Loading />

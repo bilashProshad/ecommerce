@@ -4,7 +4,7 @@ import FormWrapper from "../../../components/FormWrapper/FormWrapper";
 import Input from "../../../components/Input/Input";
 import InputContainer from "../../../components/InputContainer/InputContainer";
 import SideLayout from "../../../components/SideLayout/SideLayout";
-import logo from "../../../assets/icon.svg";
+// import logo from "../../../assets/icon.svg";
 import "./UpdateUser.scss";
 import { useInputValidate } from "../../../hooks/useInputValidate";
 import { useSelector, useDispatch } from "react-redux";
@@ -100,7 +100,7 @@ const UpdateUser = () => {
   ) : (
     <SideLayout className={`create-product`}>
       <FormWrapper className={`wrapper`}>
-        <img src={logo} alt="website logo" className="logo" />
+        {/* <img src={logo} alt="website logo" className="logo" /> */}
         <h2>Update User</h2>
         <Form onSubmit={submitHandler}>
           <InputContainer>

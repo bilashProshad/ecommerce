@@ -1,1 +1,15 @@
 @import "../../../Colors";
+
+.reviews {
+  margin-top: 3rem;
+
+  > .search-review {
+    margin-top: 2rem;
+    max-width: 30rem;
+  }
+
+  > .review-list {
+    padding-top: 2rem;
+    display: block;
+  }
+}

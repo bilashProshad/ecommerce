@@ -28,7 +28,11 @@ import {
   usersReducer,
 } from "./slices/userSllice";
 import { dashboardReducer } from "./slices/dashboardSlice";
-import { reviewReducer } from "./slices/reviewSlice";
+import {
+  reviewModifyReducer,
+  reviewReducer,
+  reviewsReducer,
+} from "./slices/reviewSlice";
 
 const store = configureStore({
   reducer: {
@@ -54,6 +58,8 @@ const store = configureStore({
     orderDetails: orderDetailsReducer,
     dashboard: dashboardReducer,
     review: reviewReducer,
+    reviews: reviewsReducer,
+    reviewModify: reviewModifyReducer,
   },
 });
 
