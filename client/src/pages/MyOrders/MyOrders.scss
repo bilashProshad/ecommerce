@@ -1,6 +1,7 @@
 @import "../../Colors";
 
 .my-orders {
+  min-height: 100svh;
   padding: 3rem 0;
   > h2 {
     font-size: 4rem;
@@ -111,24 +112,24 @@
   }
 }
 
-@media screen and (max-width: 510px) {
-  .my-orders > h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
+// @media screen and (max-width: 510px) {
+//   .my-orders > h2 {
+//     font-size: 2rem;
+//     margin-bottom: 2rem;
+//   }
 
-  .my-orders .info > h2 {
-    font-size: 2rem;
-  }
+//   .my-orders .info > h2 {
+//     font-size: 2rem;
+//   }
 
-  .my-orders > .bottom > h2 {
-    font-size: 2rem;
-  }
+//   .my-orders > .bottom > h2 {
+//     font-size: 2rem;
+//   }
 
-  .my-orders .info > .details > p {
-    font-size: 1.4rem;
-  }
-}
+//   .my-orders .info > .details > p {
+//     font-size: 1.4rem;
+//   }
+// }
 
 @media screen and (max-width: 410px) {
   .my-orders > h2 {

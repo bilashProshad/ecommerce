@@ -42,6 +42,7 @@ import MyOrders from "./pages/MyOrders/MyOrders";
 import UpdateCategory from "./pages/Admin/UpdateCategory/UpdateCategory";
 import ProcessOrder from "./pages/Admin/ProcessOrder/ProcessOrder";
 import UpdateUser from "./pages/Admin/UpdateUser/UpdateUser";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -128,6 +129,7 @@ function App() {
         </Route>
       </Routes>
 
+      <Footer />
       <Toaster position="bottom-center" />
     </BrowserRouter>
   );

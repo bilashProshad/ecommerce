@@ -48,3 +48,75 @@
     }
   }
 }
+
+@media screen and (max-width: 1270px) {
+  .update-order {
+    > .my-orders {
+      > h2 {
+        font-size: 3rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1086px) {
+  .update-order {
+    > .my-orders {
+      > h2 {
+        font-size: 2.4rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .update-order {
+    > .my-orders {
+      > h2 {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .update-order {
+    > .my-orders {
+      > h2 {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .update-order {
+    > .my-orders {
+      > h2 {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .update-order {
+    display: flex;
+    flex-direction: column-reverse;
+
+    > .process-order {
+      border: 0;
+      border-bottom: 1px solid rgba(85, 85, 85, 0.133);
+      padding-bottom: 2rem;
+
+      > form {
+        width: 100%;
+
+        > select {
+          width: 100%;
+          font-size: 1.8rem;
+        }
+      }
+    }
+  }
+}
