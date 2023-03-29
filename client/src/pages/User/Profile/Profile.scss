@@ -28,6 +28,12 @@
         border-radius: 50%;
         overflow: hidden;
         object-fit: cover;
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+          filter: brightness(0.8);
+        }
       }
 
       .user-info {

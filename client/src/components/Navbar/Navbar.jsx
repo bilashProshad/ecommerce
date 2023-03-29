@@ -9,7 +9,6 @@ import { IoMdCart } from "react-icons/io";
 import { IoLogOutSharp } from "react-icons/io5";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import LinkIcon from "../LinkIcon/LinkIcon";
-import profilePic from "../../assets/profile-4.jpg";
 import SearchInput from "../SearchInput/SearchInput";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/authAction";
@@ -68,11 +67,20 @@ const Navbar = () => {
                   <span className="vr-line" />
                   {/* <NavLink to="/profile"> */}
                   <span className="profile-pic">
-                    <img
-                      src={profilePic}
-                      alt="profile icon"
-                      onClick={() => setShowMenu(!showMenu)}
-                    />
+                    {user && user.avatar && user.avatar.public_id ? (
+                      <img
+                        src={user.avatar.url}
+                        alt="profile icon"
+                        onClick={() => setShowMenu(!showMenu)}
+                      />
+                    ) : (
+                      <img
+                        src="/images/profile.png"
+                        alt="profile icon"
+                        onClick={() => setShowMenu(!showMenu)}
+                      />
+                    )}
+
                     {showMenu && (
                       <>
                         {ReactDOM.createPortal(

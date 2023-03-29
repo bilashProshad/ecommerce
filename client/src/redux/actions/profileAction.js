@@ -12,6 +12,11 @@ import {
   updateProfileRequest,
   updateProfileSuccess,
 } from "../slices/profileSlice";
+import {
+  updatePhotoFail,
+  updatePhotoRequest,
+  updatePhotoSuccess,
+} from "../slices/userSllice";
 
 const server = process.env.REACT_APP_SERVER;
 const config = {
@@ -72,3 +77,24 @@ export const updateAddress =
       dispatch(updateAddressFail(error.response.data.message));
     }
   };
+
+export const updateProfilePicture = (userData) => async (dispatch) => {
+  const config = {
+    headers: { "Content-Type": "multipart/form-data" },
+    withCredentials: true,
+  };
+
+  try {
+    dispatch(updatePhotoRequest());
+
+    const { data } = await axios.put(
+      `${server}/api/v1/user/avatar`,
+      userData,
+      config
+    );
+
+    dispatch(updatePhotoSuccess(data));
+  } catch (error) {
+    dispatch(updatePhotoFail(error.response.data.message));
+  }
+};

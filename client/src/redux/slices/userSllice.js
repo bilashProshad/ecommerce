@@ -92,6 +92,19 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    // -----------------------------
+    updatePhotoRequest: (state, action) => {
+      state.loading = true;
+    },
+    updatePhotoSuccess: (state, action) => {
+      state.isUpdated = action.payload.success;
+      state.loading = false;
+    },
+    updatePhotoFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    // -------------------------------
     deleteUserRequest: (state) => {
       state.loading = true;
     },
@@ -124,6 +137,9 @@ export const {
   deleteUserSuccess,
   clearUserError,
   resetUser,
+  updatePhotoRequest,
+  updatePhotoSuccess,
+  updatePhotoFail,
 } = userSlice.actions;
 
 export const userReducer = userSlice.reducer;

@@ -3,16 +3,80 @@ import Button from "../../../components/Button/Button";
 import Container from "../../../components/Container/Container";
 import { FiEdit } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { updateProfilePicture } from "../../../redux/actions/profileAction";
+import { toast } from "react-hot-toast";
+import { clearUserError, resetUser } from "../../../redux/slices/userSllice";
+import { loadUser } from "../../../redux/actions/authAction";
 
 const Profile = () => {
   const { user } = useSelector((state) => state.auth);
+  const { isUpdated, error } = useSelector((state) => state.user);
+
+  const [image, setImage] = useState("");
+  const [imagePreview, setImagePreview] = useState("/images/profile.png");
+
+  const dispatch = useDispatch();
+
+  const setProfileImage = (e) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImagePreview(reader.result);
+        setImage(reader.result);
+      }
+    };
+
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  useEffect(() => {
+    if (user && user.avatar && user.avatar.public_id) {
+      setImagePreview(user.avatar.url);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (image) {
+      const myForm = new FormData();
+      myForm.set("image", image);
+
+      dispatch(updateProfilePicture(myForm));
+    }
+  }, [dispatch, image]);
+
+  useEffect(() => {
+    if (isUpdated) {
+      toast.success("Profile picture is updated successfully");
+      setImage("");
+      dispatch(resetUser());
+      dispatch(loadUser());
+    }
+
+    if (error) {
+      toast.error(error);
+      dispatch(clearUserError());
+    }
+  }, [dispatch, error, isUpdated]);
 
   return (
     <Container className={`profile`}>
       <div className="profile-wrapper">
         <div className="left">
-          <img src="/images/profile-pic.jpg" className="display-pic" alt="" />
+          <input
+            type="file"
+            name="avatar"
+            accept="image/*"
+            multiple
+            id="profile"
+            style={{ display: "none" }}
+            onChange={setProfileImage}
+          />
+          <label htmlFor="profile">
+            <img src={imagePreview} className="display-pic" alt="" />
+          </label>
 
           <div className="user-info">
             <h2>{user?.name}</h2>
