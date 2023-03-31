@@ -241,6 +241,11 @@ const ProductDetails = () => {
                 author={review.author.name}
                 comment={review.comment}
                 rating={review.rating}
+                avatar={
+                  review.author && review.author.avatar
+                    ? review.author.avatar.url
+                    : "/images/profile.png"
+                }
               />
             ))}
         </div>

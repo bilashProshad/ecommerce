@@ -30,7 +30,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getAllCategories());
 
-    dispatch(getAllProduct());
+    dispatch(getAllProduct("limit=8"));
   }, [dispatch]);
 
   useEffect(() => {

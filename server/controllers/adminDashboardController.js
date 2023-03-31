@@ -12,22 +12,21 @@ exports.getDashboardDetails = catchAsyncError(async (req, res, next) => {
   const inStockCount = await Product.countDocuments({ stock: { $gt: 0 } });
   const outOfStockCount = await Product.countDocuments({ stock: { $lte: 0 } });
 
-  const startOfMonth = moment().startOf("month");
-  const endOfMonth = moment().endOf("month");
+  const currentDate = new Date();
 
-  const totalSales = await Order.aggregate([
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+
+  const result = await Order.aggregate([
     {
       $match: {
-        createdAt: {
-          $gte: startOfMonth.toDate(),
-          $lte: endOfMonth.toDate(),
-        },
+        createdAt: { $gte: thirtyDaysAgo, $lt: currentDate },
       },
     },
     {
       $group: {
         _id: null,
-        totalSales: { $sum: "$totalPrice" },
+        totalPrice: { $sum: "$totalPrice" },
       },
     },
   ]);
@@ -70,7 +69,8 @@ exports.getDashboardDetails = catchAsyncError(async (req, res, next) => {
         inStockCount,
         outOfStockCount,
       },
-      monthlyTotalSold: totalSales[0].totalSales,
+      monthlyTotalSold: result[0].totalPrice,
+      // monthlyTotalSold: totalPrice,
       salesByDay,
     },
   });

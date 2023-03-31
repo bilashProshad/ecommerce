@@ -1,11 +1,11 @@
 import Rating from "../Rating/Rating";
 import "./Review.scss";
 
-const Review = ({ author, comment, rating }) => {
+const Review = ({ author, comment, rating, avatar }) => {
   return (
     <div className="review">
       <div className="dp">
-        <img src="/images/profile-4.jpg" alt="" />
+        <img src={avatar} alt={author} />
       </div>
       <div className="details">
         <h4>{author}</h4>
