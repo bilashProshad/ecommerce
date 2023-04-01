@@ -227,6 +227,10 @@ const Products = () => {
               onPageChange={setPage}
             />
           )}
+
+          {products.length < 1 && (
+            <p className="not-found-msg">No products found</p>
+          )}
         </div>
       </div>
     </Container>

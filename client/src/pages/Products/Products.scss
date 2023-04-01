@@ -166,6 +166,16 @@
         pointer-events: none;
         cursor: auto;
       }
+
+      .not-found-msg {
+        text-align: center;
+        font-size: 3rem;
+        color: #555;
+        height: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
     .right > .all-product {

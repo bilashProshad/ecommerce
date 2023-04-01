@@ -51,9 +51,12 @@ const Home = () => {
         <Loading />
       ) : (
         <>
-          <Banner />
-          <Categories data={categories} />
-          <FeaturedProducts products={products} />
+          {products.length > 0 && <Banner />}
+          {categories.length > 0 && <Categories data={categories} />}
+          {products.length > 0 && <FeaturedProducts products={products} />}
+          {products.length < 1 && (
+            <p className="not-found-msg">No products found</p>
+          )}
         </>
       )}
     </Container>

@@ -3,4 +3,14 @@
 .home {
   padding-bottom: 3rem;
   min-height: 100svh;
+
+  > .not-found-msg {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    font-size: 3rem;
+    color: #555;
+  }
 }

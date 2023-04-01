@@ -10,6 +10,7 @@ const Footer = () => {
 
   return (
     !location.pathname.includes("/admin") &&
+    !location.pathname.includes("/login") &&
     !location.pathname.includes("/order/shipping") &&
     !location.pathname.includes("/order/confirm") &&
     !location.pathname.includes("/order/payment") &&
