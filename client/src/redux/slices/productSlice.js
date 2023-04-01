@@ -69,6 +69,7 @@ const productsSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
+    totalProducts: 0,
     loading: false,
     success: false,
     error: null,
@@ -80,6 +81,7 @@ const productsSlice = createSlice({
     allProductSuccess: (state, action) => {
       state.loading = false;
       state.products = action.payload.products;
+      state.totalProducts = action.payload.totalProducts;
       state.success = action.payload.success;
     },
     allProductFailed: (state, action) => {

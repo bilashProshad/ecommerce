@@ -16,6 +16,7 @@ import { clearAllProductError } from "../../redux/slices/productSlice";
 import Loading from "../../components/Loading/Loading";
 import { getProductsByCategoryId } from "../../redux/actions/productAction";
 import { useParams } from "react-router-dom";
+import ResponsivePagination from "react-responsive-pagination";
 
 const ProductCategory = () => {
   const [rating, setRating] = useState(0);
@@ -25,11 +26,14 @@ const ProductCategory = () => {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(500000);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(16);
+  const [totalPages, setTotalPages] = useState(1);
 
   const { id: categoryId } = useParams();
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.products);
+  const { products, loading, error, totalProducts } = useSelector(
+    (state) => state.products
+  );
   const { loading: loadingCategories } = useSelector(
     (state) => state.categories
   );
@@ -69,7 +73,11 @@ const ProductCategory = () => {
       toast.error(error);
       dispatch(clearAllProductError());
     }
-  }, [error, dispatch]);
+
+    if (totalProducts > 0) {
+      setTotalPages(Math.ceil(totalProducts / limit));
+    }
+  }, [error, dispatch, totalProducts, limit]);
 
   return loading && loadingCategories ? (
     <Loading />
@@ -155,11 +163,28 @@ const ProductCategory = () => {
           </Card>
         </div>
 
-        <div className="right">
+        {/* <div className="right">
           {products.length > 0 &&
             products.map((product) => (
               <Product key={product._id} product={product} />
             ))}
+        </div> */}
+
+        <div className="right">
+          <div className="all-product">
+            {products.length > 0 &&
+              products.map((product) => (
+                <Product key={product._id} product={product} />
+              ))}
+          </div>
+
+          {totalPages > 1 && (
+            <ResponsivePagination
+              current={page}
+              total={totalPages}
+              onPageChange={setPage}
+            />
+          )}
         </div>
       </div>
     </Container>

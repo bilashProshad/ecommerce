@@ -18,6 +18,7 @@ import { getAllProduct } from "../../redux/actions/productAction";
 import { clearCategoriesError } from "../../redux/slices/categoriesSlice";
 import { getAllCategories } from "../../redux/actions/categoryAction";
 import { useSearchParams } from "react-router-dom";
+import ResponsivePagination from "react-responsive-pagination";
 
 const Products = () => {
   const [rating, setRating] = useState(0);
@@ -28,12 +29,15 @@ const Products = () => {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(500000);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(16);
+  const [totalPages, setTotalPages] = useState(1);
 
   const [searchParams] = useSearchParams();
 
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.products);
+  const { products, loading, error, totalProducts } = useSelector(
+    (state) => state.products
+  );
   const {
     categories: fetchedCategories,
     loading: loadingCategories,
@@ -100,8 +104,12 @@ const Products = () => {
       dispatch(clearCategoriesError());
     }
 
+    if (totalProducts > 0) {
+      setTotalPages(Math.ceil(totalProducts / limit));
+    }
+
     dispatch(getAllCategories());
-  }, [error, dispatch, errorCategories]);
+  }, [error, dispatch, errorCategories, totalProducts, limit]);
 
   return loading && loadingCategories ? (
     <Loading />
@@ -189,6 +197,7 @@ const Products = () => {
           <Card>
             <p>Categories</p>
             {fetchedCategories &&
+              fetchedCategories.length > 0 &&
               fetchedCategories.map((category) => (
                 <div key={category._id}>
                   <InputCheck
@@ -204,9 +213,20 @@ const Products = () => {
         </div>
 
         <div className="right">
-          {products.map((product) => (
-            <Product key={product._id} product={product} />
-          ))}
+          <div className="all-product">
+            {products.length > 0 &&
+              products.map((product) => (
+                <Product key={product._id} product={product} />
+              ))}
+          </div>
+
+          {totalPages > 1 && (
+            <ResponsivePagination
+              current={page}
+              total={totalPages}
+              onPageChange={setPage}
+            />
+          )}
         </div>
       </div>
     </Container>

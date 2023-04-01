@@ -62,6 +62,8 @@ exports.getAllProducts = catchAsyncError(async (req, res, next) => {
     .populate("category")
     .populate("user");
 
+  const totalProducts = await Product.countDocuments(query);
+
   if (!products) {
     return next(new ErrorHandler(404, "Product not found."));
   }
@@ -69,6 +71,7 @@ exports.getAllProducts = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     products,
+    totalProducts,
   });
 });
 
@@ -140,9 +143,11 @@ exports.getProductByCategoryId = catchAsyncError(async (req, res, next) => {
     .populate("category")
     .populate("user");
 
+  const totalProducts = await Product.countDocuments(query);
+
   if (!products) {
     return next(new ErrorHandler(404, "Product not found."));
   }
 
-  res.status(200).json({ success: true, products });
+  res.status(200).json({ success: true, products, totalProducts });
 });
