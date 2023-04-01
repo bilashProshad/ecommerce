@@ -56,6 +56,11 @@ exports.deleteUser = catchAsyncError(async (req, res, next) => {
     );
   }
 
+  if (user.avatar && user.avatar.public_id) {
+    const imageId = user.avatar.public_id;
+    await cloudinary.v2.uploader.destroy(imageId);
+  }
+
   if (req.params.id === req.user._id) {
     return next(new ErrorHandler(400, `You can not delete your own id`));
   }
