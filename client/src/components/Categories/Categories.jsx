@@ -1,10 +1,17 @@
+import { Link } from "react-router-dom";
 import Category from "../Category/Category";
 import "./Categories.scss";
+import { HiArrowRight } from "react-icons/hi";
 
 const Categories = ({ data }) => {
   return (
     <div className="categories">
-      <h2>Our Top Categories</h2>
+      <div className="categories-title">
+        <h2>Our Top Categories</h2>
+        {/* <Link to={`/products`}>
+          See All <HiArrowRight />
+        </Link> */}
+      </div>
 
       <div>
         {data.map((d) => (

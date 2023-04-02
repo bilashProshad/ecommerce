@@ -28,7 +28,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllCategories());
+    dispatch(getAllCategories("limit=16"));
 
     dispatch(getAllProduct("limit=8"));
   }, [dispatch]);

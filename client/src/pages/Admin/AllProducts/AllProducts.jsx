@@ -16,13 +16,17 @@ import {
   clearDeleteProductMessage,
 } from "../../../redux/slices/productSlice";
 import Loading from "../../../components/Loading/Loading";
+import ResponsivePagination from "react-responsive-pagination";
 
 const AllProducts = () => {
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(7);
+  const [totalPages, setTotalPages] = useState(1);
 
   const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.products);
+  const { products, loading, error, totalProducts } = useSelector(
+    (state) => state.products
+  );
   const {
     loading: deleteLoading,
     error: deleteError,
@@ -51,7 +55,11 @@ const AllProducts = () => {
       dispatch(clearDeleteProductMessage());
       window.location.reload();
     }
-  }, [error, dispatch, deleteError, deleteMessage]);
+
+    if (totalProducts > 0) {
+      setTotalPages(Math.ceil(totalProducts / limit));
+    }
+  }, [error, dispatch, deleteError, deleteMessage, totalProducts, limit]);
 
   const deleteProductHandler = (e, id) => {
     e.preventDefault();
@@ -91,6 +99,14 @@ const AllProducts = () => {
                 </tr>
               ))}
           </Table>
+
+          {totalPages > 1 && (
+            <ResponsivePagination
+              current={page}
+              total={totalPages}
+              onPageChange={setPage}
+            />
+          )}
         </>
       )}
     </SideLayout>

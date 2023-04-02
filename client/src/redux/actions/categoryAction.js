@@ -47,15 +47,20 @@ export const createCategory = (categoryData) => async (dispatch) => {
   }
 };
 
-export const getAllCategories = () => async (dispatch) => {
+export const getAllCategories = (query) => async (dispatch) => {
   try {
     dispatch(getCategoriesRequest());
 
-    const { data } = await axios.get(`${server}/api/v1/categories`, {
+    let url = `${server}/api/v1/admin/categories`;
+    if (query) {
+      url = `${server}/api/v1/admin/categories?${query}`;
+    }
+
+    const { data } = await axios.get(url, {
       withCredentials: true,
     });
 
-    dispatch(getCategoriesSuccess(data.categories));
+    dispatch(getCategoriesSuccess(data));
   } catch (error) {
     dispatch(getCategoriesFail(error.response.data.message));
   }

@@ -98,6 +98,7 @@ const productsSlice = createSlice({
     adminProductsSuccess: (state, action) => {
       state.loading = false;
       state.products = action.payload.products;
+      state.totalProducts = action.payload.totalProducts;
       state.success = action.payload.success;
     },
     adminProductsFailed: (state, action) => {

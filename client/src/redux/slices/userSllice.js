@@ -5,6 +5,7 @@ const usersSlice = createSlice({
   initialState: {
     loading: false,
     users: [],
+    totalUsers: 0,
     success: false,
     error: null,
   },
@@ -15,6 +16,7 @@ const usersSlice = createSlice({
     getAllUsersSuccess: (state, action) => {
       state.loading = false;
       state.users = action.payload.users;
+      state.totalUsers = action.payload.totalUsers;
       state.success = action.payload.success;
     },
     getAllUsersFail: (state, action) => {

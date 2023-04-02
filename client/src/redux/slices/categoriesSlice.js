@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   categories: [],
+  totalCategories: 0,
   loading: false,
   error: null,
   success: false,
@@ -16,7 +17,8 @@ export const categoriesSlice = createSlice({
     },
     getCategoriesSuccess: (state, action) => {
       state.loading = false;
-      state.categories = action.payload;
+      state.categories = action.payload.categories;
+      state.totalCategories = action.payload.totalCategories;
     },
     getCategoriesFail: (state, action) => {
       state.loading = false;

@@ -8,7 +8,7 @@ import {
   getAllCategories,
 } from "../../../redux/actions/categoryAction";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { clearCategoriesError } from "../../../redux/slices/categoriesSlice";
 import Loading from "../../../components/Loading/Loading";
@@ -16,9 +16,14 @@ import {
   clearDeleteCategoryError,
   clearDeleteCategoryMessage,
 } from "../../../redux/slices/categorySlice";
+import ResponsivePagination from "react-responsive-pagination";
 
 const AllCategory = () => {
-  const { categories, loading, error } = useSelector(
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const { categories, loading, error, totalCategories } = useSelector(
     (state) => state.categories
   );
 
@@ -31,8 +36,8 @@ const AllCategory = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllCategories());
-  }, [dispatch]);
+    dispatch(getAllCategories(`page=${page}&limit=${limit}`));
+  }, [dispatch, limit, page]);
 
   useEffect(() => {
     if (error) {
@@ -50,7 +55,11 @@ const AllCategory = () => {
       dispatch(clearDeleteCategoryMessage());
       window.location.reload();
     }
-  }, [error, dispatch, updateError, message]);
+
+    if (totalCategories > 0) {
+      setTotalPages(Math.ceil(totalCategories / limit));
+    }
+  }, [error, dispatch, updateError, message, totalCategories, limit]);
 
   const deleteCategoryHandler = (e, id) => {
     e.preventDefault();
@@ -92,6 +101,14 @@ const AllCategory = () => {
               </tr>
             ))}
           </Table>
+
+          {totalPages > 1 && (
+            <ResponsivePagination
+              current={page}
+              total={totalPages}
+              onPageChange={setPage}
+            />
+          )}
         </>
       )}
     </SideLayout>

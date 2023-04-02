@@ -4,8 +4,27 @@
   margin-top: 3.2rem;
   // overflow-x: hidden;
 
-  > h2 {
-    color: $text;
+  .categories-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > h2 {
+      color: $text;
+    }
+
+    > a {
+      font-size: 1.6rem;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+
+      &:hover {
+        color: $primary;
+      }
+    }
   }
 
   > div {
@@ -50,7 +69,7 @@
 
 @media screen and (max-width: 600px) {
   .categories {
-    > h2 {
+    .categories-title > h2 {
       font-size: 2.2rem;
     }
 
@@ -68,7 +87,7 @@
 }
 
 @media screen and (max-width: 350px) {
-  .categories > h2 {
+  .categories > .categories-title > h2 {
     font-size: 2rem;
   }
 }

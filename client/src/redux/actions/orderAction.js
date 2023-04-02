@@ -73,11 +73,16 @@ export const getSingleOrder = (id) => async (dispatch) => {
 
 // ==================================================================
 // Admin
-export const getAllOrders = () => async (dispatch) => {
+export const getAllOrders = (query) => async (dispatch) => {
   try {
     dispatch(getAllOrdersRequest());
 
-    const { data } = await axios.get(`${server}/api/v1/admin/orders`, {
+    let url = `${server}/api/v1/admin/orders`;
+    if (query) {
+      url = `${server}/api/v1/admin/orders?${query}`;
+    }
+
+    const { data } = await axios.get(url, {
       withCredentials: true,
     });
 

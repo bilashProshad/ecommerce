@@ -62,9 +62,12 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler(404, "Product not found."));
   }
 
+  const totalProducts = await Product.countDocuments();
+
   res.status(200).json({
     success: true,
     products,
+    totalProducts,
   });
 });
 

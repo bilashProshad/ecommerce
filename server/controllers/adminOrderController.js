@@ -3,11 +3,19 @@ const Order = require("../models/Order");
 const Product = require("../models/Product");
 
 exports.getAllOrders = catchAsyncError(async (req, res, next) => {
-  const orders = await Order.find();
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+  const orders = await Order.find()
+    .skip((page - 1) * limit)
+    .limit(limit);
+
+  const totalOrders = await Order.countDocuments();
 
   res.status(200).json({
     success: true,
     orders,
+    totalOrders,
   });
 });
 

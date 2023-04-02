@@ -20,11 +20,14 @@ const config = {
   withCredentials: true,
 };
 
-export const getAllUsers = () => async (dispatch) => {
+export const getAllUsers = (query) => async (dispatch) => {
   try {
     dispatch(getAllUsersRequest());
 
-    const { data } = await axios.get(`${server}/api/v1/admin/users`, config);
+    const { data } = await axios.get(
+      `${server}/api/v1/admin/users?${query}`,
+      config
+    );
 
     dispatch(getAllUsersSuccess(data));
   } catch (error) {

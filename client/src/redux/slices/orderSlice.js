@@ -84,6 +84,7 @@ const orders = createSlice({
   initialState: {
     loading: false,
     orders: [],
+    totalOrders: 0,
     error: null,
   },
   reducers: {
@@ -93,6 +94,7 @@ const orders = createSlice({
     getAllOrdersSuccess: (state, action) => {
       state.loading = false;
       state.orders = action.payload.orders;
+      state.totalOrders = action.payload.totalOrders;
     },
     getAllOrdersFail: (state, action) => {
       state.error = action.payload;

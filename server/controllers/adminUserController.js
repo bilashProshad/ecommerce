@@ -4,11 +4,20 @@ const ErrorHandler = require("../utils/ErrorHandler");
 
 // Get all users (admin)
 exports.getAllUsers = catchAsyncError(async (req, res, next) => {
-  const users = await User.find().select("name email role");
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+
+  const users = await User.find()
+    .select("name email role")
+    .skip((page - 1) * limit)
+    .limit(limit);
+
+  const totalUsers = await User.countDocuments();
 
   res.status(200).json({
     success: true,
     users,
+    totalUsers,
   });
 });
 
