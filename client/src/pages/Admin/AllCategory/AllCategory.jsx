@@ -20,7 +20,7 @@ import ResponsivePagination from "react-responsive-pagination";
 
 const AllCategory = () => {
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
 
   const { categories, loading, error, totalCategories } = useSelector(

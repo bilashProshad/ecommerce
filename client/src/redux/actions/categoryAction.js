@@ -51,9 +51,9 @@ export const getAllCategories = (query) => async (dispatch) => {
   try {
     dispatch(getCategoriesRequest());
 
-    let url = `${server}/api/v1/admin/categories`;
+    let url = `${server}/api/v1/categories`;
     if (query) {
-      url = `${server}/api/v1/admin/categories?${query}`;
+      url = `${server}/api/v1/categories?${query}`;
     }
 
     const { data } = await axios.get(url, {

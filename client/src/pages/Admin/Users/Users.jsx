@@ -18,7 +18,7 @@ const Users = () => {
   const headers = ["User Id", "Name", "Email", "Role", "Actions"];
 
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(7);
+  const [limit] = useState(7);
   const [totalPages, setTotalPages] = useState(1);
 
   const dispatch = useDispatch();

@@ -29,7 +29,7 @@ const Banner = () => {
         className="mySwiper"
       >
         <SwiperSlide>
-          <Link to="/">
+          <Link to="/category/63f6348bbd7ac9c66172f73d">
             <img
               src="https://images.pexels.com/photos/14930425/pexels-photo-14930425.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt=""
@@ -37,7 +37,7 @@ const Banner = () => {
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link to="/">
+          <Link to="/category/63f6316ebd7ac9c66172f738">
             <img
               src="https://images.pexels.com/photos/2325446/pexels-photo-2325446.jpeg?auto=compress&cs=tinysrgb&w=1600"
               alt=""
@@ -45,7 +45,7 @@ const Banner = () => {
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link to="/">
+          <Link to="/category/63f7cb68c3cbb0526ab547ee">
             <img
               src="https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt=""
@@ -53,7 +53,7 @@ const Banner = () => {
           </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <Link to="/">
+          <Link to="/category/63f7cc0cc3cbb0526ab547f5">
             <img
               src="https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt=""

@@ -12,24 +12,30 @@ exports.getDashboardDetails = catchAsyncError(async (req, res, next) => {
   const inStockCount = await Product.countDocuments({ stock: { $gt: 0 } });
   const outOfStockCount = await Product.countDocuments({ stock: { $lte: 0 } });
 
-  const currentDate = new Date();
+  let monthlyTotalSold = 0;
 
-  const thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+  if (ordersCount > 0) {
+    const currentDate = new Date();
 
-  const result = await Order.aggregate([
-    {
-      $match: {
-        createdAt: { $gte: thirtyDaysAgo, $lt: currentDate },
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+
+    const result = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: thirtyDaysAgo, $lt: currentDate },
+        },
       },
-    },
-    {
-      $group: {
-        _id: null,
-        totalPrice: { $sum: "$totalPrice" },
+      {
+        $group: {
+          _id: null,
+          totalPrice: { $sum: "$totalPrice" },
+        },
       },
-    },
-  ]);
+    ]);
+
+    monthlyTotalSold = result[0].totalPrice;
+  }
 
   // Get current date
   const today = moment();
@@ -69,7 +75,7 @@ exports.getDashboardDetails = catchAsyncError(async (req, res, next) => {
         inStockCount,
         outOfStockCount,
       },
-      monthlyTotalSold: result[0].totalPrice,
+      monthlyTotalSold,
       // monthlyTotalSold: totalPrice,
       salesByDay,
     },

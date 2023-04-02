@@ -14,7 +14,7 @@ const Orders = () => {
   const headers = ["Order Id", "Status", "Quantity", "Amount", "Actions"];
 
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(7);
+  const [limit] = useState(7);
   const [totalPages, setTotalPages] = useState(1);
 
   const dispatch = useDispatch();

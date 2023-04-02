@@ -29,7 +29,7 @@ const Products = () => {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(500000);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(16);
+  const [limit] = useState(16);
   const [totalPages, setTotalPages] = useState(1);
 
   const [searchParams] = useSearchParams();
