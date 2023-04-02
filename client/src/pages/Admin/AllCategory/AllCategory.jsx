@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { MdEdit, MdDelete } from "react-icons/md";
 import {
   deleteCategory,
-  getAllCategories,
+  getAllAdminCategories,
 } from "../../../redux/actions/categoryAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -36,7 +36,7 @@ const AllCategory = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllCategories(`page=${page}&limit=${limit}`));
+    dispatch(getAllAdminCategories(`page=${page}&limit=${limit}`));
   }, [dispatch, limit, page]);
 
   useEffect(() => {

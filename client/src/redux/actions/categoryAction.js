@@ -66,6 +66,25 @@ export const getAllCategories = (query) => async (dispatch) => {
   }
 };
 
+export const getAllAdminCategories = (query) => async (dispatch) => {
+  try {
+    dispatch(getCategoriesRequest());
+
+    let url = `${server}/api/v1/admin/categories`;
+    if (query) {
+      url = `${server}/api/v1/admin/categories?${query}`;
+    }
+
+    const { data } = await axios.get(url, {
+      withCredentials: true,
+    });
+
+    dispatch(getCategoriesSuccess(data));
+  } catch (error) {
+    dispatch(getCategoriesFail(error.response.data.message));
+  }
+};
+
 export const getSingleCategory = (id) => async (dispatch) => {
   try {
     dispatch(categoryDetailsRequest());

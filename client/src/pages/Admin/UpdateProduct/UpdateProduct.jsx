@@ -157,7 +157,7 @@ const UpdateProduct = () => {
     <SideLayout className={`create-product`}>
       <FormWrapper className={`wrapper`}>
         <img src={logo} alt="website logo" className="logo" />
-        <h2>Create Product</h2>
+        <h2>Update Product</h2>
         <Form onSubmit={submitHandler}>
           <InputContainer>
             <Input
@@ -249,7 +249,7 @@ const UpdateProduct = () => {
               ))}
           </div>
 
-          <Button type="submit">Create</Button>
+          <Button type="submit">Update</Button>
         </Form>
       </FormWrapper>
     </SideLayout>

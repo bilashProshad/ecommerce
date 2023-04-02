@@ -104,9 +104,6 @@ const CreateProduct = () => {
     }
 
     if (success) {
-      toast.success("Product created successfully");
-      dispatch(createProductReset());
-
       setName("");
       setPrice(0);
       setStock(0);
@@ -114,6 +111,9 @@ const CreateProduct = () => {
       setDescription("");
       setImages([]);
       setImagesPreview([]);
+
+      toast.success("Product created successfully");
+      dispatch(createProductReset());
 
       navigate(`/admin/products`);
     }
