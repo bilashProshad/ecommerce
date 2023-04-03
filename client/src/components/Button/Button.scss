@@ -11,8 +11,26 @@
   border-radius: 5px;
   padding: 0.8rem;
   transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     background-color: hsl(28, 80%, 42%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  > svg {
+    font-size: 2rem;
+    animation: rotate 0.8s infinite;
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(360deg);
+    }
   }
 }

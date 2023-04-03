@@ -1,9 +1,22 @@
 import "./Button.scss";
+import { BiLoaderAlt } from "react-icons/bi";
 
-const Button = ({ children, className, type = "button", ...rest }) => {
+const Button = ({
+  children,
+  className,
+  loading = false,
+  disabled,
+  type = "button",
+  ...rest
+}) => {
   return (
-    <button className={`button ${className}`} type={type} {...rest}>
-      {children}
+    <button
+      className={`button ${className}`}
+      type={type}
+      {...rest}
+      disabled={disabled}
+    >
+      {loading ? <BiLoaderAlt /> : children}
     </button>
   );
 };
