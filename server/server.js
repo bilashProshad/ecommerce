@@ -32,9 +32,15 @@ process.on("uncaughtException", (err) => {
 
 connectDatabase();
 
+// app.use(
+//   cors({
+//     origin: process.env.FRONT_END_URL,
+//     credentials: true,
+//   })
+// );
 app.use(
   cors({
-    origin: process.env.FRONT_END_URL,
+    origin: [process.env.FRONT_END_URL],
     credentials: true,
   })
 );
