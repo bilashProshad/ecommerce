@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Category from "../Category/Category";
 import "./Categories.scss";
-import { HiArrowRight } from "react-icons/hi";
+// import { HiArrowRight } from "react-icons/hi";
 
 const Categories = ({ data }) => {
   return (
