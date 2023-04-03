@@ -8,6 +8,7 @@ module.exports.sendToken = async (user, statusCode, res) => {
     expires: new Date(
       Date.now() + 1000 * 60 * 60 * 24 * process.env.COOKIE_EXPIRE
     ),
+    secure: process.env.NODE_ENV === "production",
     httpOnly: true,
   };
   res.status(statusCode).cookie("ecom_bp_token", token, options).json({
