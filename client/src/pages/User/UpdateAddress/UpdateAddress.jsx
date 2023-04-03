@@ -158,7 +158,9 @@ const UpdateAddress = () => {
             )}
           </InputContainer>
 
-          <Button type="submit">Update Address</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Update Address
+          </Button>
         </Form>
       </FormWrapper>
     </Container>

@@ -103,7 +103,9 @@ const CreateCategory = () => {
             <img src={imagePreview} alt="category img" className="image" />
           )}
 
-          <Button type="submit">Create</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Create
+          </Button>
         </Form>
       </FormWrapper>
     </SideLayout>

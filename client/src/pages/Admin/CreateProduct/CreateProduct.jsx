@@ -224,7 +224,9 @@ const CreateProduct = () => {
               ))}
           </div>
 
-          <Button type="submit">Create</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Create
+          </Button>
         </Form>
       </FormWrapper>
     </SideLayout>

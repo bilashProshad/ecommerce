@@ -100,7 +100,9 @@ const ResetPassword = () => {
             )}
           </InputContainer>
 
-          <Button type="submit">Reset Password</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Reset Password
+          </Button>
         </Form>
       </FormWrapper>
     </Container>

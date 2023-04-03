@@ -47,9 +47,14 @@
 
       .update-btns {
         text-align: center;
+        // width: 100%;
 
-        > a > button {
-          font-weight: 600;
+        > a {
+          width: 100%;
+          > button {
+            font-weight: 600;
+            display: inline-block;
+          }
         }
       }
     }

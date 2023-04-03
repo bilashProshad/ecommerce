@@ -10,7 +10,6 @@ import {
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { MdCreditCard, MdEvent, MdVpnKey } from "react-icons/md";
-import Button from "../../../components/Button/Button";
 import { createOrder } from "../../../redux/actions/orderAction";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";

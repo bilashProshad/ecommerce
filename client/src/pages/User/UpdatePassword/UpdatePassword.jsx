@@ -131,7 +131,9 @@ const UpdatePassword = () => {
             )}
           </InputContainer>
 
-          <Button type="submit">Change Password</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Change Password
+          </Button>
         </Form>
       </FormWrapper>
     </Container>

@@ -70,7 +70,9 @@ const ForgotPassword = () => {
               <span className="error-text">*** Please enter your email</span>
             )}
           </InputContainer>
-          <Button type="submit">Send</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Send
+          </Button>
         </Form>
       </FormWrapper>
     </Container>

@@ -95,7 +95,9 @@ const UpdateProfile = () => {
             )}
           </InputContainer>
 
-          <Button type="submit">Update Profile</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Update Profile
+          </Button>
         </Form>
       </FormWrapper>
     </Container>

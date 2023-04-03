@@ -139,7 +139,13 @@ const UpdateCategory = () => {
                 <img src={imagePreview} alt="category img" className="image" />
               )}
 
-              <Button type="submit">Update</Button>
+              <Button
+                loading={updateLoading}
+                disabled={updateLoading}
+                type="submit"
+              >
+                Update
+              </Button>
             </Form>
           </FormWrapper>
         </SideLayout>

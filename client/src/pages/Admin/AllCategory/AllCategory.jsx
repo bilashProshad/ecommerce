@@ -28,7 +28,7 @@ const AllCategory = () => {
   );
 
   const {
-    loading: updateLoading,
+    // loading: deleteLoading,
     error: updateError,
     message,
   } = useSelector((state) => state.category);

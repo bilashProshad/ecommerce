@@ -23,7 +23,7 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
   const user = await User.findByIdAndUpdate(req.user.id, req.body, {
     new: true,
     runValidators: true,
-  });
+  }).populate("address");
 
   res.status(200).json({
     success: true,

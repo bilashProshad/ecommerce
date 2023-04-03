@@ -87,7 +87,9 @@ const Reviews = () => {
             <span className="error-text">*** Please enter product id</span>
           )}
         </InputContainer>
-        <Button type="submit">Search</Button>
+        <Button disabled={loading} loading={loading} type="submit">
+          Search
+        </Button>
       </Form>
 
       {reviews.length > 0 && (

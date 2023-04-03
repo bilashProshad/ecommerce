@@ -154,7 +154,13 @@ const UpdateOrder = () => {
                     <option value="Delivered">Delivered</option>
                   )}
                 </select>
-                <Button type="submit">Process</Button>
+                <Button
+                  loading={updateLoading}
+                  disabled={updateLoading}
+                  type="submit"
+                >
+                  Process
+                </Button>
               </form>
             </div>
           )}

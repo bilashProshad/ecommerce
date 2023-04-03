@@ -28,7 +28,7 @@ const AllProducts = () => {
     (state) => state.products
   );
   const {
-    loading: deleteLoading,
+    // loading: deleteLoading,
     error: deleteError,
     message: deleteMessage,
   } = useSelector((state) => state.productModify);

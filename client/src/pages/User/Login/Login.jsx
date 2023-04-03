@@ -170,7 +170,9 @@ const Login = () => {
 
           <div>
             <Link to={"/forgot"}>Forgot your password?</Link>
-            <Button type="submit">Login</Button>
+            <Button type="submit" loading={loading} disabled={loading}>
+              Login
+            </Button>
           </div>
         </form>
         <form
@@ -233,7 +235,9 @@ const Login = () => {
             )}
           </div>
 
-          <Button type="submit">Register</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Register
+          </Button>
         </form>
       </div>
     </div>

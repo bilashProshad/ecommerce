@@ -173,7 +173,9 @@ const ShippingAddress = () => {
             )}
           </InputContainer>
 
-          <Button type="submit">Continue</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Continue
+          </Button>
         </Form>
       </FormWrapper>
     </Container>

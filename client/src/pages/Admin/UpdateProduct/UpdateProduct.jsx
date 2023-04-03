@@ -247,9 +247,16 @@ const UpdateProduct = () => {
               oldImages.map((image, index) => (
                 <img key={index} src={image.url} alt="product review" />
               ))}
+
+            {imagesPreview.length > 0 &&
+              imagesPreview.map((image, index) => (
+                <img key={index} src={image} alt="product review" />
+              ))}
           </div>
 
-          <Button type="submit">Update</Button>
+          <Button loading={loading} disabled={loading} type="submit">
+            Update
+          </Button>
         </Form>
       </FormWrapper>
     </SideLayout>
