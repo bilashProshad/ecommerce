@@ -12,7 +12,7 @@ module.exports.sendToken = async (user, statusCode, res) => {
       Date.now() + 1000 * 60 * 60 * 24 * process.env.COOKIE_EXPIRE
     ),
   };
-  res.status(statusCode).cookie("token", token, options).json({
+  res.status(statusCode).cookie("ecom_bp_token", token, options).json({
     success: true,
     user,
   });
