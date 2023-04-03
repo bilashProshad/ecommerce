@@ -60,13 +60,12 @@ const loginUser = catchAsyncError(async (req, res, next) => {
 });
 
 const logout = catchAsyncError(async (req, res, next) => {
-  // res.cookie("ecom_bp_token", null, {
-  //   expires: new Date(Date.now()),
-  //   httpOnly: true,
-  //   secure: true,
-  //   sameSite: "none",
-  // });
-  res.clearCookie("ecom_bp_token");
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
 
   res.status(200).json({
     success: true,
