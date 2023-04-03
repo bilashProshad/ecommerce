@@ -63,6 +63,8 @@ const logout = catchAsyncError(async (req, res, next) => {
   res.cookie("ecom_bp_token", null, {
     expires: new Date(Date.now()),
     httpOnly: true,
+    secure: true,
+    sameSite: "none",
   });
 
   res.status(200).json({

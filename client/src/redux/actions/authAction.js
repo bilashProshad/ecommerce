@@ -23,6 +23,8 @@ import {
 
 const server = process.env.REACT_APP_SERVER;
 
+axios.defaults.withCredentials = true;
+
 const config = {
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
