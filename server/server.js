@@ -32,18 +32,11 @@ process.on("uncaughtException", (err) => {
 
 connectDatabase();
 
-// app.use(
-//   cors({
-//     origin: process.env.FRONT_END_URL,
-//     credentials: true,
-//   })
-// );
-// app.use(
-//   cors({
-//     origin: [process.env.FRONT_END_URL],
-//     credentials: true,
-//   })
-// );
+const corsOption = {
+  credentials: true,
+  origin: [process.env.FRONT_END_URL],
+};
+app.use(cors(corsOption));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
