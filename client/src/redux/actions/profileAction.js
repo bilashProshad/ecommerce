@@ -18,7 +18,7 @@ import {
   updatePhotoSuccess,
 } from "../slices/userSllice";
 
-const server = process.env.REACT_APP_SERVER;
+// const server = process.env.REACT_APP_SERVER;
 const config = {
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
@@ -31,7 +31,7 @@ export const updatePassword =
       dispatch(updatePasswordRequest());
 
       const { data } = await axios.put(
-        `${server}/api/v1/user/password`,
+        `/api/v1/user/password`,
         { oldPassword, newPassword, confirmPassword },
         config
       );
@@ -49,7 +49,7 @@ export const updateProfile =
       dispatch(updateProfileRequest());
 
       const { data } = await axios.put(
-        `${server}/api/v1/user/me`,
+        `/api/v1/user/me`,
         { name, email },
         config
       );
@@ -67,7 +67,7 @@ export const updateAddress =
       dispatch(updateAddressRequest());
 
       const { data } = await axios.put(
-        `${server}/api/v1/address`,
+        `/api/v1/address`,
         { contactNo, post, district, division, country },
         config
       );
@@ -87,11 +87,7 @@ export const updateProfilePicture = (userData) => async (dispatch) => {
   try {
     dispatch(updatePhotoRequest());
 
-    const { data } = await axios.put(
-      `${server}/api/v1/user/avatar`,
-      userData,
-      config
-    );
+    const { data } = await axios.put(`/api/v1/user/avatar`, userData, config);
 
     dispatch(updatePhotoSuccess(data));
   } catch (error) {

@@ -20,7 +20,7 @@ import {
   updateOrderSuccess,
 } from "../slices/orderSlice";
 
-const server = process.env.REACT_APP_SERVER;
+// const server = process.env.REACT_APP_SERVER;
 
 export const createOrder = (order) => async (dispatch) => {
   try {
@@ -31,11 +31,7 @@ export const createOrder = (order) => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.post(
-      `${server}/api/v1/orders/new`,
-      order,
-      config
-    );
+    const { data } = await axios.post(`/api/v1/orders/new`, order, config);
 
     dispatch(createOrderSuccess(data));
   } catch (error) {
@@ -47,7 +43,7 @@ export const myOrders = () => async (dispatch) => {
   try {
     dispatch(myOrdersRequest());
 
-    const { data } = await axios.get(`${server}/api/v1/orders/me`, {
+    const { data } = await axios.get(`/api/v1/orders/me`, {
       withCredentials: true,
     });
 
@@ -61,7 +57,7 @@ export const getSingleOrder = (id) => async (dispatch) => {
   try {
     dispatch(getOrderDetailsRequest());
 
-    const { data } = await axios.get(`${server}/api/v1/orders/${id}`, {
+    const { data } = await axios.get(`/api/v1/orders/${id}`, {
       withCredentials: true,
     });
 
@@ -77,9 +73,9 @@ export const getAllOrders = (query) => async (dispatch) => {
   try {
     dispatch(getAllOrdersRequest());
 
-    let url = `${server}/api/v1/admin/orders`;
+    let url = `/api/v1/admin/orders`;
     if (query) {
-      url = `${server}/api/v1/admin/orders?${query}`;
+      url = `/api/v1/admin/orders?${query}`;
     }
 
     const { data } = await axios.get(url, {
@@ -96,7 +92,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch(getOrderDetailsRequest());
 
-    const { data } = await axios.get(`${server}/api/v1/admin/orders/${id}`, {
+    const { data } = await axios.get(`/api/v1/admin/orders/${id}`, {
       withCredentials: true,
     });
 
@@ -116,7 +112,7 @@ export const updateOrder = (id, order) => async (dispatch) => {
     dispatch(updateOrderRequest());
 
     const { data } = await axios.put(
-      `${server}/api/v1/admin/orders/${id}`,
+      `/api/v1/admin/orders/${id}`,
       order,
       config
     );
@@ -131,7 +127,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch(deleteOrderRequest());
 
-    const { data } = await axios.delete(`${server}/api/v1/admin/orders/${id}`, {
+    const { data } = await axios.delete(`/api/v1/admin/orders/${id}`, {
       withCredentials: true,
     });
 

@@ -14,7 +14,7 @@ import {
   updateUserSuccess,
 } from "../slices/userSllice";
 
-const server = process.env.REACT_APP_SERVER;
+// const server = process.env.REACT_APP_SERVER;
 const config = {
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
@@ -24,10 +24,7 @@ export const getAllUsers = (query) => async (dispatch) => {
   try {
     dispatch(getAllUsersRequest());
 
-    const { data } = await axios.get(
-      `${server}/api/v1/admin/users?${query}`,
-      config
-    );
+    const { data } = await axios.get(`/api/v1/admin/users?${query}`, config);
 
     dispatch(getAllUsersSuccess(data));
   } catch (error) {
@@ -39,10 +36,7 @@ export const getSingleUser = (id) => async (dispatch) => {
   try {
     dispatch(getUserDetailsRequest());
 
-    const { data } = await axios.get(
-      `${server}/api/v1/admin/users/${id}`,
-      config
-    );
+    const { data } = await axios.get(`/api/v1/admin/users/${id}`, config);
 
     dispatch(getUserDetailsSuccess(data));
   } catch (error) {
@@ -57,7 +51,7 @@ export const updateUser =
       dispatch(updateUserRequest());
 
       const { data } = await axios.put(
-        `${server}/api/v1/admin/users/${id}`,
+        `/api/v1/admin/users/${id}`,
         { name, email, role },
         config
       );
@@ -72,10 +66,7 @@ export const deleteUser = (id) => async (dispatch) => {
   try {
     dispatch(deleteUserRequest());
 
-    const { data } = await axios.delete(
-      `${server}/api/v1/admin/users/${id}`,
-      config
-    );
+    const { data } = await axios.delete(`/api/v1/admin/users/${id}`, config);
 
     dispatch(deleteUserSuccess(data));
   } catch (error) {

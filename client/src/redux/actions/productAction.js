@@ -20,7 +20,7 @@ import {
 } from "../slices/productSlice";
 import { updatePasswordFailed } from "../slices/profileSlice";
 
-const server = process.env.REACT_APP_SERVER;
+// const server = process.env.REACT_APP_SERVER;
 
 export const createProduct = (productData) => async (dispatch) => {
   try {
@@ -32,7 +32,7 @@ export const createProduct = (productData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${server}/api/v1/admin/products`,
+      `/api/v1/admin/products`,
       productData,
       config
     );
@@ -52,10 +52,10 @@ export const getAllProduct = (query) => async (dispatch) => {
       withCredentials: true,
     };
 
-    let url = `${server}/api/v1/products`;
+    let url = `/api/v1/products`;
 
     if (query) {
-      url = `${server}/api/v1/products?${query}`;
+      url = `/api/v1/products?${query}`;
     }
 
     const { data } = await axios.get(url, config);
@@ -75,7 +75,7 @@ export const getProductDetails = (id) => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.get(`${server}/api/v1/products/${id}`, config);
+    const { data } = await axios.get(`/api/v1/products/${id}`, config);
 
     dispatch(productSuccess(data));
   } catch (error) {
@@ -93,7 +93,7 @@ export const getProductsByCategoryId = (query) => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      `${server}/api/v1/products/category/${query}`,
+      `/api/v1/products/category/${query}`,
       config
     );
 
@@ -112,10 +112,10 @@ export const getAdminProducts = (query) => async (dispatch) => {
       withCredentials: true,
     };
 
-    let url = `${server}/api/v1/admin/products`;
+    let url = `/api/v1/admin/products`;
 
     if (query) {
-      url = `${server}/api/v1/admin/products?${query}`;
+      url = `/api/v1/admin/products?${query}`;
     }
 
     const { data } = await axios.get(url, config);
@@ -136,7 +136,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${server}/api/v1/admin/products/${id}`,
+      `/api/v1/admin/products/${id}`,
       productData,
       config
     );
@@ -156,10 +156,7 @@ export const deleteProduct = (id) => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.delete(
-      `${server}/api/v1/admin/products/${id}`,
-      config
-    );
+    const { data } = await axios.delete(`/api/v1/admin/products/${id}`, config);
 
     dispatch(deleteProductSuccess(data));
   } catch (error) {

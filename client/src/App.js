@@ -52,8 +52,8 @@ function App() {
   );
 
   async function getStripeApiKey() {
-    const server = process.env.REACT_APP_SERVER;
-    const { data } = await axios.get(`${server}/api/v1/payment/stripeapikey`, {
+    // const server = process.env.REACT_APP_SERVER;
+    const { data } = await axios.get(`/api/v1/payment/stripeapikey`, {
       withCredentials: true,
     });
 

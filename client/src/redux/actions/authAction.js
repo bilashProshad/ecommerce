@@ -21,7 +21,7 @@ import {
   resetPasswordSuccess,
 } from "../slices/passwordSlice";
 
-const server = process.env.REACT_APP_SERVER;
+// const server = process.env.REACT_APP_SERVER;
 
 axios.defaults.withCredentials = true;
 
@@ -37,7 +37,7 @@ export const login =
       dispatch(loginRequest());
 
       const { data } = await axios.post(
-        `${server}/api/v1/auth/login`,
+        `/api/v1/auth/login`,
         { email, password },
         config
       );
@@ -55,7 +55,7 @@ export const register =
       dispatch(registerRequest());
 
       const { data } = await axios.post(
-        `${server}/api/v1/auth/register`,
+        `/api/v1/auth/register`,
         { name, email, password, confirmPassword },
         config
       );
@@ -70,7 +70,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch(loadUserRequest);
 
-    const { data } = await axios.get(`${server}/api/v1/user/me`, {
+    const { data } = await axios.get(`/api/v1/user/me`, {
       withCredentials: true,
     });
 
@@ -82,7 +82,7 @@ export const loadUser = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(`${server}/api/v1/auth/logout`, {
+    const { data } = await axios.get(`/api/v1/auth/logout`, {
       withCredentials: true,
     });
 
@@ -97,7 +97,7 @@ export const forgotPassword = (email) => async (dispatch) => {
     dispatch(forgotPasswordRequest());
 
     const { data } = await axios.post(
-      `${server}/api/v1/auth/password/forgot`,
+      `/api/v1/auth/password/forgot`,
       {
         email,
       },
@@ -115,7 +115,7 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
     dispatch(resetPasswordRequest());
 
     const { data } = await axios.put(
-      `${server}/api/v1/auth/password/reset/${token}`,
+      `/api/v1/auth/password/reset/${token}`,
       passwords,
       config
     );

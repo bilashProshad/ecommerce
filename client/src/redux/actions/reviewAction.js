@@ -17,7 +17,7 @@ import {
   updateReviewSuccess,
 } from "../slices/reviewSlice";
 
-const server = process.env.REACT_APP_SERVER;
+// const server = process.env.REACT_APP_SERVER;
 const config = {
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
@@ -30,7 +30,7 @@ export const createReview =
       dispatch(newReviewRequest());
 
       const { data } = await axios.post(
-        `${server}/api/v1/products/${id}/review`,
+        `/api/v1/products/${id}/review`,
         { rating, comment },
         config
       );
@@ -45,10 +45,7 @@ export const myReview = (id) => async (dispatch) => {
   try {
     dispatch(newReviewRequest());
 
-    const { data } = await axios.get(
-      `${server}/api/v1/products/${id}/review`,
-      config
-    );
+    const { data } = await axios.get(`/api/v1/products/${id}/review`, config);
 
     dispatch(newReviewSuccess(data));
   } catch (error) {
@@ -63,7 +60,7 @@ export const updateReview =
       dispatch(updateReviewRequest());
 
       const { data } = await axios.put(
-        `${server}/api/v1/products/${productId}/review/${reviewId}`,
+        `/api/v1/products/${productId}/review/${reviewId}`,
         { rating, comment },
         config
       );
@@ -81,7 +78,7 @@ export const deleteReview =
       dispatch(deleteReviewRequest());
 
       const { data } = await axios.delete(
-        `${server}/api/v1/products/${productId}/review/${reviewId}`,
+        `/api/v1/products/${productId}/review/${reviewId}`,
         config
       );
 
@@ -96,7 +93,7 @@ export const getAllReview = (id) => async (dispatch) => {
     dispatch(getAllReviewRequest());
 
     const { data } = await axios.get(
-      `${server}/api/v1/admin/products/${id}/reviews`,
+      `/api/v1/admin/products/${id}/reviews`,
       config
     );
 
@@ -113,7 +110,7 @@ export const deleteUserReview =
       dispatch(deleteUserReviewRequest());
 
       const { data } = await axios.delete(
-        `${server}/api/v1/admin/products/${productId}/review/${reviewId}`,
+        `/api/v1/admin/products/${productId}/review/${reviewId}`,
         config
       );
 

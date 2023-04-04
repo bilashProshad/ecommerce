@@ -38,12 +38,12 @@ connectDatabase();
 //     credentials: true,
 //   })
 // );
-app.use(
-  cors({
-    origin: [process.env.FRONT_END_URL],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: [process.env.FRONT_END_URL],
+//     credentials: true,
+//   })
+// );
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

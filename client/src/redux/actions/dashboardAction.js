@@ -5,7 +5,7 @@ import {
   getDashboardStatsSuccess,
 } from "../slices/dashboardSlice";
 
-const server = process.env.REACT_APP_SERVER;
+// const server = process.env.REACT_APP_SERVER;
 
 // const config = {
 //   headers: { "Content-Type": "application/json" },
@@ -16,7 +16,7 @@ export const getDashboardStats = () => async (dispatch) => {
   try {
     dispatch(getDashboardStatsRequest());
 
-    const { data } = await axios.get(`${server}/api/v1/admin/dashboard`, {
+    const { data } = await axios.get(`/api/v1/admin/dashboard`, {
       withCredentials: true,
     });
 
