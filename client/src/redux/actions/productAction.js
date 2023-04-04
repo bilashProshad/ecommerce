@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../http";
 import {
   createProductRequest,
   createProductSuccess,
@@ -20,8 +20,6 @@ import {
 } from "../slices/productSlice";
 import { updatePasswordFailed } from "../slices/profileSlice";
 
-// const server = process.env.REACT_APP_SERVER;
-
 export const createProduct = (productData) => async (dispatch) => {
   try {
     dispatch(createProductRequest());
@@ -31,7 +29,7 @@ export const createProduct = (productData) => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.post(
+    const { data } = await api.post(
       `/api/v1/admin/products`,
       productData,
       config
@@ -47,18 +45,13 @@ export const getAllProduct = (query) => async (dispatch) => {
   try {
     dispatch(allProductRequest());
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    };
-
     let url = `/api/v1/products`;
 
     if (query) {
       url = `/api/v1/products?${query}`;
     }
 
-    const { data } = await axios.get(url, config);
+    const { data } = await api.get(url);
 
     dispatch(allProductSuccess(data));
   } catch (error) {
@@ -70,12 +63,7 @@ export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch(productRequest());
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    };
-
-    const { data } = await axios.get(`/api/v1/products/${id}`, config);
+    const { data } = await api.get(`/api/v1/products/${id}`);
 
     dispatch(productSuccess(data));
   } catch (error) {
@@ -87,15 +75,7 @@ export const getProductsByCategoryId = (query) => async (dispatch) => {
   try {
     dispatch(allProductRequest());
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    };
-
-    const { data } = await axios.get(
-      `/api/v1/products/category/${query}`,
-      config
-    );
+    const { data } = await api.get(`/api/v1/products/category/${query}`);
 
     dispatch(allProductSuccess(data));
   } catch (error) {
@@ -107,18 +87,13 @@ export const getAdminProducts = (query) => async (dispatch) => {
   try {
     dispatch(adminProductsRequest());
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    };
-
     let url = `/api/v1/admin/products`;
 
     if (query) {
       url = `/api/v1/admin/products?${query}`;
     }
 
-    const { data } = await axios.get(url, config);
+    const { data } = await api.get(url);
 
     dispatch(adminProductsSuccess(data));
   } catch (error) {
@@ -135,7 +110,7 @@ export const updateProduct = (id, productData) => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.put(
+    const { data } = await api.put(
       `/api/v1/admin/products/${id}`,
       productData,
       config
@@ -151,12 +126,7 @@ export const deleteProduct = (id) => async (dispatch) => {
   try {
     dispatch(deleteProductRequest());
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    };
-
-    const { data } = await axios.delete(`/api/v1/admin/products/${id}`, config);
+    const { data } = await api.delete(`/api/v1/admin/products/${id}`);
 
     dispatch(deleteProductSuccess(data));
   } catch (error) {

@@ -30,7 +30,6 @@ import AllCategory from "./pages/Admin/AllCategory/AllCategory";
 import UpdateProduct from "./pages/Admin/UpdateProduct/UpdateProduct";
 import ShippingAddress from "./pages/OrderProducts/ShippingAddress/ShippingAddress";
 import Confirm from "./pages/OrderProducts/Confirm/Confirm";
-import axios from "axios";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Payment from "./pages/OrderProducts/Payment/Payment";
@@ -43,6 +42,7 @@ import UpdateCategory from "./pages/Admin/UpdateCategory/UpdateCategory";
 import ProcessOrder from "./pages/Admin/ProcessOrder/ProcessOrder";
 import UpdateUser from "./pages/Admin/UpdateUser/UpdateUser";
 import Footer from "./components/Footer/Footer";
+import api from "./http";
 
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState("");
@@ -52,10 +52,7 @@ function App() {
   );
 
   async function getStripeApiKey() {
-    // const server = process.env.REACT_APP_SERVER;
-    const { data } = await axios.get(`/api/v1/payment/stripeapikey`, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(`/api/v1/payment/stripeapikey`);
 
     setStripeApiKey(data.stripeApiKey);
   }

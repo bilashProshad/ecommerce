@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../http";
 import {
   createOrderFailed,
   createOrderRequest,
@@ -20,18 +20,11 @@ import {
   updateOrderSuccess,
 } from "../slices/orderSlice";
 
-// const server = process.env.REACT_APP_SERVER;
-
 export const createOrder = (order) => async (dispatch) => {
   try {
     dispatch(createOrderRequest());
 
-    const config = {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    };
-
-    const { data } = await axios.post(`/api/v1/orders/new`, order, config);
+    const { data } = await api.post(`/api/v1/orders/new`, order);
 
     dispatch(createOrderSuccess(data));
   } catch (error) {
@@ -43,9 +36,7 @@ export const myOrders = () => async (dispatch) => {
   try {
     dispatch(myOrdersRequest());
 
-    const { data } = await axios.get(`/api/v1/orders/me`, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(`/api/v1/orders/me`);
 
     dispatch(myOrdersSuccess(data));
   } catch (error) {
@@ -57,9 +48,7 @@ export const getSingleOrder = (id) => async (dispatch) => {
   try {
     dispatch(getOrderDetailsRequest());
 
-    const { data } = await axios.get(`/api/v1/orders/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(`/api/v1/orders/${id}`);
 
     dispatch(getOrderDetailsSuccess(data));
   } catch (error) {
@@ -78,9 +67,7 @@ export const getAllOrders = (query) => async (dispatch) => {
       url = `/api/v1/admin/orders?${query}`;
     }
 
-    const { data } = await axios.get(url, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(url);
 
     dispatch(getAllOrdersSuccess(data));
   } catch (error) {
@@ -92,9 +79,7 @@ export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch(getOrderDetailsRequest());
 
-    const { data } = await axios.get(`/api/v1/admin/orders/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(`/api/v1/admin/orders/${id}`);
 
     dispatch(getOrderDetailsSuccess(data));
   } catch (error) {
@@ -104,18 +89,9 @@ export const getOrderDetails = (id) => async (dispatch) => {
 
 export const updateOrder = (id, order) => async (dispatch) => {
   try {
-    const config = {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    };
-
     dispatch(updateOrderRequest());
 
-    const { data } = await axios.put(
-      `/api/v1/admin/orders/${id}`,
-      order,
-      config
-    );
+    const { data } = await api.put(`/api/v1/admin/orders/${id}`, order);
 
     dispatch(updateOrderSuccess(data));
   } catch (error) {
@@ -127,9 +103,7 @@ export const deleteOrder = (id) => async (dispatch) => {
   try {
     dispatch(deleteOrderRequest());
 
-    const { data } = await axios.delete(`/api/v1/admin/orders/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await api.delete(`/api/v1/admin/orders/${id}`);
 
     dispatch(deleteOrderSuccess(data));
   } catch (error) {

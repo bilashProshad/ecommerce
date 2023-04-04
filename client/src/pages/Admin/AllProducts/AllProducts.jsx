@@ -53,13 +53,13 @@ const AllProducts = () => {
     if (deleteMessage) {
       toast.success(deleteMessage);
       dispatch(clearDeleteProductMessage());
-      window.location.reload();
+      dispatch(getAdminProducts(`page=${page}&limit=${limit}`));
     }
 
     if (totalProducts > 0) {
       setTotalPages(Math.ceil(totalProducts / limit));
     }
-  }, [error, dispatch, deleteError, deleteMessage, totalProducts, limit]);
+  }, [error, dispatch, deleteError, deleteMessage, totalProducts, limit, page]);
 
   const deleteProductHandler = (e, id) => {
     e.preventDefault();
@@ -89,7 +89,7 @@ const AllProducts = () => {
                         <MdEdit />
                       </Link>
                       <Link
-                        to={`/admin/products/${product._id}`}
+                        to={`/admin/products`}
                         onClick={(e) => deleteProductHandler(e, product._id)}
                       >
                         <MdDelete />

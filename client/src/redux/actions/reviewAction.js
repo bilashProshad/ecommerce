@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../http";
 import {
   deleteReviewFail,
   deleteReviewRequest,
@@ -17,23 +17,16 @@ import {
   updateReviewSuccess,
 } from "../slices/reviewSlice";
 
-// const server = process.env.REACT_APP_SERVER;
-const config = {
-  headers: { "Content-Type": "application/json" },
-  withCredentials: true,
-};
-
 export const createReview =
   ({ id, rating, comment }) =>
   async (dispatch) => {
     try {
       dispatch(newReviewRequest());
 
-      const { data } = await axios.post(
-        `/api/v1/products/${id}/review`,
-        { rating, comment },
-        config
-      );
+      const { data } = await api.post(`/api/v1/products/${id}/review`, {
+        rating,
+        comment,
+      });
 
       dispatch(newReviewSuccess({ ...data, isAdded: true }));
     } catch (error) {
@@ -45,7 +38,7 @@ export const myReview = (id) => async (dispatch) => {
   try {
     dispatch(newReviewRequest());
 
-    const { data } = await axios.get(`/api/v1/products/${id}/review`, config);
+    const { data } = await api.get(`/api/v1/products/${id}/review`);
 
     dispatch(newReviewSuccess(data));
   } catch (error) {
@@ -59,10 +52,9 @@ export const updateReview =
     try {
       dispatch(updateReviewRequest());
 
-      const { data } = await axios.put(
+      const { data } = await api.put(
         `/api/v1/products/${productId}/review/${reviewId}`,
-        { rating, comment },
-        config
+        { rating, comment }
       );
 
       dispatch(updateReviewSuccess({ ...data, isUpdated: true }));
@@ -77,9 +69,8 @@ export const deleteReview =
     try {
       dispatch(deleteReviewRequest());
 
-      const { data } = await axios.delete(
-        `/api/v1/products/${productId}/review/${reviewId}`,
-        config
+      const { data } = await api.delete(
+        `/api/v1/products/${productId}/review/${reviewId}`
       );
 
       dispatch(deleteReviewSuccess({ ...data, isDeleted: true }));
@@ -92,10 +83,7 @@ export const getAllReview = (id) => async (dispatch) => {
   try {
     dispatch(getAllReviewRequest());
 
-    const { data } = await axios.get(
-      `/api/v1/admin/products/${id}/reviews`,
-      config
-    );
+    const { data } = await api.get(`/api/v1/admin/products/${id}/reviews`);
 
     dispatch(getAllReviewSuccess(data));
   } catch (error) {
@@ -109,9 +97,8 @@ export const deleteUserReview =
     try {
       dispatch(deleteUserReviewRequest());
 
-      const { data } = await axios.delete(
-        `/api/v1/admin/products/${productId}/review/${reviewId}`,
-        config
+      const { data } = await api.delete(
+        `/api/v1/admin/products/${productId}/review/${reviewId}`
       );
 
       dispatch(deleteUserReviewSuccess(data));

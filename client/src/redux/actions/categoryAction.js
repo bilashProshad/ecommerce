@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   createCategoryRequest,
   createCategoryFail,
@@ -18,13 +17,7 @@ import {
   getCategoriesRequest,
   getCategoriesSuccess,
 } from "../slices/categoriesSlice";
-
-// const server = process.env.REACT_APP_SERVER;
-
-// const config = {
-//   headers: { "Content-Type": "application/json" },
-//   withCredentials: true,
-// };
+import api from "../../http";
 
 export const createCategory = (categoryData) => async (dispatch) => {
   try {
@@ -35,7 +28,7 @@ export const createCategory = (categoryData) => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.post(
+    const { data } = await api.post(
       `/api/v1/admin/categories`,
       categoryData,
       config
@@ -56,9 +49,7 @@ export const getAllCategories = (query) => async (dispatch) => {
       url = `/api/v1/categories?${query}`;
     }
 
-    const { data } = await axios.get(url, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(url);
 
     dispatch(getCategoriesSuccess(data));
   } catch (error) {
@@ -75,9 +66,7 @@ export const getAllAdminCategories = (query) => async (dispatch) => {
       url = `/api/v1/admin/categories?${query}`;
     }
 
-    const { data } = await axios.get(url, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(url);
 
     dispatch(getCategoriesSuccess(data));
   } catch (error) {
@@ -89,9 +78,7 @@ export const getSingleCategory = (id) => async (dispatch) => {
   try {
     dispatch(categoryDetailsRequest());
 
-    const { data } = await axios.get(`/api/v1/admin/categories/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(`/api/v1/admin/categories/${id}`);
 
     dispatch(categoryDetailsSuccess(data));
   } catch (error) {
@@ -108,7 +95,7 @@ export const updateCategory = (id, categoryData) => async (dispatch) => {
       withCredentials: true,
     };
 
-    const { data } = await axios.put(
+    const { data } = await api.put(
       `/api/v1/admin/categories/${id}`,
       categoryData,
       config
@@ -124,9 +111,7 @@ export const deleteCategory = (id) => async (dispatch) => {
   try {
     dispatch(deleteCategoryRequest());
 
-    const { data } = await axios.delete(`/api/v1/admin/categories/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await api.delete(`/api/v1/admin/categories/${id}`);
 
     dispatch(deleteCategorySuccess(data));
   } catch (error) {

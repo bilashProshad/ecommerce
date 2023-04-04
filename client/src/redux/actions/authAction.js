@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   loginRequest,
   loginSuccess,
@@ -20,15 +19,7 @@ import {
   resetPasswordRequest,
   resetPasswordSuccess,
 } from "../slices/passwordSlice";
-
-// const server = process.env.REACT_APP_SERVER;
-
-axios.defaults.withCredentials = true;
-
-const config = {
-  headers: { "Content-Type": "application/json" },
-  withCredentials: true,
-};
+import api from "../../http";
 
 export const login =
   ({ email, password }) =>
@@ -36,11 +27,10 @@ export const login =
     try {
       dispatch(loginRequest());
 
-      const { data } = await axios.post(
-        `/api/v1/auth/login`,
-        { email, password },
-        config
-      );
+      const { data } = await api.post(`/api/v1/auth/login`, {
+        email,
+        password,
+      });
 
       dispatch(loginSuccess(data.user));
     } catch (error) {
@@ -54,11 +44,12 @@ export const register =
     try {
       dispatch(registerRequest());
 
-      const { data } = await axios.post(
-        `/api/v1/auth/register`,
-        { name, email, password, confirmPassword },
-        config
-      );
+      const { data } = await api.post(`/api/v1/auth/register`, {
+        name,
+        email,
+        password,
+        confirmPassword,
+      });
 
       dispatch(registerSuccess(data.user));
     } catch (error) {
@@ -70,9 +61,7 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch(loadUserRequest);
 
-    const { data } = await axios.get(`/api/v1/user/me`, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(`/api/v1/user/me`);
 
     dispatch(loadUserSuccess(data.user));
   } catch (error) {
@@ -82,9 +71,7 @@ export const loadUser = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    const { data } = await axios.get(`/api/v1/auth/logout`, {
-      withCredentials: true,
-    });
+    const { data } = await api.get(`/api/v1/auth/logout`);
 
     dispatch(logoutSuccess(data.message));
   } catch (error) {
@@ -96,13 +83,9 @@ export const forgotPassword = (email) => async (dispatch) => {
   try {
     dispatch(forgotPasswordRequest());
 
-    const { data } = await axios.post(
-      `/api/v1/auth/password/forgot`,
-      {
-        email,
-      },
-      config
-    );
+    const { data } = await api.post(`/api/v1/auth/password/forgot`, {
+      email,
+    });
 
     dispatch(forgotPasswordSuccess(data));
   } catch (error) {
@@ -114,10 +97,9 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
   try {
     dispatch(resetPasswordRequest());
 
-    const { data } = await axios.put(
+    const { data } = await api.put(
       `/api/v1/auth/password/reset/${token}`,
-      passwords,
-      config
+      passwords
     );
 
     dispatch(resetPasswordSuccess(data));

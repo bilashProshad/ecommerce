@@ -53,13 +53,13 @@ const AllCategory = () => {
     if (message) {
       toast.success(message);
       dispatch(clearDeleteCategoryMessage());
-      window.location.reload();
+      dispatch(getAllAdminCategories(`page=${page}&limit=${limit}`));
     }
 
     if (totalCategories > 0) {
       setTotalPages(Math.ceil(totalCategories / limit));
     }
-  }, [error, dispatch, updateError, message, totalCategories, limit]);
+  }, [error, dispatch, updateError, message, totalCategories, limit, page]);
 
   const deleteCategoryHandler = (e, id) => {
     e.preventDefault();
@@ -91,7 +91,7 @@ const AllCategory = () => {
                       <MdEdit />
                     </Link>
                     <Link
-                      to={`/admin/categories/${d?._id}`}
+                      to={`/admin/categories`}
                       onClick={(e) => deleteCategoryHandler(e, d._id)}
                     >
                       <MdDelete />
