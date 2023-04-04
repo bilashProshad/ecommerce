@@ -4,7 +4,7 @@ This project is a fully-featured e-commerce website built using the MERN stack (
 
 ### **Demo**
 
-See my website [OnlineBazar](http://www.google.com)
+Visit this website [OnlineBazar](https://online-bazar-alpha.vercel.app)
 
 ### **Frontend**
 
